@@ -1,0 +1,10 @@
+﻿<Window x:Class="Excel2DB.sampler"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cloud Rubik's Cube" Height="650" Width="1500">
+    <Grid>
+        <Image HorizontalAlignment="Left" Height="550" Margin="10,10,0,0" VerticalAlignment="Top" Width="1472" Name="demo"/>
+        <Button Content="Close" HorizontalAlignment="Left" Margin="680,574,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database Name="ModelDb" EntityNamespace="Context" ContextNamespace="Context" Class="DataContext" xmlns:ed="http://devart.com/schemas/EntityDeveloper/1.0" ed:Guid="50ab5d93-8b0b-4870-abc6-24a9057995db" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="ConnectionString" ConnectionString="Data Source=P857250\SQLEXPRESS;Initial Catalog=ModelDb;Integrated Security=True;Persist Security Info=True" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Capabilities" Member="Capabilities">
+    <Type Name="Capabilities" ed:Guid="32be1683-e7c2-4e8f-b6c8-eb8e4e3a9571">
+      <Documentation>
+        <Summary>Teh primary key of the  capability</Summary>
+      </Documentation>
+      <Column Name="Id" Type="System.UInt32" AutoSync="OnInsert" DbType="bigint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="4e065187-1323-4e03-864a-07f5b44f9dc1" />
+      <Column Name="Domain" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="d1af148c-a5e8-4ba9-bb41-eb25d4d97d42" />
+      <Column Name="Container" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="587482ab-aedb-4eb2-a887-e499ad39d336" />
+      <Column Name="Capability" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="d6fea312-c225-4a4a-9bea-eccbc3c6be81" />
+      <Column Name="Capability2" Type="System.String" DbType="varchar(8000)" CanBeNull="true" UpdateCheck="Always" ed:ValidateRequired="false" ed:Guid="fc48e432-7d8e-429c-9589-97b5297f85f9" />
+      <Column Name="FamilyId" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="e0e5c2cf-c504-4e2a-9fcd-d7bbbdcfe0ae" />
+      <Column Name="UniqueId" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="bbc215ef-508a-4a98-afb5-974108fd7a09" />
+      <Column Name="Description" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="6aaa7558-2a8a-43e0-ac9e-164d88070156" />
+      <Column Name="Notes" Type="System.String" DbType="varchar(8000)" CanBeNull="true" UpdateCheck="Always" ed:ValidateRequired="false" ed:Guid="b0c4187c-5cc7-4d0e-bd98-3c4b0b150f8e" />
+      <Column Name="Scopes" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="e4ab9b88-b6c5-4303-8ec0-9734078d659d" />
+      <Column Name="C" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="9916a974-2ba1-4871-bf6a-79df3e227918" />
+      <Column Name="I" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="983dae32-4bd6-4bea-8203-17629c83a144" />
+      <Column Name="A" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="05074e1c-041c-41b7-835b-01c0db760afc" />
+      <Column Name="ResponsibilityVector" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="fa9d73b4-600f-4d6d-851c-ef6383b7baca" />
+      <Association Name="Capabilities_TICMappings" ed:AssociationGuid="692bb7d7-91fd-4be3-9611-f52af797db52" Member="TICMappings" ed:Guid="60bd3e5a-7b9e-4121-be8e-cd20245075e9" ThisKey="Id" OtherKey="CapabilityId" Type="TICMappings" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Controls" Member="Controls">
+    <Type Name="Controls" ed:Guid="6b58d98c-34da-464e-a2bc-f5c77a5c5c9d">
+      <Column Name="Id" Type="System.UInt32" AutoSync="OnInsert" DbType="bigint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="a0eb155b-042c-4b2c-8007-5eb3848d60d2" />
+      <Column Name="Name" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="140258b4-b536-425b-911f-13354ef042f8" />
+      <Column Name="BaselineID" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="09a0b1c9-72ab-4947-b5e3-ad565d800d26" />
+      <Column Name="FamilyId" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="320a661a-9d99-4a0f-889d-59ab594ad0c3" />
+      <Column Name="PriorityId" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="2d2a0f4d-261b-4ff6-8a40-01779eb0b962" />
+      <Column Name="Description" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="271d3d46-7c68-42e4-9fbf-90732349323f" />
+      <Column Name="Guidance" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="3d743175-fbb6-4071-92df-adae139f52a7" />
+      <Association Name="Families_Controls" ed:AssociationGuid="4ce846b4-74b3-40a7-8f2b-4c82dbd28b87" Member="Families" ed:Guid="3b6d06ee-0859-48f6-95e9-81b9ebcf8735" ThisKey="FamilyId" OtherKey="Id" Type="Families" DeleteOnNull="true" IsForeignKey="true" />
+      <Association Name="Priorities_Controls" ed:AssociationGuid="ccff4d60-1897-472a-907e-a268591e9cb5" Member="Priorities" ed:Guid="b435b1bd-c4a6-41ec-9469-753114846790" ThisKey="PriorityId" OtherKey="Id" Type="Priorities" DeleteOnNull="true" IsForeignKey="true" />
+      <Association Name="Baselines_Controls" ed:AssociationGuid="289c7aea-bef1-4fd2-b08b-c2ece729623d" Member="Baselines" ed:Guid="a65d6f20-ed94-4acf-97d1-807fbd43fe3f" ThisKey="BaselineID" OtherKey="Id" Type="Baselines" DeleteOnNull="true" IsForeignKey="true" />
+      <Association Name="Controls_Specs" ed:AssociationGuid="795d5bab-766d-4c0d-b1d4-3e04cbb0f647" Member="Specs" ed:Guid="5cb7cac0-eefb-427e-8f07-09312c462a89" ThisKey="Id" OtherKey="ControId" Type="Specs" />
+      <Association Name="Controls_Related" ed:AssociationGuid="df3234dd-5a69-4cba-a71a-f490762b8f1a" Member="Parent" ed:Guid="8131d3c8-539c-4a43-bbbe-d0b001e32269" ThisKey="Id" OtherKey="ParentId" Type="Related" />
+      <Association Name="Controls_BaselineSecurityMapping" ed:AssociationGuid="105de169-54c7-4497-af3c-29f7b9960cc8" Member="BaselineSecurityMappings" ed:Guid="febdd4c5-ef66-44dd-a91a-3afea67798cd" ThisKey="Id" OtherKey="ControlsId" Type="BaselineSecurityMapping" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MapTypesCapabilitiesControls" Member="MapTypesCapabilitiesControls">
+    <Type Name="MapTypesCapabilitiesControls" ed:Guid="abba50ad-e426-44bc-9ce6-71e214414ef5">
+      <Column Name="Id" Type="System.UInt32" AutoSync="OnInsert" DbType="bigint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="086f52df-f16a-4bed-a311-8554c4014a47" />
+      <Column Name="CapabilitiesId" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="450838b0-ce3a-4df1-a33e-27fe12209b4b" />
+      <Column Name="ControlsId" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="b2f9829a-065a-46a8-b46b-02aaf6da77a8" />
+      <Column Name="MapTypesId" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="6b9d0eb2-1594-4d9a-8819-6bb677654890" />
+      <Column Name="specId" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="4491f266-a261-4708-afb0-c7dd4d0e1359" />
+      <Column Name="isControlMap" Type="System.Boolean" DbType="bit NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="c9f40c82-ea17-4d4e-a592-9729ac9514c2" />
+      <Association Name="Capabilities_MapTypesCapabilitiesControls" ed:AssociationGuid="2cf24665-027a-44cc-bb1a-58b44b5701c0" Member="CapabilitiesImplementation" ed:Guid="f641f67f-3aaf-424d-b6cc-030a069a784f" ThisKey="CapabilitiesId" OtherKey="Id" Type="Capabilities" DeleteRule="CASCADE" DeleteOnNull="true" IsForeignKey="true" />
+      <Association Name="Controls_MapTypesCapabilitiesControls" ed:AssociationGuid="c939dc53-965e-4043-b5a5-736ba3f8f42d" Member="ControlsImplementation" ed:Guid="b2ddc85a-c8b7-4901-992e-29118fc9fbcf" ThisKey="ControlsId" OtherKey="Id" Type="Controls" DeleteRule="CASCADE" DeleteOnNull="true" IsForeignKey="true" />
+      <Association Name="Specs_MapTypesCapabilitiesControls" ed:AssociationGuid="69ba8ade-6864-4a00-9212-bf3ab62c068b" Member="Specs" ed:Guid="9fd15b6a-2073-4171-b65a-d86c00e1c8b3" ThisKey="specId" OtherKey="Id" Type="Specs" DeleteOnNull="true" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Families" Member="Families">
+    <Type Name="Families" ed:Guid="77cbcb42-9e82-42fb-a7e3-251efff4b17c">
+      <Column Name="Id" Type="System.UInt32" AutoSync="OnInsert" DbType="bigint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="88b04b15-bfe7-4934-a14d-0848476dc6a6" />
+      <Column Name="Name" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="9f328e49-95de-44a2-90b7-3a11c19e4c77" />
+      <Column Name="Description" Type="System.String" DbType="varchar(8000)" CanBeNull="true" UpdateCheck="Always" ed:ValidateRequired="false" ed:Guid="db8e74fb-3eab-4751-8d61-8d853e0bdc02" />
+      <Association Name="Families_Controls" ed:AssociationGuid="4ce846b4-74b3-40a7-8f2b-4c82dbd28b87" Member="Controls" ed:Guid="06d1ce80-eded-4a32-85b1-ef9d8a7d0a8b" ThisKey="Id" OtherKey="FamilyId" Type="Controls" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Priorities" Member="Priorities">
+    <Type Name="Priorities" ed:Guid="bee61aad-85f2-49f5-9d96-b983de3d1840">
+      <Column Name="Id" Type="System.UInt32" AutoSync="OnInsert" DbType="bigint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="510d5bb0-4891-46ac-a5b6-4a225adca538" />
+      <Column Name="Name" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="04c1cdb7-8a3a-4a93-843a-8feadc902383" />
+      <Column Name="Description" Type="System.String" DbType="varchar(8000)" CanBeNull="true" UpdateCheck="Always" ed:ValidateRequired="false" ed:Guid="65f698d7-5465-461a-998d-b5c864652642" />
+      <Association Name="Priorities_Controls" ed:AssociationGuid="ccff4d60-1897-472a-907e-a268591e9cb5" Member="Controls" ed:Guid="26514867-f5c7-407b-bdd6-fc60313b100f" ThisKey="Id" OtherKey="PriorityId" Type="Controls" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Baselines" Member="Baselines">
+    <Type Name="Baselines" ed:Guid="73b68bc8-d017-4b12-9a12-22d24b56be87">
+      <Column Name="Id" Type="System.UInt32" AutoSync="OnInsert" DbType="bigint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="a26bf635-c812-43b0-9da7-96f008764bad" />
+      <Column Name="ImpactLow" Type="System.Boolean" DbType="bit NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="0fe42591-a51e-4a43-a04d-cd355ca149ec" />
+      <Column Name="ImpactModerate" Type="System.Boolean" DbType="bit NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="8f389451-dc9f-4465-b33a-c23524c5be0c" />
+      <Column Name="ImpactHigh" Type="System.Boolean" DbType="bit NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="97c66bf9-a928-490e-b593-a36e59a205aa" />
+      <Column Name="Description" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="251466d0-e169-498a-aaa2-abd2e8385296" />
+      <Association Name="Baselines_Controls" ed:AssociationGuid="289c7aea-bef1-4fd2-b08b-c2ece729623d" Member="Controls" ed:Guid="b458a3cf-04c6-4eb6-8b20-af61773bc013" ThisKey="Id" OtherKey="BaselineID" Type="Controls" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Specs" Member="Specs">
+    <Type Name="Specs" ed:Guid="f691b3a6-004a-4729-a12c-bc6d0c0c9ae2">
+      <Column Name="Id" Type="System.UInt32" AutoSync="OnInsert" DbType="bigint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="eda277cf-fbd4-4341-98b5-97cf14c2a137" />
+      <Column Name="ControId" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="2ed32fd4-3f96-4506-a500-a11597ee60e4" />
+      <Column Name="SpecificationlName" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="3cd44367-7e3b-44ed-af73-714d6c3534d4" />
+      <Column Name="Description" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="dcd733cd-0032-4d72-bfa3-b3cfe4a613a2" />
+      <Column Name="Guidance" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="df1a0522-be43-4b04-ae1f-882982e68e61" />
+      <Association Name="Controls_Specs" ed:AssociationGuid="795d5bab-766d-4c0d-b1d4-3e04cbb0f647" Member="Controls" ed:Guid="296b38c0-139e-45a6-b072-bd2fb7a95cd0" ThisKey="ControId" OtherKey="Id" Type="Controls" DeleteOnNull="true" IsForeignKey="true" />
+      <Association Name="Specs_MapTypesCapabilitiesControls" ed:AssociationGuid="69ba8ade-6864-4a00-9212-bf3ab62c068b" Member="MapTypesCapabilitiesControls" ed:Guid="147a66d3-be02-4861-b0b4-a4c951f033b5" ThisKey="Id" OtherKey="specId" Type="MapTypesCapabilitiesControls" />
+      <Association Name="Specs_BaselineSecurityMapping" ed:AssociationGuid="07a7137a-5c47-416c-8376-ef4a11f5a7d0" Member="BaselineSecurityMappings" ed:Guid="67c3b03e-0275-4b16-a5bc-5d5968063387" ThisKey="Id" OtherKey="SpecsId" Type="BaselineSecurityMapping" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Relateds" Member="Relateds">
+    <Type Name="Related" ed:Guid="56a79f2e-9a89-4bea-bc22-932c7281126f">
+      <Column Name="Id" Type="System.UInt32" AutoSync="OnInsert" DbType="bigint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="00cfc6e0-9e12-44aa-87a0-0c1f89adf51c" />
+      <Column Name="ParentId" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="313d25d2-5c53-4637-9be8-3b7f2de813ca" />
+      <Column Name="ChildId" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="afff3fee-bedd-4505-b98c-413874bb4d69" />
+      <Association Name="Controls_Related" ed:AssociationGuid="df3234dd-5a69-4cba-a71a-f490762b8f1a" Member="RelatedParent" ed:Guid="a81a2abc-5380-4286-8169-a95d8b11d166" ThisKey="ParentId" OtherKey="Id" Type="Controls" DeleteOnNull="true" IsForeignKey="true" />
+      <Association Name="Controls_Related1" ed:AssociationGuid="b5a7a1a8-1746-483b-9b89-a34f1f3f254a" Member="IsChild" ed:Guid="4f18394b-6935-4030-a83e-21298e04165c" ThisKey="ChildId" OtherKey="Id" Type="Controls" DeleteOnNull="true" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TICMappings" Member="TICMappings">
+    <Type Name="TICMappings" ed:Guid="086c44a6-2211-4c3f-b6ae-e899e48980ea">
+      <Column Name="Id" Type="System.UInt32" AutoSync="OnInsert" DbType="bigint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="0f209ee9-cb59-4181-a972-835eaf2b5c4c" />
+      <Column Name="CapabilityId" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="18a393da-ad96-426c-a2af-ed97838974e6" />
+      <Column Name="TICName" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="f913253f-257f-4892-a462-34da0a30f23b" />
+      <Association Name="Capabilities_TICMappings" ed:AssociationGuid="692bb7d7-91fd-4be3-9611-f52af797db52" Member="Capabilities1" ed:Guid="c59d0bbb-c0ea-439d-bb14-3f8f90a92d62" ThisKey="CapabilityId" OtherKey="Id" Type="Capabilities" DeleteOnNull="true" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BaselineSecurityMappings" Member="BaselineSecurityMappings">
+    <Type Name="BaselineSecurityMapping" ed:Guid="e1d26cfb-b1ca-4fa4-a7b9-407f0de8eea0">
+      <Column Name="Id" Type="System.UInt32" AutoSync="OnInsert" DbType="bigint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="a87b69f0-502a-4d91-bbb3-cf7563afed7f" />
+      <Column Name="Level" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="3851774c-f3a5-40ed-b2b7-46182dbfb8ef" />
+      <Column Name="BaselineAuthor" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="0de755ff-d451-4ad6-aaec-99b9b83c6b5a" />
+      <Column Name="IsControlMap" Type="System.Boolean" DbType="bit NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="fb2af91f-7820-4743-abd0-bd85be340ec3" />
+      <Column Name="SpecsId" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="2e567e75-a4cf-40a3-8f02-2f782fd8fb22" />
+      <Column Name="ControlsId" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="f9c67df9-fb61-43a6-aaef-09bf81a6fba0" />
+      <Association Name="Controls_BaselineSecurityMapping" ed:AssociationGuid="105de169-54c7-4497-af3c-29f7b9960cc8" Member="Controls" ed:Guid="efb85242-114b-4faa-aed0-fca9a5d0ba70" ThisKey="ControlsId" OtherKey="Id" Type="Controls" DeleteOnNull="true" IsForeignKey="true" />
+      <Association Name="Specs_BaselineSecurityMapping" ed:AssociationGuid="07a7137a-5c47-416c-8376-ef4a11f5a7d0" Member="Specs" ed:Guid="1b49be41-17f5-44ad-9a73-8c1387961e69" ThisKey="SpecsId" OtherKey="Id" Type="Specs" DeleteOnNull="true" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

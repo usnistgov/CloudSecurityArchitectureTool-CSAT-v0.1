@@ -1,0 +1,5 @@
+C:\NIST Project\Controls and Capabilities Maneger\Excel2DB\FileOperations\bin\Release\FileOperations.dll
+C:\NIST Project\Controls and Capabilities Maneger\Excel2DB\FileOperations\bin\Release\FileOperations.pdb
+C:\NIST Project\Controls and Capabilities Maneger\Excel2DB\FileOperations\obj\Release\FileOperations.csprojResolveAssemblyReference.cache
+C:\NIST Project\Controls and Capabilities Maneger\Excel2DB\FileOperations\obj\Release\FileOperations.dll
+C:\NIST Project\Controls and Capabilities Maneger\Excel2DB\FileOperations\obj\Release\FileOperations.pdb

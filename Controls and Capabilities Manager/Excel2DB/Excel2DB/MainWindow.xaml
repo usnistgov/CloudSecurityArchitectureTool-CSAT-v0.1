@@ -1,0 +1,74 @@
+﻿<Window x:Class="Excel2DB.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cloud Security Rubik's Cube" Height="720" Width="800" Left="0" Top="0">
+    <Grid Margin="0,0,0,-1">
+        <Menu HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="792">
+            <Menu IsMainMenu="True">
+                <MenuItem Header="CSRC">
+                    <MenuItem Header="About"/>
+                    <MenuItem Header="Exit" Click="btnExit_Click"/>
+                </MenuItem>
+                <MenuItem Header="Database" >
+                    <MenuItem Header="Update NIST SP 800-53 Security Controls" Click="btnOpenControlslFile_Click" Name="menuUpdateControls"/>
+                    <MenuItem Header="Update Cloud Functional Capabilities" Click="btnOpenCapabilitiesFile_Click"
+                              Name="menuUpdateCapabilities"/>
+                    <MenuItem Header="Update Security Baselines" Click="btnOpenSecurityBaselinesFile_Click" Name="menuUpdateBaseines"/>
+                </MenuItem>
+                <MenuItem Header="_Reports">
+                    <MenuItem Header="Create Capabilities Report"  Click="menuCreateReportCapControls_Click" Name="menucreatecon"/>
+                    <MenuItem Header="Create Capabilities by Controls  Report"  Click="menuCreateReportControlsCap_Click" Name="menucreatecap"/>
+                    <MenuItem Header="Create Capabilities by Tic Report" Click="CreateTICReport" Name="menucreatetic"/>
+                    <MenuItem Header="Create Security Baselines Report" Click="CreateBaselineReport" Name="menucreateBaseline"/>
+                    <MenuItem Header="Visualization tool" Click="visualization_Click" x:Name="visualization"/>
+                </MenuItem>
+                <MenuItem Header="Utilities">
+                    <MenuItem Header="Edit DB Connection" Click="EditDB"/>
+                    <MenuItem Header="Edit Controls File Order" Click="controlOrder"/>
+                    <MenuItem Header="Edit Capabilities File Order" Click="capOrder"/>
+                </MenuItem>
+            </Menu>
+        </Menu>
+
+        <Button Content="Update Security Controls" HorizontalAlignment="Left" Margin="112,89,0,0" VerticalAlignment="Top" Width="154" Click="btnOpenControlslFile_Click" RenderTransformOrigin="0.5,0.5" Name="updatecontrols"/>
+        <Button Content="Update Cloud Capabilities" HorizontalAlignment="Left" Height="22" Margin="112,170,0,0" VerticalAlignment="Top" Width="160" Click="btnOpenCapabilitiesFile_Click" Name="updateCaps"/>
+        <Button Content="Update Security Baselines" HorizontalAlignment="Left" Height="22" Margin="113,253,0,0" VerticalAlignment="Top" Width="159" Click="btnOpenSecurityBaselinesFile_Click" Name="updateBaselines"/>
+        <Image HorizontalAlignment="Left" Height="40" Margin="43,89,0,0" VerticalAlignment="Top" Width="49" Name="upcontrol"/>
+        <Image HorizontalAlignment="Left" Height="40" Margin="43,158,0,0" VerticalAlignment="Top" Width="49" Name="upcapability"/>
+        <Image HorizontalAlignment="Left" Height="40" Margin="43,244,0,0" VerticalAlignment="Top" Width="49" Name="upbaseline"/>
+        <Label Content="" HorizontalAlignment="Left" Margin="113,117,0,0" VerticalAlignment="Top" Name="ControlFileName"/>
+        <Label Content="" HorizontalAlignment="Left" Margin="113,192,0,0" VerticalAlignment="Top" Name="CapFileName"/>
+        <Label Content="" HorizontalAlignment="Left" Margin="112,280,0,0" VerticalAlignment="Top" Name="BaselineFileName"/>
+
+        <Button HorizontalAlignment="Left" Margin="11,422,0,0" VerticalAlignment="Top" Width="180" Click="menuCreateReportControlsCap_Click" Name="capReport">
+            <TextBlock TextWrapping="Wrap" Text="Select cloud functional capabilities and list associated security controls"/>
+        </Button>
+        <Button HorizontalAlignment="Left"  Margin="11,496,0,0" VerticalAlignment="Top" Width="174" Click="menuCreateReportCapControls_Click" Name="conReport">
+            <TextBlock TextWrapping="Wrap" Text="Select security controls to display associated functional capabilities"/>
+        </Button>
+
+        <Image HorizontalAlignment="Left" Height="40" Margin="280,404,0,0" VerticalAlignment="Top" Width="49" x:Name="report1"/>
+
+        <Image HorizontalAlignment="Left" Height="40" Margin="281,478,0,0" VerticalAlignment="Top" Width="49" Name="report2"/>
+        <Separator BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="100" Margin="-1,301,0,0" VerticalAlignment="Top" Width="792"/>
+        <StatusBar HorizontalAlignment="Left" Height="30" VerticalAlignment="Bottom" Width="792"/>
+
+        <ProgressBar x:Name="progressBar1"  HorizontalAlignment="Right" Height="17" VerticalAlignment="Top" Width="118" Minimum="0" Maximum="100" IsEnabled="False" Margin="0,659,60,0"/>
+        <TextBlock x:Name="percentageLabel" HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="64" Margin="0,657,-12,0" RenderTransformOrigin="0.5,0.5"/>
+        <Button HorizontalAlignment="Left" Margin="444,422,0,0" VerticalAlignment="Top" Width="174" Click="CreateTICReport" Name="TICReport">
+            <TextBlock TextWrapping="Wrap" Text="Display TIC capabilities and associated functional capabilities"/>
+        </Button>
+        <Button HorizontalAlignment="Left" Margin="444,496,0,0" VerticalAlignment="Top" Width="174" Click="CreateBaselineReport" Name="BaselineReport">
+            <TextBlock TextWrapping="Wrap" Text="Select cloud functional capabilities and display Nist and FedRAMP baselines"/>
+        </Button>
+        <Image HorizontalAlignment="Left" Height="40" Margin="716,404,0,0" VerticalAlignment="Top" Width="49"  x:Name="report3"/>
+        <Label Content="Repopulate Database" HorizontalAlignment="Left" Margin="64,49,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="22" Height="35"/>
+        <Label Content="Generate Reports" HorizontalAlignment="Left" Margin="64,371,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="24" Height="33"/>
+        <Button Content="Sample" HorizontalAlignment="Left" Margin="221,422,0,0" VerticalAlignment="Top" Width="45" Name="capabilitydem" Height="21" Click="showex"/>
+        <Button Content="Sample" HorizontalAlignment="Left" Margin="221,496,0,0" VerticalAlignment="Top" Width="45" x:Name="contdem" Height="21" Click="showex"/>
+        <Button Content="Sample" HorizontalAlignment="Left" Margin="657,422,0,0" VerticalAlignment="Top" Width="45" x:Name="ticdem" Height="21" Click="showex"/>
+        <Image HorizontalAlignment="Left" Height="350" Margin="417,54,0,0" VerticalAlignment="Top" Width="350" Source="Cloud Security Rubiks Cube.jpg"/>
+        <Image HorizontalAlignment="Left" Height="40" Margin="717,478,0,0" VerticalAlignment="Top" Width="49" x:Name="report4"/>
+        <Button Content="Sample" HorizontalAlignment="Left" Margin="657,496,0,0" VerticalAlignment="Top" Width="45" x:Name="basedem" Height="21" Click="showex"/>
+    </Grid>
+</Window>

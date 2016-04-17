@@ -1,0 +1,6 @@
+C:\NIST Project\Controls and Capabilities Maneger\Excel2DB\ExcelReporting\bin\Release\ExcelReporting.dll
+C:\NIST Project\Controls and Capabilities Maneger\Excel2DB\ExcelReporting\bin\Release\ExcelReporting.pdb
+C:\NIST Project\Controls and Capabilities Maneger\Excel2DB\ExcelReporting\obj\Release\ExcelReporting.csprojResolveAssemblyReference.cache
+C:\NIST Project\Controls and Capabilities Maneger\Excel2DB\ExcelReporting\obj\Release\ExcelReporting.csproj.ResolveComReference.cache
+C:\NIST Project\Controls and Capabilities Maneger\Excel2DB\ExcelReporting\obj\Release\ExcelReporting.dll
+C:\NIST Project\Controls and Capabilities Maneger\Excel2DB\ExcelReporting\obj\Release\ExcelReporting.pdb
