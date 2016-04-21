@@ -146,3 +146,6 @@ C:\Users\mdl1\Documents\Cloud Rubics Cube\Controls and Capabilities Manager\Exce
 C:\Users\mdl1\Documents\Cloud Rubics Cube\Controls and Capabilities Manager\Excel2DB\Excel2DB\obj\Debug\Excel2DB.exe.manifest
 C:\Users\mdl1\Documents\Cloud Rubics Cube\Controls and Capabilities Manager\Excel2DB\Excel2DB\obj\Debug\Excel2DB.application
 C:\Users\mdl1\Documents\Cloud Rubics Cube\Controls and Capabilities Manager\Excel2DB\Excel2DB\bin\Debug\Excel2DB.pdb
+C:\Users\mdl1\Documents\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Excel2DB\bin\Debug\Excel2DB.exe.config
+C:\Users\mdl1\Documents\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Excel2DB\obj\Debug\Excel2DB.exe
+C:\Users\mdl1\Documents\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Excel2DB\obj\Debug\Excel2DB.pdb
