@@ -13,6 +13,7 @@ namespace Excel2DB
         public static SortedList<uint, int[]> CIASeparate;
         public static SortedList<string, double> valueassign;
         public static SortedList<double, int[]> responsibility;
+        public static SortedList<double, int[]> responsibilityTxt;
         public static void colorAll()
         {
             CIA = new SortedList<uint, int[]>();
@@ -60,6 +61,19 @@ namespace Excel2DB
             responsibility.Add( 0,new int[]{82,147,238});
             responsibility.Add(-1,new int[]{4,34,255});
             responsibility.Add(-2,new int[]{100,100,100});
+
+            responsibilityTxt = new SortedList<double, int[]>();
+            responsibilityTxt.Add(3, new int[]{255, 255, 255 } );
+            responsibilityTxt.Add(2.5, new int[] { 0, 0, 0, });
+            responsibilityTxt.Add(2, new int[] { 0, 0, 0, });
+            responsibilityTxt.Add(1.5, new int[] { 0, 0, 0, });
+            responsibilityTxt.Add(1, new int[] { 0, 0, 0, });
+            responsibilityTxt.Add(.5, new int[] { 0, 0, 0, });
+            responsibilityTxt.Add(0, new int[] { 255, 255, 255, });
+            responsibilityTxt.Add(-1, new int[] { 255, 255, 255, });
+            responsibilityTxt.Add(-2, new int[] { 255, 255, 255, });
+
+
 
         }
     }

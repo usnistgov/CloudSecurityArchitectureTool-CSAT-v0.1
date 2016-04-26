@@ -16,3 +16,8 @@ C:\Users\mdl1\Documents\Cloud Rubics Cube\Controls and Capabilities Manager\Exce
 C:\Users\mdl1\Documents\Cloud Rubics Cube\Controls and Capabilities Manager\Excel2DB\FileOperations\obj\Debug\FileOperations.csprojResolveAssemblyReference.cache
 C:\Users\mdl1\Documents\Cloud Rubics Cube\Controls and Capabilities Manager\Excel2DB\FileOperations\obj\Debug\FileOperations.dll
 C:\Users\mdl1\Documents\Cloud Rubics Cube\Controls and Capabilities Manager\Excel2DB\FileOperations\obj\Debug\FileOperations.pdb
+C:\Users\mdl1\Documents\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\FileOperations\bin\Debug\FileOperations.dll
+C:\Users\mdl1\Documents\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\FileOperations\bin\Debug\FileOperations.pdb
+C:\Users\mdl1\Documents\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\FileOperations\obj\Debug\FileOperations.csprojResolveAssemblyReference.cache
+C:\Users\mdl1\Documents\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\FileOperations\obj\Debug\FileOperations.dll
+C:\Users\mdl1\Documents\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\FileOperations\obj\Debug\FileOperations.pdb

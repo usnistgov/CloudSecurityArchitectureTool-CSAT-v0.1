@@ -92,6 +92,7 @@ namespace Excel2DB
                 {
                      value = -2;
                 }
+                ChangeTextColor(set.UniqueId, ColorMaps.responsibilityTxt[value]);
                 ChangeBackground(set.UniqueId, ColorMaps.responsibility[value]);
             }
         }
@@ -115,9 +116,21 @@ namespace Excel2DB
         private string GetName(string id)
         {
             return Regex.Replace(id, @"[^[0-9a-zA-Z]]*", "_");
-
         }
 
+        private void ChangeTextColor(string id, int[] rgb)
+        {
+            object tx = this.canvas.FindName("txt_" + GetName(id));
+            try
+            {
+                if (tx is TextBlock)
+                {
+                    TextBlock txt = tx as TextBlock;
+                    txt.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)rgb[0], (byte)rgb[1], (byte)rgb[2]));
+                }
+            }
+            catch (Exception ex) { }
+        }
         private void Apply_Tool_Click(object sender, RoutedEventArgs e)
         {
             string tool = this.tools.Text;

@@ -551,7 +551,9 @@
                 <Rectangle x:Name="Data__Asset_Classification" Fill="#FF878787" HorizontalAlignment="Left" Height="41" Margin="3403,2332,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="156"/>
                 <Rectangle x:Name="Best_Practices___Regulatory_correlation" Fill="#FF878787" HorizontalAlignment="Left" Height="41" Margin="3566,2332,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="163"/>
 
-                <TextBlock HorizontalAlignment="Left" Margin="136,232,0,0" TextWrapping="Wrap" Text="Audit Planning" VerticalAlignment="Top" Foreground="#FF164326" FontFamily="Calibri" FontSize="16" Width="97" TextAlignment="Center"/>
+
+
+                <TextBlock x:Name="txt_Audit_Planning" HorizontalAlignment="Left" Margin="136,232,0,0" TextWrapping="Wrap" Text="Audit Planning" VerticalAlignment="Top" Foreground="#FF164326" FontFamily="Calibri" FontSize="16" Width="97" TextAlignment="Center"/>
                 <TextBlock HorizontalAlignment="Left" Margin="327,241,0,0" TextWrapping="Wrap" Text="Contract Authority Maintenance" VerticalAlignment="Top" Foreground="#FF164326" FontFamily="Calibri" FontSize="16" Width="136" TextAlignment="Center"/>
                 <TextBlock HorizontalAlignment="Left" Margin="52,292,0,0" TextWrapping="Wrap" Text="Independent Audits" VerticalAlignment="Top" Foreground="#FF164326" FontFamily="Calibri" FontSize="16" Width="97" TextAlignment="Center"/>
                 <TextBlock HorizontalAlignment="Left" Margin="152,292,0,0" TextWrapping="Wrap" Text="Third Party Audits" VerticalAlignment="Top" Foreground="#FF164326" FontFamily="Calibri" FontSize="16" Width="97" TextAlignment="Center"/>
@@ -955,8 +957,21 @@
                     <Separator HorizontalAlignment="Left" Height="8" Margin="27,313,0,0" VerticalAlignment="Top" Width="257" Background="Black"/>
                     <Separator HorizontalAlignment="Left" Height="8" Margin="26,347,0,0" VerticalAlignment="Top" Width="257" Background="Black"/>
                 </Grid>
-
-                <Grid HorizontalAlignment="Left" Height="417" Margin="227,1904,0,0" VerticalAlignment="Top" Width="317" Background="White" Name="CIAlegend" Visibility="Hidden">
+                <Grid HorizontalAlignment="Left" Height="350" Margin="227,1904,0,0" VerticalAlignment="Top" Width="317" Name="CIASeplegend" Background="White" Visibility="Hidden">
+                    <Rectangle Fill="White" HorizontalAlignment="Left" Height="348" Stroke="BlaCk" VerticalAlignment="Top" Width="317" Margin="-2,0,0,0"/>
+                    <Label Content="C/I/A Individual Legend " HorizontalAlignment="Left" Margin="31,24,0,0" VerticalAlignment="Top" FontSize="24"/>
+                    <Rectangle Fill="White" HorizontalAlignment="Left" Height="30" Margin="101,90,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
+                    <Rectangle Fill="#FF62B49A" HorizontalAlignment="Left" Height="30" Margin="101,143,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
+                    <Rectangle Fill="#FFF8E201" HorizontalAlignment="Left" Height="30" Margin="100,192,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
+                    <Rectangle Fill="#FFEB1D1D" HorizontalAlignment="Left" Height="30" Margin="101,306,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
+                    <Rectangle Fill="#FFF08101" HorizontalAlignment="Left" Height="30" Margin="100,249,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
+                    <Label Content="0" HorizontalAlignment="Left" Margin="162,86,0,0" VerticalAlignment="Top" FontSize="18"/>
+                    <Label Content="1" HorizontalAlignment="Left" Margin="162,143,0,0" VerticalAlignment="Top" FontSize="18"/>
+                    <Label Content="2" HorizontalAlignment="Left" Margin="162,192,0,0" VerticalAlignment="Top" FontSize="18"/>
+                    <Label Content="3" HorizontalAlignment="Left" Margin="162,243,0,0" VerticalAlignment="Top" FontSize="18"/>
+                    <Label Content="4" HorizontalAlignment="Left" Margin="162,310,0,0" VerticalAlignment="Top" FontSize="18"/>
+                </Grid>
+                <Grid HorizontalAlignment="Left" Height="417" Margin="227,1904,0,0" VerticalAlignment="Top" Width="317" Name="CIAlegend" Background="White" Visibility="Hidden">
                     <Rectangle Fill="White" HorizontalAlignment="Left" Height="417" Stroke="BlaCk" VerticalAlignment="Top" Width="317"/>
                     <Label Content="CIA Legend" HorizontalAlignment="Left" Margin="101,24,0,0" VerticalAlignment="Top" FontSize="24" RenderTransformOrigin="0.015,0.387"/>
                     <Rectangle Fill="White" HorizontalAlignment="Left" Height="30" Margin="79,116,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
@@ -969,9 +984,9 @@
                     <Rectangle Fill="#FFABCB28" HorizontalAlignment="Left" Height="30" Margin="200,116,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
                     <Rectangle Fill="#FFF8E201" HorizontalAlignment="Left" Height="30" Margin="200,169,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
                     <Rectangle Fill="#FFFCBE11" HorizontalAlignment="Left" Height="30" Margin="200,223,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
-                    <Rectangle Fill="#FFFFA200" HorizontalAlignment="Left" Height="30" Margin="200,277,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
+                    <Rectangle Fill="#FFF08118" HorizontalAlignment="Left" Height="30" Margin="200,277,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
                     <Rectangle Fill="#FFEE571E" HorizontalAlignment="Left" Height="30" Margin="201,324,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
-                    <Rectangle Fill="#FFF31515" HorizontalAlignment="Left" Height="30" Margin="201,371,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
+                    <Rectangle Fill="#FFEB1D1D" HorizontalAlignment="Left" Height="30" Margin="201,371,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
                     <Label Content="0" HorizontalAlignment="Left" Margin="125,112,0,0" VerticalAlignment="Top" FontSize="18"/>
                     <Label Content="1" HorizontalAlignment="Left" Margin="125,157,0,0" VerticalAlignment="Top" FontSize="18"/>
                     <Label Content="2" HorizontalAlignment="Left" Margin="125,202,0,0" VerticalAlignment="Top" FontSize="18"/>
@@ -985,20 +1000,7 @@
                     <Label Content="10" HorizontalAlignment="Left" Margin="244,276,0,0" VerticalAlignment="Top" FontSize="18"/>
                     <Label Content="11" HorizontalAlignment="Left" Margin="244,322,0,0" VerticalAlignment="Top" FontSize="18"/>
                     <Label Content="12" HorizontalAlignment="Left" Margin="244,374,0,0" VerticalAlignment="Top" FontSize="18"/>
-                </Grid>
-                <Grid HorizontalAlignment="Left" Height="350" Margin="227,1904,0,0" VerticalAlignment="Top" Width="317" Name="CIASeplegend" Background="White" Visibility="Hidden">
-                    <Rectangle Fill="White" HorizontalAlignment="Left" Height="348" Stroke="BlaCk" VerticalAlignment="Top" Width="317" Margin="-2,0,0,0"/>
-                    <Label Content="C/I/A Individual Legend " HorizontalAlignment="Left" Margin="31,24,0,0" VerticalAlignment="Top" FontSize="24" RenderTransformOrigin="0.015,0.387"/>
-                    <Rectangle Fill="White" HorizontalAlignment="Left" Height="30" Margin="101,90,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
-                    <Rectangle Fill="#FF62B49A" HorizontalAlignment="Left" Height="30" Margin="101,143,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
-                    <Rectangle Fill="#FFF8E201" HorizontalAlignment="Left" Height="30" Margin="100,192,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
-                    <Rectangle Fill="#FFEB1D1D" HorizontalAlignment="Left" Height="30" Margin="101,306,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
-                    <Rectangle Fill="#FFF08101" HorizontalAlignment="Left" Height="30" Margin="100,249,0,0" Stroke="BlaCk" VerticalAlignment="Top" Width="30"/>
-                    <Label Content="0" HorizontalAlignment="Left" Margin="162,86,0,0" VerticalAlignment="Top" FontSize="18"/>
-                    <Label Content="1" HorizontalAlignment="Left" Margin="162,143,0,0" VerticalAlignment="Top" FontSize="18"/>
-                    <Label Content="2" HorizontalAlignment="Left" Margin="162,192,0,0" VerticalAlignment="Top" FontSize="18"/>
-                    <Label Content="3" HorizontalAlignment="Left" Margin="162,243,0,0" VerticalAlignment="Top" FontSize="18"/>
-                    <Label Content="4" HorizontalAlignment="Left" Margin="162,310,0,0" VerticalAlignment="Top" FontSize="18"/>
+
                 </Grid>
             </Grid>
         </ScrollViewer>

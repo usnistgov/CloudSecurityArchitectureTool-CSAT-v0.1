@@ -22,3 +22,9 @@ C:\Users\mdl1\Documents\Cloud Rubics Cube\Controls and Capabilities Manager\Exce
 C:\Users\mdl1\Documents\Cloud Rubics Cube\Controls and Capabilities Manager\Excel2DB\ExcelReporting\obj\Debug\ExcelReporting.csproj.ResolveComReference.cache
 C:\Users\mdl1\Documents\Cloud Rubics Cube\Controls and Capabilities Manager\Excel2DB\ExcelReporting\obj\Debug\ExcelReporting.dll
 C:\Users\mdl1\Documents\Cloud Rubics Cube\Controls and Capabilities Manager\Excel2DB\ExcelReporting\obj\Debug\ExcelReporting.pdb
+C:\Users\mdl1\Documents\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\ExcelReporting\bin\Debug\ExcelReporting.dll
+C:\Users\mdl1\Documents\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\ExcelReporting\bin\Debug\ExcelReporting.pdb
+C:\Users\mdl1\Documents\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\ExcelReporting\obj\Debug\ExcelReporting.csprojResolveAssemblyReference.cache
+C:\Users\mdl1\Documents\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\ExcelReporting\obj\Debug\ExcelReporting.csproj.ResolveComReference.cache
+C:\Users\mdl1\Documents\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\ExcelReporting\obj\Debug\ExcelReporting.dll
+C:\Users\mdl1\Documents\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\ExcelReporting\obj\Debug\ExcelReporting.pdb
