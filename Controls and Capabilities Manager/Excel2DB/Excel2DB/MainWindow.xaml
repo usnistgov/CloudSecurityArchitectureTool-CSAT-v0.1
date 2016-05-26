@@ -70,6 +70,6 @@
         <Image HorizontalAlignment="Left" Height="350" Margin="368,60,0,0" VerticalAlignment="Top" Width="350" Source="Cloud Security Rubiks Cube.jpg"/>
         <Image HorizontalAlignment="Left" Height="40" Margin="281,226,0,0" VerticalAlignment="Top" Width="49" x:Name="report4"/>
         <Button Content="Sample" HorizontalAlignment="Left" Margin="221,244,0,0" VerticalAlignment="Top" Width="45" x:Name="basedem" Height="21" Click="showex"/>
-        <Button Content="Visualizations" HorizontalAlignment="Left" Height="89" Margin="71,512,0,0" VerticalAlignment="Top" Width="145" Click="visualization_Click"/>
+        <Button Name="visMain" Content="Visualizations" HorizontalAlignment="Left" Height="89" Margin="71,512,0,0" VerticalAlignment="Top" Width="145" Click="visualization_Click"/>
     </Grid>
 </Window>

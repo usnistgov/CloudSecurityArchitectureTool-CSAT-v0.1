@@ -137,6 +137,10 @@ namespace Excel2DB
             {
                 Directory.CreateDirectory(apppath + @"\Security Baselines");
             }
+            if (!Directory.Exists(apppath + @"\Visualizations"))
+            {
+                Directory.CreateDirectory(apppath + @"\Visualizations");
+            }
         }
 
         /// <summary>
@@ -951,8 +955,8 @@ namespace Excel2DB
            sampler s = new sampler();
            string fnam = "";
            switch ( ob.Name.ToString()){
-               case "visiodem":
-                   fnam="visio.PNG";
+               case "basedem":
+                   fnam="baselines.PNG";
                    break;
                case "capabilitydem":
                    fnam = "capability.PNG";
@@ -983,6 +987,8 @@ namespace Excel2DB
            this.menucreatecap.IsEnabled = val;
            this.menucreatecon.IsEnabled = val;
            this.menucreatetic.IsEnabled = val;
+           this.visualization.IsEnabled = val;
+           this.visMain.IsEnabled = val;
        }
 
     }

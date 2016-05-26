@@ -246,9 +246,6 @@
     <Resource Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="visio.PNG" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="capability.PNG" />
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +261,7 @@
     <Resource Include="Cloud Security Rubiks Cube.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="baselines.PNG" />
     <Content Include="InitData.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

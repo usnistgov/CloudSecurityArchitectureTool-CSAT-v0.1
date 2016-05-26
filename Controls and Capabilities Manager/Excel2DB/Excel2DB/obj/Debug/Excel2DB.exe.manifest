@@ -50,19 +50,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>h3WPj1mWgVyk715YBjSbxqHQqNZqzANrrzV8p2dj8m4=</dsig:DigestValue>
+        <dsig:DigestValue>EfVw4TjASJOqY9y/8Eh3Ve3dPQrRtGW8ugqm3oFx3WQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Excel2DB.exe" size="1871256">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Excel2DB.exe" size="1953688">
       <assemblyIdentity name="Excel2DB" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>E1YihXxAMrAlN15K/abdREo3/uyZW4IkDbZvZcgEVRw=</dsig:DigestValue>
+        <dsig:DigestValue>lgeDKrqD425M2R3XG3HpiO2XbD+ZaRFEnUZeczN9hkw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -74,7 +74,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>DGq68NOWY7LO34apXBwHC4s0kNn+yEZCOfKB3HOJl3A=</dsig:DigestValue>
+        <dsig:DigestValue>myOR4k0s0X/2YMq4HZ6+Xedih5cID5GKbNcWIRL+mPo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

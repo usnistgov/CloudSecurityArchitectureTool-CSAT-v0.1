@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.Win32;
 using System.Collections.Generic;
 using System.Linq;
@@ -168,18 +169,35 @@ namespace Excel2DB
 
         private void save_Click(object sender, RoutedEventArgs e)
         {
-            var rtg = new RenderTargetBitmap(
-                (int)canvas.ActualWidth,
-                (int)canvas.ActualHeight,
-                96,
-                96,
-                PixelFormats.Pbgra32);
-            rtg.Render(canvas);
+            //var rtg = new RenderTargetBitmap(
+            //    (int)canvas.ActualWidth,
+            //    (int)canvas.ActualHeight,
+            //    96,
+            //    96,
+            //    PixelFormats.Pbgra32);
+            //rtg.Render(canvas);
 
-            JpegBitmapEncoder bitmapper= new JpegBitmapEncoder();
-            bitmapper.Frames.Add(BitmapFrame.Create(rtg));
+            //JpegBitmapEncoder bitmapper= new JpegBitmapEncoder();
+            //bitmapper.Frames.Add(BitmapFrame.Create(rtg));
+
+            Rect bounds = VisualTreeHelper.GetDescendantBounds(canvas);
+
+            RenderTargetBitmap rtb = new RenderTargetBitmap((Int32)bounds.Width, (Int32)bounds.Height, 96, 96, PixelFormats.Pbgra32);
+
+            DrawingVisual dv = new DrawingVisual();
+
+            using (DrawingContext dc = dv.RenderOpen())
+            {
+                VisualBrush vb = new VisualBrush(canvas);
+                dc.DrawRectangle(vb, null, new Rect(new Point(), bounds.Size));
+            }
+
+            rtb.Render(dv);
+
+            JpegBitmapEncoder bitmapper = new JpegBitmapEncoder();
+            bitmapper.Frames.Add(BitmapFrame.Create(rtb));
             SaveFileDialog sav = new SaveFileDialog();
-            sav.InitialDirectory=Properties.Settings.Default.appFolders;
+            sav.InitialDirectory = Properties.Settings.Default.appFolders + @"\Visualizations";
             sav.Title="Save visualization to Jpeg";
             sav.Filter = "jpeg |*.jpeg";
             if(sav.ShowDialog() == true){

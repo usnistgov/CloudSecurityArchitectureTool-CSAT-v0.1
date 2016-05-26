@@ -87,7 +87,6 @@ namespace Excel2DB.Reports
                         {
                             this.activeWorksheet.setCellTo(row, col++, maps[i], mapPalatte[i][1], fg, false);
                         }
-                        this.activeWorksheet.setCellTo(row, col++, Regex.Replace(cap.UniqueId, @"[^[0-9a-zA-Z]]*", "_"));
                         total += inc;
                         bw.ReportProgress((int)total);
                     }
