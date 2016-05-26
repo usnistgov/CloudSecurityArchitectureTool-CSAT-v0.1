@@ -943,7 +943,12 @@ namespace Excel2DB
            Excel2DB.Models.Constants.ReadValues();
 
        }
-
+       private void baseOrder(object sender, RoutedEventArgs e)
+       {
+           BaselineOrder or = new BaselineOrder();
+           or.ShowDialog();
+           Excel2DB.Models.Constants.ReadValues();
+       }
         /// <summary>
         /// show example reports
         /// </summary>

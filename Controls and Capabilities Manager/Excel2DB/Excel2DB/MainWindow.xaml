@@ -26,6 +26,7 @@
                 <MenuItem Header="Utilities">
                     <MenuItem Header="Edit Controls File Order" Click="controlOrder"/>
                     <MenuItem Header="Edit Capabilities File Order" Click="capOrder"/>
+                    <MenuItem Header="Edit Baseline file Order" Click="baseOrder"/>
                 </MenuItem>
             </Menu>
         </Menu>

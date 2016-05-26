@@ -90,6 +90,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BaselineOrder.xaml.cs">
+      <DependentUpon>BaselineOrder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CapabilitiesCanvas.xaml.cs">
       <DependentUpon>CapabilitiesCanvas.xaml</DependentUpon>
     </Compile>
@@ -125,6 +128,10 @@
     <Compile Include="VisualizationTool.xaml.cs">
       <DependentUpon>VisualizationTool.xaml</DependentUpon>
     </Compile>
+    <Page Include="BaselineOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CapabilitiesCanvas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

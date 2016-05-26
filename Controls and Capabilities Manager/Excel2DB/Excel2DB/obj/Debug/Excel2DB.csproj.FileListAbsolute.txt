@@ -226,3 +226,5 @@ C:\Users\mdl1\Source\Repos\CloudSecurityRubiksCube\Controls and Capabilities Man
 C:\Users\mdl1\Source\Repos\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Excel2DB\obj\Debug\Excel2DB.csproj.GenerateResource.Cache
 C:\Users\mdl1\Source\Repos\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Excel2DB\obj\Debug\Excel2DB.exe.manifest
 C:\Users\mdl1\Source\Repos\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Excel2DB\obj\Debug\Excel2DB.application
+C:\Users\mdl1\Source\Repos\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Excel2DB\obj\Debug\BaselineOrder.baml
+C:\Users\mdl1\Source\Repos\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Excel2DB\obj\Debug\BaselineOrder.g.cs

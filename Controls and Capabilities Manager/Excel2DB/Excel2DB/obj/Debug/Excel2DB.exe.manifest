@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Excel2DB.exe" size="1953688">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Excel2DB.exe" size="1956760">
       <assemblyIdentity name="Excel2DB" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>lgeDKrqD425M2R3XG3HpiO2XbD+ZaRFEnUZeczN9hkw=</dsig:DigestValue>
+        <dsig:DigestValue>NBONIMX9QDK78LnHncfdtFQzrtqL6SIcFX95AyZigag=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
