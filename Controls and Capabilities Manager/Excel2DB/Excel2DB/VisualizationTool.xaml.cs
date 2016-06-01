@@ -44,6 +44,7 @@ namespace Excel2DB
             foreach (var set in ret)
             {
                 uint sum = set.C + set.A + set.I;
+                ChangeTextColor(set.UniqueId, new int[] { 0, 0, 0 });
                 ChangeBackground(set.UniqueId, ColorMaps.CIA[sum]);
             }
         }
@@ -54,6 +55,7 @@ namespace Excel2DB
                       select new { p.UniqueId, p.C };
             foreach (var set in ret)
             {
+                ChangeTextColor(set.UniqueId, new int[] { 0, 0, 0 });
                 ChangeBackground(set.UniqueId, ColorMaps.CIASeparate[set.C]);
             }
         }
@@ -64,6 +66,7 @@ namespace Excel2DB
                       select new { p.UniqueId, p.I };
             foreach (var set in ret)
             {
+                ChangeTextColor(set.UniqueId, new int[] { 0, 0, 0 });
                 ChangeBackground(set.UniqueId, ColorMaps.CIASeparate[set.I]);
             }
         }
@@ -74,6 +77,7 @@ namespace Excel2DB
                       select new { p.UniqueId, p.A };
             foreach (var set in ret)
             {
+                ChangeTextColor(set.UniqueId, new int[] { 0, 0, 0 });
                 ChangeBackground(set.UniqueId, ColorMaps.CIASeparate[set.A]);
             }
         }

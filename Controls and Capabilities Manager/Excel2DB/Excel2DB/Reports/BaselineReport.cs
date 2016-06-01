@@ -65,13 +65,13 @@ namespace Excel2DB.Reports
                     int start = col;
                     this.activeWorksheet.setCellTo(row, col++, "Nist Baseline", mapPalatte[0][0], fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "FedRAMP Baseline", mapPalatte[0][0], fg, true);
-                    this.activeWorksheet.setCellTo(row, col++, "Additional Controls", mapPalatte[0][0], fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Entire Security Component", mapPalatte[0][0], fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Nist Baseline", mapPalatte[0][0], fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "FedRAMP Baseline", mapPalatte[0][0], fg, true);
-                    this.activeWorksheet.setCellTo(row, col++, "Additional Controls", mapPalatte[0][0], fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Entire Security Component", mapPalatte[0][0], fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Nist Baseline", mapPalatte[0][0], fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "FedRAMP Baseline", mapPalatte[0][0], fg, true);
-                    this.activeWorksheet.setCellTo(row, col++, "Additional Controls", mapPalatte[0][0], fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Entire Security Component", mapPalatte[0][0], fg, true);
 
                     foreach (Context.Capabilities cap in caps)
                     {
@@ -113,12 +113,14 @@ namespace Excel2DB.Reports
         private string[] GetBaselineDivision(uint id)
         {
             string[] components = new string[9]{"","","","","","","","",""};
+            string[] implements = GetImplements(id);
             for (int i = 1; i <= 3; i++)
             {
                 List<string> controlSpecs = new List<string>();
                 var ret = from p in dbContext.MapTypesCapabilitiesControls
                           where p.MapTypesId == i && p.CapabilitiesId == id
                           select p;
+                components[3 * i - 1] = implements[i - 1];
                 foreach (var rec in ret)
                 {
                     if (rec.isControlMap)
@@ -162,17 +164,15 @@ namespace Excel2DB.Reports
                               where p.IsControlMap == iscontr && p.ControlsId == contrid && p.SpecsId == specid && p.Level == i
                               select p;
                     int startCol = 3 * (i-1);
-                    if(!data.Any()){
-                        //additional control
-                        components[startCol + 2] += name + ',';
-                    }else{
+                    if(data.Any()){
                         foreach(var rec in data){
-                            components[startCol + rec.BaselineAuthor - 1] += name + ',';
+                            components[startCol + rec.BaselineAuthor - 1] += name + ", ";
                         }
                     }
                 }
             }
             for(int i = 0; i < components.Length; i++){
+                components[i].Trim();
                 components[i].Trim(',');
             }
 
