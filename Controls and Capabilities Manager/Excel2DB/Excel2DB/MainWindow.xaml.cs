@@ -52,6 +52,8 @@ namespace Excel2DB
             this.TICReport.ToolTip = new ToolTip() { Content = tic };
 
             //setup
+            //Properties.Settings.Default.Reset();
+
             if (Properties.Settings.Default.FirstRun)
             {
                 this.Topmost = true;
@@ -60,12 +62,24 @@ namespace Excel2DB
                 "to put the folders that will hold input and output files.  The program will create a containing folder, so just pick a easily accessible place.\n\n "
                 + "Then, you may need to set up database connection.");
 
+                Waiting load = new Waiting();
                 SetPath();
-                Properties.Settings.Default.FirstRun = false;
-                Properties.Settings.Default.Save();
-                DataConnecter.FirstUse();
-
-                this.Topmost = false;
+                load.Topmost = true;
+                load.Show();
+                load.Topmost = false;
+                try
+                {
+                    
+                    Properties.Settings.Default.FirstRun = false;
+                    Properties.Settings.Default.Save();
+                    DataConnecter.FirstUse();
+                    
+                }
+                catch (Exception e)
+                {
+                    load.error.Content = e.Message;
+                }
+                load.Close();    
             }
             else
             {
@@ -96,7 +110,6 @@ namespace Excel2DB
             {
                 CHangeReportStatus(false);
             }
-            
             
         }
 
