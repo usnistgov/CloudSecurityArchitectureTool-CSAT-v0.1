@@ -43,7 +43,7 @@ namespace Excel2DB.Models
                 while (!accept)
                 {
                     string server = Interaction.InputBox(prompt);
-                    conectstr = @"Data Source=" + server + @";Initial Catalog=ModelDB;Integrated Security=True;Persist Security Info=True";
+                    conectstr = @"Data Source=" + CompName + "\\" + server + @";Initial Catalog=ModelDB;Integrated Security=True;Persist Security Info=True";
                     connection = new Context.DataContext(conectstr);
                     try
                     {

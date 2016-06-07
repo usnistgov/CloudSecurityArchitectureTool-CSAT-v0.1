@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\NIST Project\Controls and Capabilities Maneger\Excel2DB\Excel2DB\obj\Release\
+C:\Users\mdl1\Source\Repos\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Excel2DB\obj\Release\
 Excel2DB
 none
 false
 TRACE
-C:\NIST Project\Controls and Capabilities Maneger\Excel2DB\Excel2DB\App.xaml
-11151548125
-
-18-1785701618
-20-2049795124
-MainWindow.xaml;
+C:\Users\mdl1\Source\Repos\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Excel2DB\App.xaml
+11-1105262710
+1-998912466
+331565166580
+20-1669140505
+BaselineOrder.xaml;CapabilitiesCanvas.xaml;CapabilityChooser.xaml;capOrder.xaml;ControlOrder.xaml;controlSpecChooser.xaml;gradient.xaml;MainWindow.xaml;sampler.xaml;VisualizationTool.xaml;Waiting.xaml;
 
 False
 

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="Excel2DB.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="Excel2DB.exe" version="1.2.0.4" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="Cloud_Security_Rubiks_Cube.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
     <assemblyIdentity name="Excel2DB" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
@@ -42,48 +43,66 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Entities4DB.dll" size="31744">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Entities4DB.dll" size="37888">
       <assemblyIdentity name="Entities4DB" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>sx1/RL1KdB8J+uzcMWbNf6asMpzo2lR1UG5ofLe2NWg=</dsig:DigestValue>
+        <dsig:DigestValue>7PcyiGR1FlZ4NnQjlTAxcUf24QWYRo4pH6/Qg0AmLaw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Excel2DB.exe" size="322968">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Excel2DB.exe" size="1958296">
       <assemblyIdentity name="Excel2DB" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>qmuK5j9S9ZBJrUqLimLVkK9LvARJ5mKNC+M3t53ceec=</dsig:DigestValue>
+        <dsig:DigestValue>OFzUdV9R96bbI/1bhmZgzCzfuSjwM3LI689sAckAIqk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ExcelReporting.dll" size="38912">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ExcelReporting.dll" size="46592">
       <assemblyIdentity name="ExcelReporting" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Elya+fEUtkwYd3YtqqJMi9+wWcR66tXxRbQWP6UBGlY=</dsig:DigestValue>
+        <dsig:DigestValue>yfK7LJClqL6JuBZTYqVBPjaWnVPlwqzRbPakvpwcrzU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Excel2DB.exe.config" size="443">
+  <file name="Cloud_Security_Rubiks_Cube.ico" size="202814">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>CxGzhnRHWMoEvHgkdgq1oZAKuqFRDzrWiP+7kwBzCrE=</dsig:DigestValue>
+      <dsig:DigestValue>fCfrdx01z1pg9oKiN3bCEsLSpoGRgpHBxgJ8o5HgrE0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Excel2DB.exe.config" size="5128">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>pNrfmWE7+0+PwsR/4t7XHNuR3AeGV+PBfoAaJZRUpyc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="InitData.sql" size="6562100">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>aJbOYxZyWck4Py4nvEtojQdykVYEa/hgffJdHbZTdMY=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

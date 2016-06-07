@@ -52,11 +52,9 @@ namespace Excel2DB
             this.TICReport.ToolTip = new ToolTip() { Content = tic };
 
             //setup
-            //Properties.Settings.Default.Reset();
 
             if (Properties.Settings.Default.FirstRun)
             {
-                this.Topmost = true;
                 MessageBox.Show(
                     "\t\tWelcome to the Cloud Security Manager. \n\tBefore you can use the program, there is some simple set up to do. \n\n\t  First, you must choose where " +
                 "to put the folders that will hold input and output files.  The program will create a containing folder, so just pick a easily accessible place.\n\n "
@@ -73,13 +71,14 @@ namespace Excel2DB
                     Properties.Settings.Default.FirstRun = false;
                     Properties.Settings.Default.Save();
                     DataConnecter.FirstUse();
+                    load.Close();  
                     
                 }
                 catch (Exception e)
                 {
                     load.error.Content = e.Message;
                 }
-                load.Close();    
+                  
             }
             else
             {
