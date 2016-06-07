@@ -181,8 +181,8 @@ namespace Excel2DB
                 string server = Interaction.InputBox(prompt);
                 if (server == string.Empty)
                     return;
-                conectstr = @"Data Source=" + server + @";Initial Catalog=ModelDB;Integrated Security=True;Persist Security Info=True";
-                string serversection = @"Data Source=" + CompName + @"\SQLEXPRESS;Integrated Security=True;Persist Security Info=True";
+                conectstr = @"Data Source=" + CompName + "\\" + server + @";Initial Catalog=ModelDB;Integrated Security=True;Persist Security Info=True";
+                string serversection = @"Data Source=" + CompName + @"\" + server + ";Integrated Security=True;Persist Security Info=True";
                 Context.DataContext connection = new Context.DataContext(serversection);
                 try
                 {
@@ -198,8 +198,14 @@ namespace Excel2DB
             Properties.Settings.Default.Save();
 
             //set up tables and values 
+            Waiting load = new Waiting();
+            load.Topmost = true;
+            load.Show();
+            load.Topmost = false;
             DataConnecter.FirstUse();
+            load.Close();
             MessageBox.Show("Connection updated.");
+            CHangeReportStatus(true);
         }
 
         /// <summary>

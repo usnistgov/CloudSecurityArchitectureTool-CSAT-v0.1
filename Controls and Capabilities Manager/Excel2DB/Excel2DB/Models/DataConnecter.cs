@@ -142,7 +142,7 @@ namespace Excel2DB.Models
         public static void FirstUse()
         {
             Context.DataContext dbContext = new Context.DataContext(EstablishValidConnection());
-            if (!dbContext.DatabaseExists())
+            if (!(dbContext.DatabaseExists()))
                 dbContext.CreateDatabase();
             else
             {

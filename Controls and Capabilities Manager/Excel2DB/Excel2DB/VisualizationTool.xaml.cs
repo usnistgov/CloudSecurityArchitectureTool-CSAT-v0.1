@@ -37,6 +37,9 @@ namespace Excel2DB
 
         //**********Painter methods***********//
 
+        /// <summary>
+        /// Change the background color of the capabilities to the cia color from colorMap
+        /// </summary>
         private void PaintByCIA()
         {
             var ret = from p in dbcontext.Capabilities
@@ -49,6 +52,9 @@ namespace Excel2DB
             }
         }
 
+        /// <summary>
+        /// Add color based only on C
+        /// </summary>
         private void PaintByConfidentiality()
         {
             var ret = from p in dbcontext.Capabilities
@@ -60,6 +66,9 @@ namespace Excel2DB
             }
         }
 
+        /// <summary>
+        /// Add color based on I
+        /// </summary>
         private void PaintByIntegrety()
         {
             var ret = from p in dbcontext.Capabilities
@@ -71,6 +80,9 @@ namespace Excel2DB
             }
         }
 
+        /// <summary>
+        /// add color based on A
+        /// </summary>
         private void PaintByAvailibility()
         {
             var ret = from p in dbcontext.Capabilities
@@ -82,6 +94,9 @@ namespace Excel2DB
             }
         }
 
+        /// <summary>
+        /// Assign text and background color based on responcibility vector maps
+        /// </summary>
         private void PaintByResponsibilityVector()
         {
             var caps = from p in dbcontext.Capabilities
@@ -103,6 +118,11 @@ namespace Excel2DB
         }
 
         //*********Utilities Methods*********//
+        /// <summary>
+        /// change capability id to background rgb
+        /// </summary>
+        /// <param name="id">id of capability to change</param>
+        /// <param name="rgb">new rgb of background of capability</param>
         private void ChangeBackground(string id, int[] rgb){
             object shap = this.canvas.FindName(GetName(id));
             
@@ -118,11 +138,22 @@ namespace Excel2DB
             catch (Exception e) { }
 
         }
+
+        /// <summary>
+        /// names cannot have special symbols so this changes all to underscores
+        /// </summary>
+        /// <param name="id">unique id of capability</param>
+        /// <returns>name ofshape</returns>
         private string GetName(string id)
         {
             return Regex.Replace(id, @"[^[0-9a-zA-Z]]*", "_");
         }
 
+        /// <summary>
+        /// change text color of name to rgb
+        /// </summary>
+        /// <param name="id"> capability's unique id</param>
+        /// <param name="rgb">rgb to change text color to</param>
         private void ChangeTextColor(string id, int[] rgb)
         {
             object tx = this.canvas.FindName("txt_" + GetName(id));
@@ -136,8 +167,15 @@ namespace Excel2DB
             }
             catch (Exception ex) { }
         }
+        
+        /// <summary>
+        /// Main event handler directs call to rightpainter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Apply_Tool_Click(object sender, RoutedEventArgs e)
         {
+            //hide all legends then show the selected one and make paiter call and show legend
             string tool = this.tools.Text;
             HideLegends();
             switch (tool){
@@ -164,6 +202,9 @@ namespace Excel2DB
             }
        }
 
+        /// <summary>
+        /// set all legend grids to be invisible
+        /// </summary>
         private void HideLegends()
         {
             this.CIAlegend.Visibility = System.Windows.Visibility.Hidden;
@@ -171,25 +212,16 @@ namespace Excel2DB
             this.Responsibilitylegend.Visibility = System.Windows.Visibility.Hidden;
         }
 
+       /// <summary>
+       /// save picture of diagram as jpeg file
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
         private void save_Click(object sender, RoutedEventArgs e)
         {
-            //var rtg = new RenderTargetBitmap(
-            //    (int)canvas.ActualWidth,
-            //    (int)canvas.ActualHeight,
-            //    96,
-            //    96,
-            //    PixelFormats.Pbgra32);
-            //rtg.Render(canvas);
-
-            //JpegBitmapEncoder bitmapper= new JpegBitmapEncoder();
-            //bitmapper.Frames.Add(BitmapFrame.Create(rtg));
-
             Rect bounds = VisualTreeHelper.GetDescendantBounds(canvas);
-
             RenderTargetBitmap rtb = new RenderTargetBitmap((Int32)bounds.Width, (Int32)bounds.Height, 96, 96, PixelFormats.Pbgra32);
-
             DrawingVisual dv = new DrawingVisual();
-
             using (DrawingContext dc = dv.RenderOpen())
             {
                 VisualBrush vb = new VisualBrush(canvas);

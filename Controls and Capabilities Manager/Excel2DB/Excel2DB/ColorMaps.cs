@@ -14,6 +14,10 @@ namespace Excel2DB
         public static SortedList<string, double> valueassign;
         public static SortedList<double, int[]> responsibility;
         public static SortedList<double, int[]> responsibilityTxt;
+        
+        /// <summary>
+        /// load public color maps for visualizations
+        /// </summary>
         public static void colorAll()
         {
             CIA = new SortedList<uint, int[]>();

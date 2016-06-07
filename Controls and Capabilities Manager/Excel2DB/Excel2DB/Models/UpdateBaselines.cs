@@ -18,6 +18,10 @@ namespace Excel2DB.Models
             inputFile = file;
         }
 
+        /// <summary>
+        /// read in excel and inser all controls into basline table
+        /// </summary>
+        /// <param name="wd"></param>
         public void ProcessFile(BackgroundWorker wd)
         {
             int row;
@@ -31,6 +35,7 @@ namespace Excel2DB.Models
                     var ret = from p in dbContext.Families
                               select p;
                     int totalRows = ret.Count();
+                    //read file line by line
                     while (!hitCompletelyEmptyRow)
                     {
                         hitCompletelyEmptyRow = InsertLine(row);
@@ -55,6 +60,11 @@ namespace Excel2DB.Models
 
         }
 
+        /// <summary>
+        /// read a line of baselines and put in database
+        /// </summary>
+        /// <param name="row">row number</param>
+        /// <returns></returns>
         private bool InsertLine(int row)
         {
             string[] rowdata = ReadExcelRow(row, 10);
@@ -74,6 +84,12 @@ namespace Excel2DB.Models
             }
         }
 
+        /// <summary>
+        /// split up component and insert all into database
+        /// </summary>
+        /// <param name="component">set of controls in baseline for one family</param>
+        /// <param name="level">number for low,moderate,high level</param>
+        /// <param name="author"> number for nist/fedRAMP</param>
         private void InsertComponent(string component, uint level, uint author)
         {
             string[] controls = GetCleanListOfControls(component);
@@ -99,6 +115,11 @@ namespace Excel2DB.Models
 
         }
 
+        /// <summary>
+        /// check if string is control or spec
+        /// </summary>
+        /// <param name="rowData"></param>
+        /// <returns></returns>
         private static bool isRow4Control(string rowData)
         {
             string pattern = @"[A-Z]{2}-([0-9]{1,2})";
