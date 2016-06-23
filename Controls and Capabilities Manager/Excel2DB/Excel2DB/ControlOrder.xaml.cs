@@ -12,8 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Excel2DB.Models;
-namespace Excel2DB
+using CSRC.Models;
+namespace CSRC
 {
     /// <summary>
     /// Interaction logic for ControlOrder.xaml   change order of controls file
@@ -100,7 +100,7 @@ namespace Excel2DB
             }
             try
             {
-                Properties.Settings.Default.conFirstRow = int.Parse(this.row.Text);
+                Properties.Settings.Default.capFirstRow = int.Parse(this.row.Text);
                 Properties.Settings.Default.Save();
             }
             catch (Exception ex)

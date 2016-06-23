@@ -1,4 +1,4 @@
-﻿<Window x:Class="Excel2DB.sampler"
+﻿<Window x:Class="CSRC.sampler"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Cloud Rubik's Cube" Height="650" Width="1500">

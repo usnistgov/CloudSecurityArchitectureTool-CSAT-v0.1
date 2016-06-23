@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Excel2DB.Models
+namespace CSRC.Models
 {
     /// <summary>
     /// conains worker methods to assist in the manipulation of the data
@@ -324,8 +324,8 @@ namespace Excel2DB.Models
                 excelRowLength = length; 
             }
             //Read the line from excel spreadsheet into a string array
-            string[] rowData = new string[excelRowLength];
-            for (int i = 1; i <= excelRowLength; i++)
+            string[] rowData = new string[length];
+            for (int i = 1; i <= length; i++)
             {
                 rowData[i - 1] = this.activeWorksheet.getCellData(row, i);
             }

@@ -6,9 +6,9 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using ExcelReports.ExcelInteropReports;
 
-namespace Excel2DB.Reports
+namespace CSRC.Reports
 {
-    class BaselineReport:BaseReport
+    class BaselineReport : BaseReport
     {
         public void CreateReport(string fileName, List<Context.Capabilities> caps, BackgroundWorker wd)
         {
@@ -34,10 +34,10 @@ namespace Excel2DB.Reports
                     this.activeWorksheet.ColumnWidth(col++, 26.71);
                     this.activeWorksheet.ColumnWidth(col++, 28.29);
                     this.activeWorksheet.ColumnWidth(col++, 21.71);
-                    this.activeWorksheet.ColumnWidth(col++, 33.14); 
+                    this.activeWorksheet.ColumnWidth(col++, 33.14);
                     this.activeWorksheet.ColumnWidth(col++, 10.47);
                     this.activeWorksheet.ColumnWidth(col++, 23.47);
-                    
+
                     for (int i = 1; i <= 9; i++)
                         this.activeWorksheet.ColumnWidth(col++, 17.57);
 
@@ -53,12 +53,12 @@ namespace Excel2DB.Reports
                     this.activeWorksheet.setMergedCellTo(row, col, "Capability implementation: High Impact", 3);
 
                     col = 1;
-                    row++; 
+                    row++;
 
                     this.activeWorksheet.setCellTo(row, col++, "Domain", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Container", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Capability (proccess or solution)", bg, fg, true);
-                    this.activeWorksheet.setCellTo(row, col++, "Capability (proccess or solution)", bg, fg, true); 
+                    this.activeWorksheet.setCellTo(row, col++, "Capability (proccess or solution)", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Description", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Scope", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "TIC Capabilities Mapping", bg, fg, true);
@@ -112,7 +112,7 @@ namespace Excel2DB.Reports
 
         private string[] GetBaselineDivision(uint id)
         {
-            string[] components = new string[9]{"","","","","","","","",""};
+            string[] components = new string[9] { "", "", "", "", "", "", "", "", "" };
             string[] implements = GetImplements(id);
             for (int i = 1; i <= 3; i++)
             {
@@ -144,8 +144,9 @@ namespace Excel2DB.Reports
                         controlSpecs.Add(name);
                     }
                 }
-                
-                foreach(string name in controlSpecs){
+
+                foreach (string name in controlSpecs)
+                {
                     bool iscontr;
                     uint contrid, specid;
                     if (isRow4Control(name))
@@ -156,27 +157,30 @@ namespace Excel2DB.Reports
                     }
                     else
                     {
-                        iscontr=false;
-                        contrid=1;
-                        specid=GetSpecIdByName(name);
+                        iscontr = false;
+                        contrid = 1;
+                        specid = GetSpecIdByName(name);
                     }
                     var data = from p in dbContext.BaselineSecurityMappings
-                              where p.IsControlMap == iscontr && p.ControlsId == contrid && p.SpecsId == specid && p.Level == i
-                              select p;
-                    int startCol = 3 * (i-1);
-                    if(data.Any()){
-                        foreach(var rec in data){
+                               where p.IsControlMap == iscontr && p.ControlsId == contrid && p.SpecsId == specid && p.Level == i
+                               select p;
+                    int startCol = 3 * (i - 1);
+                    if (data.Any())
+                    {
+                        foreach (var rec in data)
+                        {
                             components[startCol + rec.BaselineAuthor - 1] += name + ", ";
                         }
                     }
                 }
             }
-            for(int i = 0; i < components.Length; i++){
+            for (int i = 0; i < components.Length; i++)
+            {
                 components[i].Trim();
                 components[i].Trim(',');
             }
 
-                return components;
+            return components;
         }
     }
 }

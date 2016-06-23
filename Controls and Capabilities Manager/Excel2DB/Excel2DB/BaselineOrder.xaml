@@ -1,4 +1,4 @@
-﻿<Window x:Class="Excel2DB.BaselineOrder"
+﻿<Window x:Class="CSRC.BaselineOrder"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="BaselineOrder" Height="300" Width="677">

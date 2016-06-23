@@ -11,8 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Excel2DB.Models;
-namespace Excel2DB
+using CSRC.Models;
+namespace CSRC
 {
     /// <summary>
     /// Interaction logic for BaselineOrder.xaml
@@ -56,15 +56,15 @@ namespace Excel2DB
                 switch (column)
                 {
                     case "Low 800-53 R4":
-                        Properties.Settings.Default.colNistLow = i;
+                        Properties.Settings.Default.colCIAC = i;
                         Properties.Settings.Default.Save();
                         break;
                     case "Low FedRAMP":
-                        Properties.Settings.Default.colFedLow = i;
+                        Properties.Settings.Default.colNistLow = i;
                         Properties.Settings.Default.Save();
                         break;
                     case "NIST ANT":
-                        Properties.Settings.Default.colNistAnt = i;
+                        Properties.Settings.Default.colFedLow = i;
                         Properties.Settings.Default.Save();
                         break;
                     case "Moderate 800-53 R4":
@@ -72,15 +72,15 @@ namespace Excel2DB
                         Properties.Settings.Default.Save();
                         break;
                     case "Moderate FedRAMP":
-                        Properties.Settings.Default.colFedMed = i;
+                        Properties.Settings.Default.colNistMed = i;
                         Properties.Settings.Default.Save();
                         break;
                     case "High 800-53 R4":
-                        Properties.Settings.Default.colNistHigh = i;
+                        Properties.Settings.Default.colFedMed = i;
                         Properties.Settings.Default.Save();
                         break;
                     case "High FedRAMP":
-                        Properties.Settings.Default.colFedHigh = i;
+                        Properties.Settings.Default.colNistHigh = i;
                         Properties.Settings.Default.Save();
                         break;
                 }
@@ -88,7 +88,7 @@ namespace Excel2DB
             }
             try
             {
-                Properties.Settings.Default.baseFirstRow = int.Parse(this.row.Text);
+                Properties.Settings.Default.conFirstRow = int.Parse(this.row.Text);
                 Properties.Settings.Default.Save();
             }
             catch (Exception ex)

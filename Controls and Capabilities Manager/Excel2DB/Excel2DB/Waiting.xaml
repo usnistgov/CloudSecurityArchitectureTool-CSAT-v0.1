@@ -1,4 +1,4 @@
-﻿<Window x:Class="Excel2DB.Waiting"
+﻿<Window x:Class="CSRC.Waiting"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Waiting" Height="300" Width="300">

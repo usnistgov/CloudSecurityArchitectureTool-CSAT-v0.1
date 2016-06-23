@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Excel2DB
+namespace CSRC
 {
     class ColorMaps
     {
@@ -43,17 +43,17 @@ namespace Excel2DB
             CIASeparate.Add(4, new int[] { 235, 29, 29 });
 
             valueassign = new SortedList<string, double>();
-            valueassign.Add("AX,AX,AX", 3);
-            valueassign.Add("XX,AX,AX", 2.5);
-            valueassign.Add("XA,AX,AX", 2);
-            valueassign.Add("XX,XX,AX", 2);
-            valueassign.Add("XA,XX,AX", 1.5);
-            valueassign.Add("XX,XX,XX", 1.5);
-            valueassign.Add("XA,XA,AX", 1);
-            valueassign.Add("XA,XX,XX", 1);
-            valueassign.Add("XA,XA,XX", 0.5);
-            valueassign.Add("XA,XA,XA", 0);
-            valueassign.Add("AA,AA,AA", -1);
+            valueassign.Add("A,X,A,X,A,X", 3);
+            valueassign.Add("X,X,A,X,A,X", 2.5);
+            valueassign.Add("X,A,A,X,A,X", 2);
+            valueassign.Add("X,X,X,X,A,X", 2);
+            valueassign.Add("X,A,X,X,A,X", 1.5);
+            valueassign.Add("X,X,X,X,X,X", 1.5);
+            valueassign.Add("X,A,X,A,A,X", 1);
+            valueassign.Add("X,A,X,X,X,X", 1);
+            valueassign.Add("X,A,X,A,X,X", 0.5);
+            valueassign.Add("X,A,X,A,X,A", 0);
+            valueassign.Add("A,A,A,A,A,A", -1);
 
             responsibility = new SortedList<double, int[]>();
             responsibility.Add( 3,new int[]{255,20,20});

@@ -1,6 +1,6 @@
 ﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:Excel2DB" x:Class="Excel2DB.VisualizationTool"
+        xmlns:local="clr-namespace:CSRC" x:Class="CSRC.VisualizationTool"
         Title="VisualizationTool" Height="500" Width="500" Name="screen">
     <Grid>
         <ScrollViewer Margin="0,60,0,0" Name="window" HorizontalAlignment="Right" VerticalAlignment="Top" HorizontalScrollBarVisibility="Visible" >

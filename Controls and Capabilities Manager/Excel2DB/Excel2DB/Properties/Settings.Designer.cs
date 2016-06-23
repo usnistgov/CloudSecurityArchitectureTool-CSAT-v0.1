@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Excel2DB.Properties {
+namespace CSRC.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,30 +20,6 @@ namespace Excel2DB.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool FirstRun {
-            get {
-                return ((bool)(this["FirstRun"]));
-            }
-            set {
-                this["FirstRun"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\"\"")]
-        public string appFolders {
-            get {
-                return ((string)(this["appFolders"]));
-            }
-            set {
-                this["appFolders"] = value;
             }
         }
         
@@ -169,7 +145,7 @@ namespace Excel2DB.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int colDomain {
             get {
                 return ((int)(this["colDomain"]));
@@ -181,19 +157,19 @@ namespace Excel2DB.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public int colContianer {
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int colContainer {
             get {
-                return ((int)(this["colContianer"]));
+                return ((int)(this["colContainer"]));
             }
             set {
-                this["colContianer"] = value;
+                this["colContainer"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public int colCapability {
             get {
                 return ((int)(this["colCapability"]));
@@ -205,7 +181,7 @@ namespace Excel2DB.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public int colCapability2 {
             get {
                 return ((int)(this["colCapability2"]));
@@ -217,31 +193,7 @@ namespace Excel2DB.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
-        public int colCapFamily {
-            get {
-                return ((int)(this["colCapFamily"]));
-            }
-            set {
-                this["colCapFamily"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("6")]
-        public int colIdentifier {
-            get {
-                return ((int)(this["colIdentifier"]));
-            }
-            set {
-                this["colIdentifier"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
         public int colDescription {
             get {
                 return ((int)(this["colDescription"]));
@@ -253,31 +205,7 @@ namespace Excel2DB.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int colInfoLow {
-            get {
-                return ((int)(this["colInfoLow"]));
-            }
-            set {
-                this["colInfoLow"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("21")]
-        public int colNotes {
-            get {
-                return ((int)(this["colNotes"]));
-            }
-            set {
-                this["colNotes"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
         public int colScope {
             get {
                 return ((int)(this["colScope"]));
@@ -289,7 +217,7 @@ namespace Excel2DB.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("9")]
+        [global::System.Configuration.DefaultSettingValueAttribute("8")]
         public int colTIC {
             get {
                 return ((int)(this["colTIC"]));
@@ -301,61 +229,37 @@ namespace Excel2DB.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
-        public int capFirstRow {
+        [global::System.Configuration.DefaultSettingValueAttribute("9")]
+        public int colInfoLow {
             get {
-                return ((int)(this["capFirstRow"]));
+                return ((int)(this["colInfoLow"]));
             }
             set {
-                this["capFirstRow"] = value;
+                this["colInfoLow"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public int conFirstRow {
+        [global::System.Configuration.DefaultSettingValueAttribute("22")]
+        public int colNotes {
             get {
-                return ((int)(this["conFirstRow"]));
+                return ((int)(this["colNotes"]));
             }
             set {
-                this["conFirstRow"] = value;
+                this["colNotes"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("19")]
+        [global::System.Configuration.DefaultSettingValueAttribute("24")]
         public int colCIAC {
             get {
                 return ((int)(this["colCIAC"]));
             }
             set {
                 this["colCIAC"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int colIncluded {
-            get {
-                return ((int)(this["colIncluded"]));
-            }
-            set {
-                this["colIncluded"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public int baseFirstRow {
-            get {
-                return ((int)(this["baseFirstRow"]));
-            }
-            set {
-                this["baseFirstRow"] = value;
             }
         }
         
@@ -380,18 +284,6 @@ namespace Excel2DB.Properties {
             }
             set {
                 this["colFedLow"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
-        public int colNistAnt {
-            get {
-                return ((int)(this["colNistAnt"]));
-            }
-            set {
-                this["colNistAnt"] = value;
             }
         }
         
@@ -445,13 +337,109 @@ namespace Excel2DB.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("24")]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int capFirstRow {
+            get {
+                return ((int)(this["capFirstRow"]));
+            }
+            set {
+                this["capFirstRow"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int conFirstRow {
+            get {
+                return ((int)(this["conFirstRow"]));
+            }
+            set {
+                this["conFirstRow"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int baseFirstRow {
+            get {
+                return ((int)(this["baseFirstRow"]));
+            }
+            set {
+                this["baseFirstRow"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string appFolders {
+            get {
+                return ((string)(this["appFolders"]));
+            }
+            set {
+                this["appFolders"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("29")]
         public int colCapVector {
             get {
                 return ((int)(this["colCapVector"]));
             }
             set {
                 this["colCapVector"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FirstRun {
+            get {
+                return ((bool)(this["FirstRun"]));
+            }
+            set {
+                this["FirstRun"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        public int colIdentifier {
+            get {
+                return ((int)(this["colIdentifier"]));
+            }
+            set {
+                this["colIdentifier"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int colNistAnt {
+            get {
+                return ((int)(this["colNistAnt"]));
+            }
+            set {
+                this["colNistAnt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool capFile3Cols {
+            get {
+                return ((bool)(this["capFile3Cols"]));
+            }
+            set {
+                this["capFile3Cols"] = value;
             }
         }
     }

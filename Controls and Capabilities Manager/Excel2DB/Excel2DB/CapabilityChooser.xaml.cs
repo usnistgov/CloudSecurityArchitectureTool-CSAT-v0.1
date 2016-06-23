@@ -13,9 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Excel2DB.Models;
+using CSRC.Models;
 
-namespace Excel2DB
+namespace CSRC
 {
     /// <summary>
     /// Interaction logic for CapabilityChooser.xaml

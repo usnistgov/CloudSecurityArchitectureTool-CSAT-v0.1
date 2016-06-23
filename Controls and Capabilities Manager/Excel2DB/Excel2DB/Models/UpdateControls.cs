@@ -11,7 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-namespace Excel2DB.Models
+namespace CSRC.Models
 {
     class UpdateControls : Excel2Db
     {
@@ -408,7 +408,7 @@ namespace Excel2DB.Models
         /// <returns></returns>
         private string GetControlsFamilyName(string[] rowData)
         {
-            return rowData[Constants.colNumber].Substring(0, 2);
+            return rowData[Constants.colNumber].Substring( 2);
         }
 
         /// <summary>

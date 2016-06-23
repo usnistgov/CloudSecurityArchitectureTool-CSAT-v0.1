@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using ExcelReports.ExcelInteropReports;
 
-namespace Excel2DB.Models
+namespace CSRC.Models
 {
     class UpdateBaselines:Excel2Db
     {

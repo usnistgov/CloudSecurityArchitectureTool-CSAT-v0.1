@@ -11,7 +11,6 @@
       <Column Name="Container" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="587482ab-aedb-4eb2-a887-e499ad39d336" />
       <Column Name="Capability" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="d6fea312-c225-4a4a-9bea-eccbc3c6be81" />
       <Column Name="Capability2" Type="System.String" DbType="varchar(8000)" CanBeNull="true" UpdateCheck="Always" ed:ValidateRequired="false" ed:Guid="fc48e432-7d8e-429c-9589-97b5297f85f9" />
-      <Column Name="FamilyId" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="e0e5c2cf-c504-4e2a-9fcd-d7bbbdcfe0ae" />
       <Column Name="UniqueId" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="bbc215ef-508a-4a98-afb5-974108fd7a09" />
       <Column Name="Description" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="6aaa7558-2a8a-43e0-ac9e-164d88070156" />
       <Column Name="Notes" Type="System.String" DbType="varchar(8000)" CanBeNull="true" UpdateCheck="Always" ed:ValidateRequired="false" ed:Guid="b0c4187c-5cc7-4d0e-bd98-3c4b0b150f8e" />

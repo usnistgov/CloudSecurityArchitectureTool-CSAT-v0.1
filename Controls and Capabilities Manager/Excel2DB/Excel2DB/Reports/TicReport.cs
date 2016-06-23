@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Excel2DB.Reports
+namespace CSRC.Reports
 {
-    class TicReport:BaseReport
+    class TicReport : BaseReport
     {
         /// <summary>
         /// get unique tic list
@@ -18,7 +18,7 @@ namespace Excel2DB.Reports
             List<string> ticList = new List<string>();
             var ret = (from p in dbContext.TICMappings
                        orderby p.TICName
-                      select new { p.TICName} ).Distinct();
+                       select new { p.TICName }).Distinct();
             foreach (var rec in ret)
             {
                 ticList.Add(rec.TICName);
@@ -68,7 +68,7 @@ namespace Excel2DB.Reports
                     this.activeWorksheet.setCellTo(row, col++, "Med.");
                     this.activeWorksheet.setCellTo(row, col++, "High");
 
-                    
+
                     row++;
                     int bg, fg;
                     foreach (string tic in tics)
@@ -79,7 +79,7 @@ namespace Excel2DB.Reports
                         List<Context.Capabilities> list = GetCaps(tic);
                         double sub = inc / list.Count;
                         PrintCompactCaps(list, ref row, ref col, ref total, sub, bw);
-                        
+
                         row++;
                     }
 
@@ -95,13 +95,13 @@ namespace Excel2DB.Reports
                     this.activeWorksheet.ColumnWidth(6, 33);
                     this.activeWorksheet.Border(1, start, row - 2, start + 6);
                     this.activeWorksheet.fit(3, 3, row, 20);
-                    
+
                 }
             }
             catch (Exception e)
             {
                 string s = e.Message;
-                
+
             }
             finally
             {

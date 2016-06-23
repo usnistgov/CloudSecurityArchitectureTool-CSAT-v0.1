@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace Excel2DB.Reports
+namespace CSRC.Reports
 {
     class CapabilitiesByControlsReport: BaseReport
 

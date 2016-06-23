@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Excel2DB
+namespace CSRC
 {
     /// <summary>
     /// Interaction logic for App.xaml

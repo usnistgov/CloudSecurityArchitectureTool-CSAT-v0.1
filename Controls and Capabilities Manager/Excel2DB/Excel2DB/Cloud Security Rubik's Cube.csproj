@@ -7,14 +7,14 @@
     <ProjectGuid>{D98F1142-077F-4171-A350-509C6958F013}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>csrc</RootNamespace>
+    <RootNamespace>CSRC</RootNamespace>
     <AssemblyName>csrc</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\mdl1\Documents\Published CSRC 32-bit\</PublishUrl>
+    <PublishUrl>C:\Users\mdl1\Documents\Published CSRC 64-bit\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -118,6 +118,11 @@
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\DataConnecter.cs" />
     <Compile Include="Models\UpdateBaselines.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Reports\BaselineReport.cs" />
     <Compile Include="Reports\BaseReport.cs" />
     <Compile Include="Reports\CapabilitiesByControlsReport.cs" />
@@ -198,11 +203,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -210,11 +210,11 @@
     </EmbeddedResource>
     <None Include="Excel2DB_1_TemporaryKey.pfx" />
     <None Include="Excel2DB_TemporaryKey.pfx" />
+    <AppDesigner Include="Properties\" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

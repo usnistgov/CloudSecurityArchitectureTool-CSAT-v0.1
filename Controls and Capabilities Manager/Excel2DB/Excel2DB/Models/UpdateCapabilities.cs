@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using ExcelReports.ExcelInteropReports;
 
 
-namespace Excel2DB.Models
+namespace CSRC.Models
 {
     /// <summary>
     /// Reads and parses capabilities file and put data into database
@@ -92,12 +92,9 @@ namespace Excel2DB.Models
                     while (currentRow<this.row2Finish)
                     {
 
-                        string[] rowData = this.ReadExcelRow(currentRow,37);
+                        string[] rowData = this.ReadExcelRow(currentRow,50);
                         //hitCompletelyEmptyRow = ProcessNextLine(currentRow++, out currentLine);
-                        if (rowData[Constants.colIncluded].ToLower() == "y")
-                        {
-                            AddEntryToCapabilities(rowData);
-                        }
+                        AddEntryToCapabilities(rowData);
                         val += inc;
                         bw.ReportProgress((int)val);
                         currentRow++;
@@ -157,20 +154,42 @@ namespace Excel2DB.Models
         {
 
             if (null == listMap) listMap = new List<Context.MapTypesCapabilitiesControls>();
-            int currRow = this.row2Begin;
+            int currRow = Constants.capFirstRow;
             while (currRow < this.row2Finish)
             {
                 atotal += inc;
                 bw.ReportProgress((int)atotal);
 
-                string[] rowData = this.ReadExcelRow(currRow, 37);
-                if(rowData[Constants.colIncluded].ToLower() == "y")
-                    AddEntrytoMap(currRow, rowData, GetCapabilityFromRow(rowData));
+                string[] rowData = this.ReadExcelRow(currRow, 50);
+                AddEntrytoMap(currRow, rowData, GetCapabilityFromRow(rowData));
                 currRow++;
             }
         }
         
-        
+        private int[] GetImplementationColumns(){
+            int[] cols = new int[7];
+            if (Constants.capFile3Cols)
+            {
+                cols[0] = Constants.colInfoLow;
+                cols[1] = Constants.colInfoLow + 1;
+                cols[2] = Constants.colInfoLow + 2;
+                cols[3] = Constants.colInfoLow + 3;
+                cols[4] = Constants.colInfoLow + 4;
+                cols[5] = Constants.colInfoLow + 5;
+                cols[6] = Constants.colInfoLow + 6;
+            }
+            else
+            {
+                cols[0] = Constants.colInfoLow + 2;
+                cols[1] = Constants.colInfoLow + 5;
+                cols[2] = Constants.colInfoLow + 8;
+                cols[3] = Constants.colInfoLow + 9;
+                cols[4] = Constants.colInfoLow + 10;
+                cols[5] = Constants.colInfoLow + 11;
+                cols[6] = Constants.colInfoLow + 12;
+            }
+            return cols;
+        }        
         /// <summary>
         /// Create all necessary antities for the given row information
         /// </summary>
@@ -179,12 +198,10 @@ namespace Excel2DB.Models
         /// <param name="currentCapability"></param>
         private void AddEntrytoMap(int currRow, string[] rowData, Context.Capabilities currentCapability)
         {
-            for (int col = Constants.colInfoLow; col < Constants.colInfoLow + 7; col++)
+            int[] columns = GetImplementationColumns();
+            uint mapTypeId = 1;
+            foreach ( int col in columns)
             {
-                // 14,15,16 - Capability Implementation (Low(1,1), Moderate(1,2), Hight(1,3)) correspondingly
-                // 17 - PM Controls (2,1)
-                // 18, 19, 20 - Information Protection (Low(3,1), Moderate(3,2), Hight(3,3)) correspondingly
-                uint mapTypeId = (uint)(col - Constants.colInfoLow + 1 ); // Tentative logic loock-up would be much safer    
                 uint capId = GetCapabilityIdByUniqueId(currentCapability.UniqueId);
                 string[] controls = GetCleanListOfControls(rowData[col].Replace(" ","")); // !!!!!Important to have the dynamic COL instead of the static column number
                 foreach (string controlName in controls)
@@ -260,7 +277,6 @@ namespace Excel2DB.Models
                     Container = rowData[Constants.colContianer],
                     Capability = rowData[Constants.colCapability],
                     Capability2 = rowData[Constants.colCapability2],
-                    FamilyId = GetFamilyIdByFamilyPrefix(rowData[Constants.colCapFamily]),             //PROBEM NO FAMILY ID IN CURRENT VERSION
                     UniqueId = rowData[Constants.colIdentifier],
                     Description = rowData[Constants.colDescription],
                     Notes = rowData[Constants.colNotes],
@@ -268,20 +284,35 @@ namespace Excel2DB.Models
                     I = uint.Parse(rowData[Constants.colCIAC+1]),
                     A = uint.Parse(rowData[Constants.colCIAC+2]),
                     Scopes = rowData[Constants.colScope],
-                    ResponsibilityVector = GetResponceVector(rowData)
+                    ResponsibilityVector = GetResponceVector(rowData),
+                    OtherActors = GetOtherActors(rowData)
                 };
             return currentCapabilities;
         }
 
+        private string GetOtherActors(string[] rowdata)
+        {
+            string oths = "";
+            int col = Constants.colCapVector + 8;
+            oths += rowdata[col++];
+            oths += rowdata[col++];
+            oths += rowdata[col++];
+            col++;
+            oths += rowdata[col++];
+            col++;
+            oths += rowdata[col++];
+            return oths;
+
+        }
         private string GetResponceVector(string[] rowdata)
         {
             string vector = "";
             vector += rowdata[Constants.colCapVector];
-            vector += rowdata[Constants.colCapVector + 4];
-            vector += "," +rowdata[Constants.colCapVector + 1];
-            vector += rowdata[Constants.colCapVector + 5];
+            vector += "," + rowdata[Constants.colCapVector + 4];
+            vector += "," + rowdata[Constants.colCapVector + 1];
+            vector += "," + rowdata[Constants.colCapVector + 5];
             vector += "," + rowdata[Constants.colCapVector + 2];
-            vector += rowdata[Constants.colCapVector + 6];
+            vector += "," + rowdata[Constants.colCapVector + 6];
             return vector;
         }
         /// <summary>
@@ -315,16 +346,7 @@ namespace Excel2DB.Models
 
             Context.Capabilities currentCapabilities = GetCapabilityFromRow(rowData);
             AddTICs(rowData, currentCapabilities.UniqueId);
-
-            if (0 == currentCapabilities.FamilyId)
-            {
-                ReportErrorTrace("Capabilities parser: family id for family " + rowData[Constants.colCapFamily] + " not found");
-                return;
-            }
-            else
-            {
-                listCapabilities.Add(currentCapabilities);
-            }
+            listCapabilities.Add(currentCapabilities);
         }
     }
 }

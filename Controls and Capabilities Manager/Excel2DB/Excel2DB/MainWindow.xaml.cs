@@ -1,5 +1,5 @@
-﻿using Excel2DB.Models;
-using Excel2DB.Reports;
+﻿using CSRC.Models;
+using CSRC.Reports;
 using Microsoft.Win32;
 using System;
 using System.IO;
@@ -22,7 +22,7 @@ using form = System.Windows.Forms;
 using Microsoft.VisualBasic;
 
 
-namespace Excel2DB
+namespace CSRC
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -85,7 +85,7 @@ namespace Excel2DB
                 apppath = Properties.Settings.Default.appFolders;
             }
             dbContent = new Context.DataContext(DataConnecter.EstablishValidConnection());
-            Excel2DB.Models.Constants.ReadValues();
+            CSRC.Models.Constants.ReadValues();
             
             var con = from p in dbContent.Controls
                       select p;
@@ -946,7 +946,7 @@ namespace Excel2DB
        {
            ControlOrder or = new ControlOrder();
            or.ShowDialog();
-           Excel2DB.Models.Constants.ReadValues();
+           CSRC.Models.Constants.ReadValues();
        }
 
         /// <summary>
@@ -958,14 +958,14 @@ namespace Excel2DB
        {
            capOrder or = new capOrder();
            or.ShowDialog();
-           Excel2DB.Models.Constants.ReadValues();
+           CSRC.Models.Constants.ReadValues();
 
        }
        private void baseOrder(object sender, RoutedEventArgs e)
        {
            BaselineOrder or = new BaselineOrder();
            or.ShowDialog();
-           Excel2DB.Models.Constants.ReadValues();
+           CSRC.Models.Constants.ReadValues();
        }
         /// <summary>
         /// show example reports

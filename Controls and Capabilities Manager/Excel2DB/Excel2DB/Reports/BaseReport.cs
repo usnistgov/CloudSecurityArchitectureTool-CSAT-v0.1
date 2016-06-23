@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Excel2DB.Models;
+using CSRC.Models;
 using ExcelReports.ExcelInteropReports;
-namespace Excel2DB.Reports
+namespace CSRC.Reports
 {
     /// <summary>
     /// contains report helper methods
     /// </summary>
-    class BaseReport:Excel2Db
+    class BaseReport : Excel2Db
     {
         //Excel2Db operations4report = new Excel2Db(); 
         protected SortedList<string, int[]> domainPalette;
@@ -29,13 +29,13 @@ namespace Excel2DB.Reports
         {
             uint parentId = GetControlIdByName(controlName);
             var relatedControlsIDs =
-                from rels in dbContext.Relateds 
+                from rels in dbContext.Relateds
                 where rels.ParentId == parentId
-                select new {rels.ChildId};
+                select new { rels.ChildId };
             if (relatedControlsIDs.Any())
             {
                 List<string> names = new List<string>();
-                foreach (var id in relatedControlsIDs) 
+                foreach (var id in relatedControlsIDs)
                 {
                     uint theId = uint.Parse(id.ChildId.ToString());
                     names.Add(GetControlName(theId));
@@ -65,7 +65,7 @@ namespace Excel2DB.Reports
             {
                 tics += ticcap.TICName + ";";
             }
-            return tics.Trim(new char[]{';'});
+            return tics.Trim(new char[] { ';' });
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Excel2DB.Reports
         protected List<Context.Specs> GetSpecsByControlId(uint control)
         {
             List<Context.Specs> specs = new List<Context.Specs>();
-            var retval = 
+            var retval =
                 from p in dbContext.Specs
                 where p.ControId == control
                 select p.Id;
@@ -133,8 +133,8 @@ namespace Excel2DB.Reports
                 Context.Specs sp = ret.First();
                 name +=
                     (from p in dbContext.Controls
-                    where p.Id == sp.ControId
-                    select p.Name).First();
+                     where p.Id == sp.ControId
+                     select p.Name).First();
                 name += sp.SpecificationlName;
 
             }
@@ -184,7 +184,7 @@ namespace Excel2DB.Reports
                     needeCaps.Add(res.First());
                 }
             }
-            return needeCaps;                                  
+            return needeCaps;
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace Excel2DB.Reports
         /// </summary>
         /// <param name="controlId"></param>
         /// <returns></returns>
-        protected List<Context.Capabilities> GetCapabilitiesForControlId(uint controlId) 
+        protected List<Context.Capabilities> GetCapabilitiesForControlId(uint controlId)
         {
             List<Context.Capabilities> needeCaps = new List<Context.Capabilities>();
             var theCapIds =
@@ -217,12 +217,12 @@ namespace Excel2DB.Reports
                 var res = (from cap in dbContext.Capabilities
                            where (cap.Id == theId)
                            select cap);
-                if (res.Any()) 
+                if (res.Any())
                 {
                     needeCaps.Add(res.First());
                 }
             }
-            return needeCaps;                                  
+            return needeCaps;
         }
 
         /// <summary>
@@ -239,18 +239,19 @@ namespace Excel2DB.Reports
             {
                 if (iscontrol)
                 {
-                    
+
                     var association =
                     (from map in dbContext.MapTypesCapabilitiesControls
-                        where (map.ControlsId == Id) && (map.CapabilitiesId == capabilityId) && (map.MapTypesId == i)
-                        select map.MapTypesId);
+                     where (map.ControlsId == Id) && (map.CapabilitiesId == capabilityId) && (map.MapTypesId == i)
+                     select map.MapTypesId);
                     if (association.Any())
                     {
                         returnData[i - 1] = "X";
-                        if(i != 4)
+                        if (i != 4)
                             go = true;
                     }
-                    else if(go){
+                    else if (go)
+                    {
                         returnData[i - 1] = "X";
                     }
                     else
@@ -264,7 +265,7 @@ namespace Excel2DB.Reports
                 }
                 else
                 {
-                    
+
                     var association =
                     (from map in dbContext.MapTypesCapabilitiesControls
                      where (map.specId == Id) && (map.CapabilitiesId == capabilityId) && (map.MapTypesId == i)
@@ -289,8 +290,8 @@ namespace Excel2DB.Reports
                     }
                 }
             }
-            
-            return returnData;            
+
+            return returnData;
         }
 
         /// <summary>
@@ -305,7 +306,8 @@ namespace Excel2DB.Reports
                 from p in dbContext.Specs
                 where p.Id == specId
                 select new { p.ControId };
-            if(ret.Any()){
+            if (ret.Any())
+            {
                 uint id = ret.First().ControId;
                 var fam =
                     from p in dbContext.Controls
@@ -315,7 +317,7 @@ namespace Excel2DB.Reports
                 var name =
                     from p in dbContext.Families
                     where p.Id == famid
-                    select new {p.Description};
+                    select new { p.Description };
                 return name.First().Description;
 
             }
@@ -585,14 +587,14 @@ namespace Excel2DB.Reports
                     {
                         this.activeWorksheet.setCellTo(row, col++, implements[i]);
                     }
-                    else 
+                    else
                     {
                         this.activeWorksheet.setCellTo(row, col++, implements[i], palette[i - 4][0]);
                     }
 
-                    
+
                 }
-                total += inc; 
+                total += inc;
                 bw.ReportProgress((int)total);
                 row++;
                 col = 2;
@@ -606,7 +608,7 @@ namespace Excel2DB.Reports
         /// <returns></returns>
         protected string[] GetImplements(uint capId)
         {
-            string[] info = new string[7]{"","","","","","",""};
+            string[] info = new string[7] { "", "", "", "", "", "", "" };
             for (int i = 1; i <= 7; i++)
             {
                 var ret = from p in dbContext.MapTypesCapabilitiesControls
@@ -638,7 +640,7 @@ namespace Excel2DB.Reports
                 info[i - 1] = info[i - 1].Trim(new char[] { ' ' });
                 info[i - 1] = info[i - 1].Trim(new char[] { ',' });
             }
-           
+
             return info;
         }
 
@@ -684,7 +686,7 @@ namespace Excel2DB.Reports
 
                 string[] impacts = GetTabbedImpactsFor(cap.Id, id, isControl);
                 int dc = 0;
-                foreach  (string tap in impacts)
+                foreach (string tap in impacts)
                 {
                     int localCol = 8 + dc;
                     if (localCol >= 8 && localCol <= 10)
@@ -701,7 +703,7 @@ namespace Excel2DB.Reports
                     }
                     dc++;
                 }
-                 
+
                 //The very last thing to do is to begin a new row
                 row++;
 

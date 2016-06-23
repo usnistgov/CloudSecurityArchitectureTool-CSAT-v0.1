@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using ExcelReports.ExcelInteropReports;
-namespace Excel2DB.Reports
+namespace CSRC.Reports
 {
     class CapabilityReport:BaseReport
     {

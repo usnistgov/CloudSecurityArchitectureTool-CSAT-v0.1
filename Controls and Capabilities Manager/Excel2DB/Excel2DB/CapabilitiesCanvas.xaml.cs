@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Excel2DB
+namespace CSRC
 {
     /// <summary>
     /// Interaction logic for CapabilitiesCanvas.xaml

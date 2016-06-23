@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Excel2DB.Models
+namespace CSRC.Models
 {
     /// <summary>
     /// Hold all of the constants for columns in spreedsheats 
@@ -13,14 +13,14 @@ namespace Excel2DB.Models
     {
         public static int colConFamily = 0, colNumber = 0, colTitle = 0, colImpact = 0, colPriority = 0, colDscription = 0, colGuidance = 0, colRelated = 0, colRest = 0,
             
-            colDomain = 0, colContianer = 0, colCapability = 0, colCapability2 = 0, colCapFamily = 0, colIdentifier = 0, colDescription = 0,
+            colDomain = 0, colContianer = 0, colCapability = 0, colCapability2 = 0, colIdentifier = 0, colDescription = 0,
             colInfoLow = 0,colNotes = 0, colScope = 0, colTIC = 0, capFirstRow = 0, conFirstRow = 0, colCIAC = 0,
-            colIncluded = 0, colCapVector = 0,
+            colIncluded = 0, colCapVector = 0, 
             
             baseFirstRow = 0, colNistLow = 0, colFedLow = 0, colNistAnt = 0, colNistMed = 0, colFedMed = 0, colNistHigh = 0, colFedHigh = 0;
             
         public static uint levelLow = 1, levelMed = 2, levelHigh = 3, AuthorNist = 1, AuthorFedRamp = 2;
-
+        public static bool capFile3Cols = false;
             
 
         /// <summary>
@@ -36,13 +36,11 @@ namespace Excel2DB.Models
             colGuidance = Properties.Settings.Default.colGuidance;
             colRelated = Properties.Settings.Default.colRelated;
             colRest = Properties.Settings.Default.colRest;
-
-            colIncluded = Properties.Settings.Default.colIncluded;    
+   
             colDomain = Properties.Settings.Default.colDomain;
-            colContianer = Properties.Settings.Default.colContianer;
+            colContianer = Properties.Settings.Default.colContainer;
             colCapability = Properties.Settings.Default.colCapability;
             colCapability2 = Properties.Settings.Default.colCapability2;
-            colCapFamily = Properties.Settings.Default.colCapFamily;
             colIdentifier = Properties.Settings.Default.colIdentifier;
             colDescription = Properties.Settings.Default.colDescription;
             colInfoLow = Properties.Settings.Default.colInfoLow;
@@ -62,6 +60,8 @@ namespace Excel2DB.Models
             colFedMed = Properties.Settings.Default.colFedMed;
             colNistHigh = Properties.Settings.Default.colNistHigh;
             colFedHigh = Properties.Settings.Default.colFedHigh;
+
+            capFile3Cols = Properties.Settings.Default.capFile3Cols;
         }
     }
 }

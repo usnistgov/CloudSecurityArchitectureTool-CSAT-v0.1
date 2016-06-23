@@ -1,4 +1,4 @@
-﻿<Window x:Class="Excel2DB.MainWindow"
+﻿<Window x:Class="CSRC.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Cloud Security Rubik's Cube" Height="720" Width="800" Left="0" Top="0">

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualBasic;
 using System.Windows;
 
-namespace Excel2DB.Models
+namespace CSRC.Models
 {
     /// <summary>
     /// Handles database connection and cleaning

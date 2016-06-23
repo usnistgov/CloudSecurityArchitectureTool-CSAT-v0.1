@@ -1,4 +1,4 @@
-﻿<Window x:Class="Excel2DB.capOrder"
+﻿<Window x:Class="CSRC.capOrder"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Capability Order" Height="300" Width="700">
