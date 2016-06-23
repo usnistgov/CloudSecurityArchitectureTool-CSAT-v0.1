@@ -19,6 +19,7 @@
       <Column Name="I" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="983dae32-4bd6-4bea-8203-17629c83a144" />
       <Column Name="A" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="05074e1c-041c-41b7-835b-01c0db760afc" />
       <Column Name="ResponsibilityVector" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="fa9d73b4-600f-4d6d-851c-ef6383b7baca" />
+      <Column Name="OtherActors" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="acfa63c6-01bf-4e31-980c-bfd2ca5c94cb" />
       <Association Name="Capabilities_TICMappings" ed:AssociationGuid="692bb7d7-91fd-4be3-9611-f52af797db52" Member="TICMappings" ed:Guid="60bd3e5a-7b9e-4121-be8e-cd20245075e9" ThisKey="Id" OtherKey="CapabilityId" Type="TICMappings" />
     </Type>
   </Table>

@@ -53,7 +53,7 @@ namespace CSRC
 
             //setup
 
-            if (Properties.Settings.Default.FirstRun)
+            if (!Properties.Settings.Default.FirstRun)
             {
                 MessageBox.Show(
                     "\t\tWelcome to the Cloud Security Manager. \n\tBefore you can use the program, there is some simple set up to do. \n\n\t  First, you must choose where " +
