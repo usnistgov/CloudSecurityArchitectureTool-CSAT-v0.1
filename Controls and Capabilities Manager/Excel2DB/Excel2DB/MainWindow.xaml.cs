@@ -53,7 +53,7 @@ namespace CSRC
 
             //setup
 
-            if (!Properties.Settings.Default.FirstRun)
+            if (Properties.Settings.Default.FirstRun)
             {
                 MessageBox.Show(
                     "\t\tWelcome to the Cloud Security Manager. \n\tBefore you can use the program, there is some simple set up to do. \n\n\t  First, you must choose where " +
@@ -1012,6 +1012,20 @@ namespace CSRC
            this.menucreatetic.IsEnabled = val;
            this.visualization.IsEnabled = val;
            this.visMain.IsEnabled = val;
+       }
+
+       private void cap9col_Click(object sender, RoutedEventArgs e)
+       {
+           Properties.Settings.Default.capFile3Cols = false;
+           Properties.Settings.Default.Save();
+           Models.Constants.ReadValues();
+       }
+
+       private void cap3col_Click(object sender, RoutedEventArgs e)
+       {
+           Properties.Settings.Default.capFile3Cols = true;
+           Properties.Settings.Default.Save();
+           Models.Constants.ReadValues();
        }
 
     }

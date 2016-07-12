@@ -72,5 +72,11 @@
         <Image HorizontalAlignment="Left" Height="40" Margin="281,226,0,0" VerticalAlignment="Top" Width="49" x:Name="report4"/>
         <Button Content="Sample" HorizontalAlignment="Left" Margin="221,244,0,0" VerticalAlignment="Top" Width="45" x:Name="basedem" Height="21" Click="showex"/>
         <Button Name="visMain" Content="Visualizations" HorizontalAlignment="Left" Height="89" Margin="71,512,0,0" VerticalAlignment="Top" Width="145" Click="visualization_Click"/>
+        <GroupBox Header="Capability file type" HorizontalAlignment="Left" Height="63" Margin="587,537,0,0" VerticalAlignment="Top" Width="187">
+            <Grid>
+                <RadioButton Name="cap9col" Content="9 columns" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Click="cap9col_Click"  IsChecked="True"/>
+                <RadioButton Name="cap3col" Content="3 columns" HorizontalAlignment="Left" Margin="96,15,0,0" VerticalAlignment="Top" Click="cap3col_Click"/>
+            </Grid>
+        </GroupBox>
     </Grid>
 </Window>

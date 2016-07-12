@@ -258,7 +258,7 @@ namespace CSRC.Models
                             );
                     }
                 }
-
+                mapTypeId++;
 
             }
         }
@@ -295,15 +295,16 @@ namespace CSRC.Models
             string oths = "";
             int col = Constants.colCapVector + 8;
             oths += rowdata[col++];
-            oths += rowdata[col++];
-            oths += rowdata[col++];
+            oths += ',' + rowdata[col++];
+            oths += ',' + rowdata[col++];
             col++;
-            oths += rowdata[col++];
+            oths += ',' + rowdata[col++];
             col++;
-            oths += rowdata[col++];
+            oths += ',' + rowdata[col++];
             return oths;
 
         }
+
         private string GetResponceVector(string[] rowdata)
         {
             string vector = "";

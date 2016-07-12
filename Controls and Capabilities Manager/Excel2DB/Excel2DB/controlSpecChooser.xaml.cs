@@ -211,7 +211,7 @@ namespace CSRC
                 //pull info
                 control = add.Name.ToString();
                 int pos = control.IndexOf('f');
-                cid = uint.Parse(control.Substring( pos-7));
+                cid = uint.Parse(control.Substring(7, pos-7));
                 string find = "control" + cid + tree.Name;
                 //look for tree
                 TreeViewItem top = FindName(find) as TreeViewItem;
@@ -263,7 +263,7 @@ namespace CSRC
                 spec = add.Name.ToString();
                 cid = uint.Parse(control.Substring(7));
                 int pos = specpiec.IndexOf('f');
-                spid=uint.Parse(specpiec.Substring(pos-4));
+                spid=uint.Parse(specpiec.Substring(4,pos-4));
                 string check = control + tree.Name;
                 TreeViewItem top = FindName(check) as TreeViewItem;
                 if(top==null){
