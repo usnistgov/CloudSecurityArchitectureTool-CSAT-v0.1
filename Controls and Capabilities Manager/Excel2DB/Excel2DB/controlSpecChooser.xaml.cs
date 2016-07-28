@@ -174,6 +174,7 @@ namespace CSRC
                     select.IsExpanded = true;
                     if (select.Items.Count == 0)
                     {
+                        UnregisterName(select.Name);
                         this.final.Items.Remove(select);
                     }
                 }
@@ -181,8 +182,10 @@ namespace CSRC
                 {
                     TreeViewItem par = (select.Parent as TreeViewItem);
                     par.Items.Remove(select);
+                    UnregisterName(select.Name);
                     if (par.Items.Count == 0 && par.Header == null)
                     {
+                        UnregisterName(par.Name);
                         this.final.Items.Remove(par);
                     }
                 }
