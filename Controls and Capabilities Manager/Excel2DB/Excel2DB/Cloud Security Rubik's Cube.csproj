@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>26E84E203E35B3E65DF8A62BF638B587B42AFE52</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>5681DDEA5C97630590CCA36ED202E3FACF336895</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>
@@ -61,7 +61,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Cloud_Security_Rubiks_Cube.ico</ApplicationIcon>
