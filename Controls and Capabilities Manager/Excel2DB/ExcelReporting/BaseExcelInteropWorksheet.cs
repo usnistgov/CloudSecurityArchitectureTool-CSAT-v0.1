@@ -349,5 +349,12 @@ namespace ExcelReports.ExcelInteropReports
         worksheet.Rows.AutoFit();
     }
 
+    public void addColorText(string text, int row, int col, int color)
+    {
+        Range cell = (Range)worksheet.Cells[row, col];
+        cell.Value += text;
+        string celltext = cell.Value2;
+        cell.get_Characters(celltext.Length - text.Length + 1, text.Length).Font.Color = color;
+    }
   }
 }

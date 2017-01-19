@@ -69,7 +69,8 @@ namespace CSRC.Reports
                     this.activeWorksheet.setCellTo(row, col++, "Info protection: Low Impact", mapPalatte[col - 8][0], fg, false);
                     this.activeWorksheet.setCellTo(row, col++, "info protection: Moderate Impact", mapPalatte[col - 8][0], fg, false);
                     this.activeWorksheet.setCellTo(row, col++, "Info protection: High Impact", mapPalatte[col - 8][0], fg, false);
-
+                    this.activeWorksheet.addColorText("test", 1, 1, domainPalette["ITOS"][0]);
+                    this.activeWorksheet.addColorText("test", 1, 1, domainPalette["BOSS"][0]);
                     foreach (Context.Capabilities cap in capList)
                     {
                         col = 1;
