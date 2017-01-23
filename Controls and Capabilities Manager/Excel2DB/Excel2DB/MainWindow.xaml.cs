@@ -109,7 +109,12 @@ namespace CSRC
             {
                 CHangeReportStatus(false);
             }
-            
+            CSRC.Models.Constants.ReadValues();
+            if (CSRC.Models.Constants.capFile3Cols)
+            {
+                this.cap3col.IsChecked = true;
+                this.cap9col.IsChecked = false;
+            }
         }
 
         /// <summary>

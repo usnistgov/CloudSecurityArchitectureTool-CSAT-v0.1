@@ -10,6 +10,7 @@ namespace CSRC.Reports
 {
     class CapabilityReport:BaseReport
     {
+        protected int row = 1, col = 1;
 
         /// <summary>
         /// asemble capability report of selected options
@@ -26,7 +27,6 @@ namespace CSRC.Reports
                     int count = capList.Count;
                     double total = 0, inc = 100.0 / count;
 
-                    int row = 1, col = 1;
                     int fg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(0, 0, 0));
                     int bg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(217, 217, 217));
 
@@ -69,8 +69,6 @@ namespace CSRC.Reports
                     this.activeWorksheet.setCellTo(row, col++, "Info protection: Low Impact", mapPalatte[col - 8][0], fg, false);
                     this.activeWorksheet.setCellTo(row, col++, "info protection: Moderate Impact", mapPalatte[col - 8][0], fg, false);
                     this.activeWorksheet.setCellTo(row, col++, "Info protection: High Impact", mapPalatte[col - 8][0], fg, false);
-                    this.activeWorksheet.addColorText("test", 1, 1, domainPalette["ITOS"][0]);
-                    this.activeWorksheet.addColorText("test", 1, 1, domainPalette["BOSS"][0]);
                     foreach (Context.Capabilities cap in capList)
                     {
                         col = 1;
@@ -103,5 +101,8 @@ namespace CSRC.Reports
                 CloseSaveExcel();
             }
         }
+
+        
+         
     }
 }

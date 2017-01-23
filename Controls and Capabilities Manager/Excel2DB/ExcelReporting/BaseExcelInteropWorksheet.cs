@@ -354,7 +354,23 @@ namespace ExcelReports.ExcelInteropReports
         Range cell = (Range)worksheet.Cells[row, col];
         cell.Value += text;
         string celltext = cell.Value2;
-        cell.get_Characters(celltext.Length - text.Length + 1, text.Length).Font.Color = color;
+        cell.get_Characters(celltext.Length - text.Length, text.Length).Font.Color = color;
+    }
+
+    public void setBackgroundColor(int row, int col, int bg)
+    {
+        Range cell = (Range)worksheet.Cells[row, col];
+        cell.Interior.Color = bg.GetHashCode();
+    }
+
+    public void trim(int row, int col, string trim)
+    {
+        Range cell = (Range)worksheet.Cells[row, col];
+        string val = cell.Value2;
+        if (val != null)
+        {
+            cell.Value = val.Trim(trim.ToCharArray());
+        }
     }
   }
 }

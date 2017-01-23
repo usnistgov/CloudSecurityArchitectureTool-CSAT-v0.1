@@ -549,6 +549,17 @@ namespace CSRC.Reports
             return palette;
         }
 
+        protected int[] getBaselinePalette()
+        {
+            int[] palette = 
+            {
+                ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(0, 0, 0 ) ),
+                ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(0, 0, 255)),
+                ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(255, 0, 0)),
+                ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(255, 0,255))
+            };
+            return palette;
+        }
         /// <summary>
         /// print list of capabilities 
         /// </summary>
@@ -709,6 +720,83 @@ namespace CSRC.Reports
 
                 total += inc;
                 bw.ReportProgress((int)total);
+            }
+        }
+
+        public void securityComponents(uint capId, ref int row, ref int col)
+        {
+            int[][] mapPallete = GetMapPallate();
+            int[] baselinePallete = getBaselinePalette();
+            int fg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(0, 0, 0));
+
+            for (int level = 1; level <= 3; level++)
+            {
+                List<string>[] levelinfo = new List<string>[3];
+                levelinfo[0] = new List<string>();
+                levelinfo[1] = new List<string>();
+                levelinfo[2] = new List<string>();
+                var controlSpecs = from p in dbContext.MapTypesCapabilitiesControls
+                                   where p.CapabilitiesId == capId && p.MapTypesId == level
+                                   select p;
+                foreach (var item in controlSpecs)
+                {
+                    if (item.isControlMap)
+                    {
+                        var control = from p in dbContext.Controls
+                                      where p.Id == item.ControlsId
+                                      select p;
+                        levelinfo[2].Add(control.First().Name);
+
+                        var baseline = from p in dbContext.BaselineSecurityMappings
+                                       where p.ControlsId == item.ControlsId && p.Level == level
+                                       && p.IsControlMap == true
+                                       select p;
+                        foreach(var baselineInfo in baseline){
+                            levelinfo[baselineInfo.BaselineAuthor - 1].Add(control.First().Name);
+                        }
+                    }
+                    else
+                    {
+                        var spec = from p in dbContext.Specs
+                                   where p.Id == item.specId
+                                   select p;
+                        levelinfo[2].Add(GetSpecName(item.specId));
+
+                        var baseline = from p in dbContext.BaselineSecurityMappings
+                                       where p.SpecsId == item.specId && p.Level == level
+                                       && p.IsControlMap == false
+                                       select p;
+                        foreach(var baselineInfo in baseline){
+                            levelinfo[baselineInfo.BaselineAuthor - 1].Add(GetSpecName(item.specId));
+                        }
+                    }
+                }
+                //add first two baseline colums
+                for (int baseline = 0; baseline < 2; baseline++)
+                {
+                    this.activeWorksheet.setBackgroundColor(row, col, mapPalatte[level - 1][1]);
+                    foreach(string item in levelinfo[baseline]){
+                        this.activeWorksheet.addColorText(item + ", ", row, col, fg);
+                    }
+                    this.activeWorksheet.trim(row, col, ", ");
+                    col++;
+                }
+                this.activeWorksheet.setBackgroundColor(row, col, mapPalatte[1][1]);
+                //entire component
+                foreach (string item in levelinfo[2])
+                {
+                    int color = 0;
+                    for (int author = 0; author < 2; author++)
+                    {
+                        if (levelinfo[author].Contains(item))
+                        {
+                            color += author + 1;
+                        }
+                    }
+                    this.activeWorksheet.addColorText(item + ", ", row, col, baselinePallete[color]);
+                }
+                this.activeWorksheet.trim(row, col++, ", ");
+
             }
         }
     }

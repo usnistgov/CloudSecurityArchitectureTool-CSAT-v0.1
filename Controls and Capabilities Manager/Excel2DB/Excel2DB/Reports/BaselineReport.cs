@@ -147,15 +147,11 @@ namespace CSRC.Reports
                         this.activeWorksheet.setCellTo(row, col++, cap.Scopes);
                         this.activeWorksheet.setCellTo(row, col++, GetTICString(cap.Id));
 
-                        string[] components = GetBaselineDivision(cap.Id);
-                        foreach (string component in components)
+                        securityComponents(cap.Id, ref row, ref col);
+                        string[] maps = GetImplements(cap.Id);
+                        for (int i = 3; i < maps.Length; i++)
                         {
-                            this.activeWorksheet.setCellTo(row, col++, component, mapPalatte[0][1], fg, false);
-                        }
-                        components = GetImplements(cap.Id);
-                        for (int i = 3; i < components.Length; i++)
-                        {
-                            this.activeWorksheet.setCellTo(row, col++, components[i], mapPalatte[i][1], fg, false);
+                            this.activeWorksheet.setCellTo(row, col++, maps[i], mapPalatte[i][1], fg, false);
                         }
                         this.activeWorksheet.setCellTo(row, col++, cap.Notes);
                         col++;
@@ -203,77 +199,77 @@ namespace CSRC.Reports
 
         }
 
-        private string[] GetBaselineDivision(uint id)
-        {
-            string[] components = new string[9] { "", "", "", "", "", "", "", "", "" };
-            string[] implements = GetImplements(id);
-            for (int i = 1; i <= 3; i++)
-            {
-                List<string> controlSpecs = new List<string>();
-                var ret = from p in dbContext.MapTypesCapabilitiesControls
-                          where p.MapTypesId == i && p.CapabilitiesId == id
-                          select p;
-                components[3 * i - 1] = implements[i - 1];
-                foreach (var rec in ret)
-                {
-                    if (rec.isControlMap)
-                    {
-                        var contr = from p in dbContext.Controls
-                                    where p.Id == rec.ControlsId
-                                    select new { p.Name };
-                        controlSpecs.Add(contr.First().Name);
-                    }
-                    else
-                    {
-                        var sp = from p in dbContext.Specs
-                                 where p.Id == rec.specId
-                                 select new { p.ControId, p.SpecificationlName };
-                        uint conId = sp.First().ControId;
+        //private string[] GetBaselineDivision(uint id)
+        //{
+        //    string[] components = new string[9] { "", "", "", "", "", "", "", "", "" };
+        //    string[] implements = GetImplements(id);
+        //    for (int i = 1; i <= 3; i++)
+        //    {
+        //        List<string> controlSpecs = new List<string>();
+        //        var ret = from p in dbContext.MapTypesCapabilitiesControls
+        //                  where p.MapTypesId == i && p.CapabilitiesId == id
+        //                  select p;
+        //        components[3 * i - 1] = implements[i - 1];
+        //        foreach (var rec in ret)
+        //        {
+        //            if (rec.isControlMap)
+        //            {
+        //                var contr = from p in dbContext.Controls
+        //                            where p.Id == rec.ControlsId
+        //                            select new { p.Name };
+        //                controlSpecs.Add(contr.First().Name);
+        //            }
+        //            else
+        //            {
+        //                var sp = from p in dbContext.Specs
+        //                         where p.Id == rec.specId
+        //                         select new { p.ControId, p.SpecificationlName };
+        //                uint conId = sp.First().ControId;
 
-                        var top = from p in dbContext.Controls
-                                  where p.Id == conId
-                                  select new { p.Name };
-                        string name = top.First().Name + sp.First().SpecificationlName;
-                        controlSpecs.Add(name);
-                    }
-                }
+        //                var top = from p in dbContext.Controls
+        //                          where p.Id == conId
+        //                          select new { p.Name };
+        //                string name = top.First().Name + sp.First().SpecificationlName;
+        //                controlSpecs.Add(name);
+        //            }
+        //        }
 
-                foreach (string name in controlSpecs)
-                {
-                    bool iscontr;
-                    uint contrid, specid;
-                    if (isRow4Control(name))
-                    {
-                        iscontr = true;
-                        contrid = GetControlIdByName(name);
-                        specid = 1;
-                    }
-                    else
-                    {
-                        iscontr = false;
-                        contrid = 1;
-                        specid = GetSpecIdByName(name);
-                    }
-                    var data = from p in dbContext.BaselineSecurityMappings
-                               where p.IsControlMap == iscontr && p.ControlsId == contrid && p.SpecsId == specid && p.Level == i
-                               select p;
-                    int startCol = 3 * (i - 1);
-                    if (data.Any())
-                    {
-                        foreach (var rec in data)
-                        {
-                            components[startCol + rec.BaselineAuthor - 1] += name + ", ";
-                        }
-                    }
-                }
-            }
-            for (int i = 0; i < components.Length; i++)
-            {
-                components[i].Trim();
-                components[i].Trim(',');
-            }
+        //        foreach (string name in controlSpecs)
+        //        {
+        //            bool iscontr;
+        //            uint contrid, specid;
+        //            if (isRow4Control(name))
+        //            {
+        //                iscontr = true;
+        //                contrid = GetControlIdByName(name);
+        //                specid = 1;
+        //            }
+        //            else
+        //            {
+        //                iscontr = false;
+        //                contrid = 1;
+        //                specid = GetSpecIdByName(name);
+        //            }
+        //            var data = from p in dbContext.BaselineSecurityMappings
+        //                       where p.IsControlMap == iscontr && p.ControlsId == contrid && p.SpecsId == specid && p.Level == i
+        //                       select p;
+        //            int startCol = 3 * (i - 1);
+        //            if (data.Any())
+        //            {
+        //                foreach (var rec in data)
+        //                {
+        //                    components[startCol + rec.BaselineAuthor - 1] += name + ", ";
+        //                }
+        //            }
+        //        }
+        //    }
+        //    for (int i = 0; i < components.Length; i++)
+        //    {
+        //        components[i].Trim();
+        //        components[i].Trim(',');
+        //    }
 
-            return components;
-        }
+        //    return components;
+        //}
     }
 }
