@@ -26,9 +26,10 @@ namespace CSRC.Reports
                     mapPalatte = GetMapPallate();
                     domainPalette = GetDomainPalette();
                     //font and spacing
-                    this.activeWorksheet.SetFont(14, 1, 1, 3, 45);
                     this.activeWorksheet.wrapText(1, 1, 3, 45);
                     this.activeWorksheet.Center(1, 1, 3, 45);
+                    this.activeWorksheet.SetFont(14, 1, 1, 3, 45);
+                    
                     //set widths of columns
                     this.activeWorksheet.ColumnWidth(col++, 16.43);
                     this.activeWorksheet.ColumnWidth(col++, 26.71);
@@ -37,7 +38,7 @@ namespace CSRC.Reports
                     this.activeWorksheet.ColumnWidth(col++, 33.14);
                     this.activeWorksheet.ColumnWidth(col++, 10.47);
                     this.activeWorksheet.ColumnWidth(col++, 23.47);
-                    for (int i = 1; i <= 13; i++)
+                    for (int i = 1; i <= 16; i++)
                         this.activeWorksheet.ColumnWidth(col++, 17.57);
                     this.activeWorksheet.ColumnWidth(col++, 32);
                     this.activeWorksheet.ColumnWidth(col++, 2);
@@ -60,18 +61,19 @@ namespace CSRC.Reports
                     //header
                     int back = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(252, 238, 214));
                     int black = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(255, 255, 255));
-                    this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation\nSP800-53 Rev4", 9, back, black);
-                    col = 23;
+                    this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation\nSP800-53 Rev4", 12, back, black);
+                    col += 18;
                     this.activeWorksheet.setMergedCellTo(row, col, "Fictive Examples of Working Spreadsheet - NIST SP 500-299", 20, bg, fg);
-                    col = 8;
                     row++;
-                    this.activeWorksheet.setMergedCellTo(row, col, "Capability implementation: Low Impact", 3, back, black);
-                    col += 3;
-                    this.activeWorksheet.setMergedCellTo(row, col, "Capability implementation: Medium Impact", 3, back, black);
-                    col += 3;
-                    this.activeWorksheet.setMergedCellTo(row, col, "Capability implementation: High Impact", 3, back, black);
+                    col = 8;
+                    this.activeWorksheet.setMergedCellTo(row, col, "Capability implementation: Low Impact", 4, back, black);
                     col += 4;
+                    this.activeWorksheet.setMergedCellTo(row, col, "Capability implementation: Medium Impact", 4, back, black);
+                    col += 4;
+                    this.activeWorksheet.setMergedCellTo(row, col, "Capability implementation: High Impact", 4, back, black);
+                    col += 5;
                     this.activeWorksheet.setMergedCellTo(row, col, "Info Protection", 3, mapPalatte[4][0], black);
+
                     col += 5;
                     this.activeWorksheet.setMergedCellTo(row, col, "Security  Index System (example of how to use SIS)", 4, bg, fg);
                     col += 5;
@@ -84,12 +86,9 @@ namespace CSRC.Reports
                     this.activeWorksheet.setMergedCellTo(row, col, "Carrier", 1, bg, fg);
                     col += 2;
                     this.activeWorksheet.setMergedCellTo(row, col, "Auditor", 1, bg, fg);
-
-
-
+                    
                     col = 1;
                     row++;
-
                     this.activeWorksheet.setCellTo(row, col++, "Domain", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Container", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Capability (proccess or solution)", bg, fg, true);
@@ -99,14 +98,17 @@ namespace CSRC.Reports
                     this.activeWorksheet.setCellTo(row, col++, "TIC Capabilities Mapping", bg, fg, true);
                     int start = col;
                     this.activeWorksheet.setCellTo(row, col++, "Nist Baseline", mapPalatte[0][0], fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Additional Recommended Controls", mapPalatte[0][0], fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "FedRAMP Baseline", mapPalatte[0][0], fg, true);
-                    this.activeWorksheet.setCellTo(row, col++, "Entire Security Component", mapPalatte[0][0], fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Additional Recommended Controls", mapPalatte[0][0], fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Nist Baseline", mapPalatte[0][0], fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Additional Recommended Controls", mapPalatte[0][0], fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "FedRAMP Baseline", mapPalatte[0][0], fg, true);
-                    this.activeWorksheet.setCellTo(row, col++, "Entire Security Component", mapPalatte[0][0], fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Additional Recommended Controls", mapPalatte[0][0], fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Nist Baseline", mapPalatte[0][0], fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Additional Recommended Controls", mapPalatte[0][0], fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "FedRAMP Baseline", mapPalatte[0][0], fg, true);
-                    this.activeWorksheet.setCellTo(row, col++, "Entire Security Component", mapPalatte[0][0], fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Additional Recommended Controls", mapPalatte[0][0], fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "PM Controls", mapPalatte[3][0], fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Low Info Protection", mapPalatte[4][0], fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Moderate Info Protection", mapPalatte[4][0], fg, true);
@@ -147,18 +149,26 @@ namespace CSRC.Reports
                         this.activeWorksheet.setCellTo(row, col++, cap.Scopes);
                         this.activeWorksheet.setCellTo(row, col++, GetTICString(cap.Id));
 
-                        securityComponents(cap.Id, ref row, ref col);
-                        string[] maps = GetImplements(cap.Id);
-                        for (int i = 3; i < maps.Length; i++)
+                        string[] maps = securityComponents(cap.Id, ref row, ref col);
+                        for (int i = 0; i < maps.Length; i++)
                         {
-                            this.activeWorksheet.setCellTo(row, col++, maps[i], mapPalatte[i][1], fg, false);
+                            int color = 0;
+                            if (i < 12)
+                            {
+                                color = mapPalatte[0][1];
+                            }
+                            else
+                            {
+                                color = mapPalatte[i - 9][1];
+                            }
+                            this.activeWorksheet.setCellTo(row, col++, maps[i], color, fg, false);
                         }
                         this.activeWorksheet.setCellTo(row, col++, cap.Notes);
                         col++;
                         this.activeWorksheet.setCellTo(row, col++, cap.C.ToString());
                         this.activeWorksheet.setCellTo(row, col++, cap.I.ToString());
                         this.activeWorksheet.setCellTo(row, col++, cap.A.ToString());
-                        this.activeWorksheet.AddCellFormula(row, col++, "=W" + row + "+X" + row + "+y" + row);
+                        this.activeWorksheet.AddCellFormula(row, col++, "=Z" + row + "+AA" + row + "+AB" + row);
                         col++;
                         string[] responce = cap.ResponsibilityVector.Split(',');
                         this.activeWorksheet.setCellTo(row, col++, responce[0]);
@@ -181,10 +191,12 @@ namespace CSRC.Reports
                         total += inc;
                         wd.ReportProgress((int)total);
                     }
-                    this.activeWorksheet.fit(4, 3, row, 21);
-                    this.activeWorksheet.SetFont(12, 4, 1, row, 20);
-                    this.activeWorksheet.Border(1, start, row, start + 13);
-                    this.activeWorksheet.SetFont(14, 4, 23, row, 40);
+                    if (caps.Count > 0)
+                    {
+                        this.activeWorksheet.fit(4, 1, row, 21);
+                        this.activeWorksheet.SetFont(12, 4, 1, row, 60);
+                        this.activeWorksheet.Border(1, start, row, start + 15);
+                    }
                     wd.ReportProgress(100);
                 }
             }
@@ -199,77 +211,5 @@ namespace CSRC.Reports
 
         }
 
-        //private string[] GetBaselineDivision(uint id)
-        //{
-        //    string[] components = new string[9] { "", "", "", "", "", "", "", "", "" };
-        //    string[] implements = GetImplements(id);
-        //    for (int i = 1; i <= 3; i++)
-        //    {
-        //        List<string> controlSpecs = new List<string>();
-        //        var ret = from p in dbContext.MapTypesCapabilitiesControls
-        //                  where p.MapTypesId == i && p.CapabilitiesId == id
-        //                  select p;
-        //        components[3 * i - 1] = implements[i - 1];
-        //        foreach (var rec in ret)
-        //        {
-        //            if (rec.isControlMap)
-        //            {
-        //                var contr = from p in dbContext.Controls
-        //                            where p.Id == rec.ControlsId
-        //                            select new { p.Name };
-        //                controlSpecs.Add(contr.First().Name);
-        //            }
-        //            else
-        //            {
-        //                var sp = from p in dbContext.Specs
-        //                         where p.Id == rec.specId
-        //                         select new { p.ControId, p.SpecificationlName };
-        //                uint conId = sp.First().ControId;
-
-        //                var top = from p in dbContext.Controls
-        //                          where p.Id == conId
-        //                          select new { p.Name };
-        //                string name = top.First().Name + sp.First().SpecificationlName;
-        //                controlSpecs.Add(name);
-        //            }
-        //        }
-
-        //        foreach (string name in controlSpecs)
-        //        {
-        //            bool iscontr;
-        //            uint contrid, specid;
-        //            if (isRow4Control(name))
-        //            {
-        //                iscontr = true;
-        //                contrid = GetControlIdByName(name);
-        //                specid = 1;
-        //            }
-        //            else
-        //            {
-        //                iscontr = false;
-        //                contrid = 1;
-        //                specid = GetSpecIdByName(name);
-        //            }
-        //            var data = from p in dbContext.BaselineSecurityMappings
-        //                       where p.IsControlMap == iscontr && p.ControlsId == contrid && p.SpecsId == specid && p.Level == i
-        //                       select p;
-        //            int startCol = 3 * (i - 1);
-        //            if (data.Any())
-        //            {
-        //                foreach (var rec in data)
-        //                {
-        //                    components[startCol + rec.BaselineAuthor - 1] += name + ", ";
-        //                }
-        //            }
-        //        }
-        //    }
-        //    for (int i = 0; i < components.Length; i++)
-        //    {
-        //        components[i].Trim();
-        //        components[i].Trim(',');
-        //    }
-
-        //    return components;
-        //}
     }
 }

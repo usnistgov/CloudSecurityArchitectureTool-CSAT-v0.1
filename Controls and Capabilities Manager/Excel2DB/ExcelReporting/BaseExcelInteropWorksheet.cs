@@ -354,7 +354,7 @@ namespace ExcelReports.ExcelInteropReports
         Range cell = (Range)worksheet.Cells[row, col];
         cell.Value += text;
         string celltext = cell.Value2;
-        cell.get_Characters(celltext.Length - text.Length, text.Length).Font.Color = color;
+        cell.get_Characters(celltext.Length - text.Length + 1, text.Length).Font.Color = color;
     }
 
     public void setBackgroundColor(int row, int col, int bg)

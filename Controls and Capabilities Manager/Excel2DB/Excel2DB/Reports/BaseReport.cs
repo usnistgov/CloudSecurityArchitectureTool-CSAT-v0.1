@@ -723,81 +723,94 @@ namespace CSRC.Reports
             }
         }
 
-        public void securityComponents(uint capId, ref int row, ref int col)
+        public string[] securityComponents(uint capId, ref int row, ref int col)
         {
             int[][] mapPallete = GetMapPallate();
             int[] baselinePallete = getBaselinePalette();
             int fg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(0, 0, 0));
-
+            string[] components = new string[16];
+            for (int i = 0; i < components.Length; i++)
+            {
+                components[i] = "";
+            }
+            //capability implementation
             for (int level = 1; level <= 3; level++)
             {
-                List<string>[] levelinfo = new List<string>[3];
-                levelinfo[0] = new List<string>();
-                levelinfo[1] = new List<string>();
-                levelinfo[2] = new List<string>();
-                var controlSpecs = from p in dbContext.MapTypesCapabilitiesControls
-                                   where p.CapabilitiesId == capId && p.MapTypesId == level
-                                   select p;
-                foreach (var item in controlSpecs)
+                //  nist, above nist, fedRAMP, above fedRAMP
+                var implements = from p in dbContext.MapTypesCapabilitiesControls
+                                    where p.MapTypesId == level && p.CapabilitiesId == capId
+                                    select p;
+                foreach (var mapping in implements)
                 {
-                    if (item.isControlMap)
+                    string name = "";
+                    if (mapping.isControlMap)
                     {
-                        var control = from p in dbContext.Controls
-                                      where p.Id == item.ControlsId
-                                      select p;
-                        levelinfo[2].Add(control.First().Name);
-
+                        name = GetControlName(mapping.ControlsId);
+                    }
+                    else
+                    {
+                        name = GetSpecName(mapping.specId);
+                    }
+                    if (mapping.isControlMap)
+                    {
                         var baseline = from p in dbContext.BaselineSecurityMappings
-                                       where p.ControlsId == item.ControlsId && p.Level == level
-                                       && p.IsControlMap == true
-                                       select p;
-                        foreach(var baselineInfo in baseline){
-                            levelinfo[baselineInfo.BaselineAuthor - 1].Add(control.First().Name);
+                                        where p.Level == level && p.ControlsId == mapping.ControlsId
+                                        && p.IsControlMap == true
+                                        select p;
+                        foreach (var baseMap in baseline)
+                        {
+                            components[4 * (level - 1) + 2 * (baseMap.BaselineAuthor - 1)] += name + ',';
                         }
                     }
                     else
                     {
-                        var spec = from p in dbContext.Specs
-                                   where p.Id == item.specId
-                                   select p;
-                        levelinfo[2].Add(GetSpecName(item.specId));
-
                         var baseline = from p in dbContext.BaselineSecurityMappings
-                                       where p.SpecsId == item.specId && p.Level == level
-                                       && p.IsControlMap == false
-                                       select p;
-                        foreach(var baselineInfo in baseline){
-                            levelinfo[baselineInfo.BaselineAuthor - 1].Add(GetSpecName(item.specId));
-                        }
-                    }
-                }
-                //add first two baseline colums
-                for (int baseline = 0; baseline < 2; baseline++)
-                {
-                    this.activeWorksheet.setBackgroundColor(row, col, mapPalatte[level - 1][1]);
-                    foreach(string item in levelinfo[baseline]){
-                        this.activeWorksheet.addColorText(item + ", ", row, col, fg);
-                    }
-                    this.activeWorksheet.trim(row, col, ", ");
-                    col++;
-                }
-                this.activeWorksheet.setBackgroundColor(row, col, mapPalatte[1][1]);
-                //entire component
-                foreach (string item in levelinfo[2])
-                {
-                    int color = 0;
-                    for (int author = 0; author < 2; author++)
-                    {
-                        if (levelinfo[author].Contains(item))
+                                        where p.Level == level && p.SpecsId == mapping.specId
+                                        && p.IsControlMap == false
+                                        select p;
+                        foreach (var baseMap in baseline)
                         {
-                            color += author + 1;
+                            components[4 * (level - 1) + 2 * (baseMap.BaselineAuthor - 1)] += name + ',';
                         }
                     }
-                    this.activeWorksheet.addColorText(item + ", ", row, col, baselinePallete[color]);
-                }
-                this.activeWorksheet.trim(row, col++, ", ");
 
+                    if (!components[4 * (level - 1)].Contains(name))
+                    {
+                        //not in nist
+                        components[4 * (level - 1) + 1] += name + ',';
+                    }
+                    if (!components[4 * (level - 1) + 2].Contains(name))
+                    {
+                        //not in fedramp
+                        components[4 * (level - 1) + 3] += name + ',';
+                    }
+                }
             }
+
+            //pm & info sections
+
+            for (int level = 4; level <= 7; level++)
+            {
+                var mapping = from p in dbContext.MapTypesCapabilitiesControls
+                              where p.CapabilitiesId ==  capId && p.MapTypesId == level
+                              select p;
+                foreach (var map in mapping)
+                {
+                    if (map.isControlMap)
+                    {
+                        components[level + 8] += GetControlName(map.ControlsId) + ',';
+                    }
+                    else
+                    {
+                        components[level + 8] += GetSpecName(map.specId) + ',';
+                    }
+                }
+            }
+
+            for (int i = 0; i < components.Length; i++){
+                components[i] = components[i].Trim(',');
+            }
+            return components;
         }
     }
 }
