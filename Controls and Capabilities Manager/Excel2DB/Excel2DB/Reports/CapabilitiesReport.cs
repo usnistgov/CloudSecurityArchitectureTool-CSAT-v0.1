@@ -29,18 +29,22 @@ namespace CSRC.Reports
 
                     int fg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(0, 0, 0));
                     int bg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(217, 217, 217));
-
+                    int black = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(255, 255, 255));
                     //font and spacing
-                    this.activeWorksheet.SetFont(14, 1, 1, 2, 50);
-                    this.activeWorksheet.wrapText(1, 1, 2, 50);
+                    this.activeWorksheet.SetFont(14, 1, 1, 3, 50);
+                    this.activeWorksheet.wrapText(1, 1, 3, 50);
                     this.activeWorksheet.Center(1, 1, 3, 50);
+                    this.activeWorksheet.SetHeight(1, 54);
+
                     //set widths of columns
                     this.activeWorksheet.ColumnWidth(col++,16.43);
                     this.activeWorksheet.ColumnWidth(col++,26.71);
                     this.activeWorksheet.ColumnWidth(col++,28.29);
                     this.activeWorksheet.ColumnWidth(col++,21.71);
+                    this.activeWorksheet.ColumnWidth(col++,28.29);
                     this.activeWorksheet.ColumnWidth(col++,10.47);
-                    this.activeWorksheet.ColumnWidth(col++,43.14);
+                    this.activeWorksheet.ColumnWidth(col++,10.47);
+                    this.activeWorksheet.ColumnWidth(col++,30);
                     for (int i = 1; i <= 7; i++ )
                         this.activeWorksheet.ColumnWidth(col++, 17.57);
                     this.activeWorksheet.ColumnWidth(col++, 32);
@@ -57,16 +61,16 @@ namespace CSRC.Reports
                     for (int i = 0; i < 3; i++)
                         this.activeWorksheet.ColumnWidth(col++, 7);
                     this.activeWorksheet.ColumnWidth(col++, 2);
-                    this.activeWorksheet.ColumnWidth(col++, 8);
-                    this.activeWorksheet.ColumnWidth(col++, 3);
+                    this.activeWorksheet.ColumnWidth(col++, 8.5);
+                    this.activeWorksheet.ColumnWidth(col++, 2);
                     this.activeWorksheet.ColumnWidth(col++, 8.5);
                     mapPalatte = GetMapPallate();
                     domainPalette = GetDomainPalette();
-                    int back = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(252, 238, 214));
-                    int black = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(255, 255, 255));
-                    col = 16;
+                    
+                    
+                    col = 18;
                     this.activeWorksheet.setMergedCellTo(row, col, "Fictive Examples of Working Spreadsheet - NIST SP 500-299", 20, bg, fg); 
-                    col = 7;
+                    col = 9;
                     row++;
                     //header
                     this.activeWorksheet.setMergedCellTo(row,col,"Capability Implementation\nSP800-53 Rev4",3, back, black);
@@ -91,16 +95,18 @@ namespace CSRC.Reports
                     this.activeWorksheet.setCellTo(row,col++,"Container",bg,fg,true);
                     this.activeWorksheet.setCellTo(row,col++,"Capability (proccess or solution)",bg,fg,true);
                     this.activeWorksheet.setCellTo(row,col++,"Capability (proccess or solution)",bg,fg,true);
+                    this.activeWorksheet.setCellTo(row, col++, "Description", bg, fg, true);
                     this.activeWorksheet.setCellTo(row,col++,"Scope",bg,fg,true);
+                    this.activeWorksheet.setCellTo(row, col++, "Unique Identifier", bg, fg, true);
                     this.activeWorksheet.setCellTo(row,col++,"TIC Capabilities Mapping",bg,fg,true);
                     int start = col;
-                    this.activeWorksheet.setCellTo(row, col++, "Capability implementation: Low Impact", mapPalatte[col - 8][0], fg, false);
-                    this.activeWorksheet.setCellTo(row, col++, "Capability implementation: Moderate Impact", mapPalatte[col - 8][0], fg, false);
-                    this.activeWorksheet.setCellTo(row, col++, "Capability implementation: High Impact", mapPalatte[col - 8][0], fg, false);
-                    this.activeWorksheet.setCellTo(row, col++, "PM Controls", mapPalatte[col - 8][0], fg, false);
-                    this.activeWorksheet.setCellTo(row, col++, "Info protection: Low Impact", mapPalatte[col - 8][0], fg, false);
-                    this.activeWorksheet.setCellTo(row, col++, "info protection: Moderate Impact", mapPalatte[col - 8][0], fg, false);
-                    this.activeWorksheet.setCellTo(row, col++, "Info protection: High Impact", mapPalatte[col - 8][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Capability Implementation: Low Impact", mapPalatte[col - 10][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Capability Implementation: Moderate Impact", mapPalatte[col - 9][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Capability Implementation: High Impact", mapPalatte[col - 10][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "PM Controls", mapPalatte[col - 10][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Info protection: Low Impact", mapPalatte[col - 10][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Info protection: Moderate Impact", mapPalatte[col - 10][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Info protection: High Impact", mapPalatte[col - 10][0], fg, false);
                     this.activeWorksheet.setCellTo(row, col++, "Notes", bg, fg, true);
                     col++;
                     this.activeWorksheet.setCellTo(row, col++, "C", bg, fg, true);
@@ -123,6 +129,8 @@ namespace CSRC.Reports
                     this.activeWorksheet.setCellTo(row, col++, "ALL", bg, fg, true);
                     col++;
                     this.activeWorksheet.setCellTo(row, col++, "ALL", bg, fg, true);
+                    this.activeWorksheet.Border(3, 1, 3, 16);
+                    this.activeWorksheet.Border(1, 18, 3, 37);
 
                     foreach (Context.Capabilities cap in capList)
                     {
@@ -134,7 +142,9 @@ namespace CSRC.Reports
                         this.activeWorksheet.setCellTo(row, col++, cap.Container);
                         this.activeWorksheet.setCellTo(row, col++, cap.Capability);
                         this.activeWorksheet.setCellTo(row, col++, cap.Capability2);
+                        this.activeWorksheet.setCellTo(row, col++, cap.Description);
                         this.activeWorksheet.setCellTo(row, col++, cap.Scopes);
+                        this.activeWorksheet.setCellTo(row, col++, cap.UniqueId);
                         this.activeWorksheet.setCellTo(row, col++, GetTICString(cap.Id));
                         string[] maps = GetImplements(cap.Id);
                         for (int i = 0; i < maps.Length; i++)
@@ -146,7 +156,7 @@ namespace CSRC.Reports
                         this.activeWorksheet.setCellTo(row, col++, cap.C.ToString());
                         this.activeWorksheet.setCellTo(row, col++, cap.I.ToString());
                         this.activeWorksheet.setCellTo(row, col++, cap.A.ToString());
-                        this.activeWorksheet.AddCellFormula(row, col++, "=P" + row + "+Q" + row + "+R" + row);
+                        this.activeWorksheet.AddCellFormula(row, col++, "=R" + row + "+S" + row + "+T" + row);
                         col++;
                         string[] responce = cap.ResponsibilityVector.Split(',');
                         this.activeWorksheet.setCellTo(row, col++, responce[0]);
@@ -168,10 +178,11 @@ namespace CSRC.Reports
                         total += inc;
                         bw.ReportProgress((int)total);
                     }
+                    this.activeWorksheet.Hide(7);
                     if (capList.Count > 0)
                     {
-                        this.activeWorksheet.fit(3, 1, row, 45);
-                        this.activeWorksheet.SetFont(12, 3, 1, row, 45);
+                        this.activeWorksheet.fit(4, 1, row, 45);
+                        this.activeWorksheet.SetFont(12, 4, 1, row, 45);
                         this.activeWorksheet.Border(2, start, row, start + 6);
                     }
                 }

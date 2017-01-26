@@ -22,22 +22,24 @@ namespace CSRC.Reports
                     double total = 0, inc = 100.0 / caps.Count;
                     int fg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(0, 0, 0));
                     int bg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(217, 217, 217));
+                    int black = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(255, 255, 255));
 
                     mapPalatte = GetMapPallate();
                     domainPalette = GetDomainPalette();
                     //font and spacing
-                    this.activeWorksheet.wrapText(1, 1, 3, 45);
-                    this.activeWorksheet.Center(1, 1, 3, 45);
-                    this.activeWorksheet.SetFont(14, 1, 1, 3, 45);
-                    
+                    this.activeWorksheet.wrapText(1, 1, 3, 50);
+                    this.activeWorksheet.Center(1, 1, 3, 50);
+                    this.activeWorksheet.SetFont(14, 1, 1, 3, 50);
+  
                     //set widths of columns
                     this.activeWorksheet.ColumnWidth(col++, 16.43);
                     this.activeWorksheet.ColumnWidth(col++, 26.71);
                     this.activeWorksheet.ColumnWidth(col++, 28.29);
                     this.activeWorksheet.ColumnWidth(col++, 21.71);
                     this.activeWorksheet.ColumnWidth(col++, 33.14);
+                    this.activeWorksheet.ColumnWidth(col++, 33.14);
                     this.activeWorksheet.ColumnWidth(col++, 10.47);
-                    this.activeWorksheet.ColumnWidth(col++, 23.47);
+                    this.activeWorksheet.ColumnWidth(col++, 30);
                     for (int i = 1; i <= 16; i++)
                         this.activeWorksheet.ColumnWidth(col++, 17.57);
                     this.activeWorksheet.ColumnWidth(col++, 32);
@@ -57,25 +59,25 @@ namespace CSRC.Reports
                     this.activeWorksheet.ColumnWidth(col++, 8);
                     this.activeWorksheet.ColumnWidth(col++, 3);
                     this.activeWorksheet.ColumnWidth(col++, 8.5);
-                    col = 8;
+
                     //header
-                    int back = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(252, 238, 214));
-                    int black = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(255, 255, 255));
-                    this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation\nSP800-53 Rev4", 12, back, black);
+                    col = 9;
+                    this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation - SP800-53 Rev4", 12, back, black);
                     col += 18;
                     this.activeWorksheet.setMergedCellTo(row, col, "Fictive Examples of Working Spreadsheet - NIST SP 500-299", 20, bg, fg);
+                    
                     row++;
-                    col = 8;
-                    this.activeWorksheet.setMergedCellTo(row, col, "Capability implementation: Low Impact", 4, back, black);
+                    col = 9;
+                    this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation: Low Impact", 4, back, black);
                     col += 4;
-                    this.activeWorksheet.setMergedCellTo(row, col, "Capability implementation: Medium Impact", 4, back, black);
+                    this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation: Medium Impact", 4, back, black);
                     col += 4;
-                    this.activeWorksheet.setMergedCellTo(row, col, "Capability implementation: High Impact", 4, back, black);
+                    this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation: High Impact", 4, back, black);
                     col += 5;
                     this.activeWorksheet.setMergedCellTo(row, col, "Info Protection", 3, mapPalatte[4][0], black);
 
                     col += 5;
-                    this.activeWorksheet.setMergedCellTo(row, col, "Security  Index System (example of how to use SIS)", 4, bg, fg);
+                    this.activeWorksheet.setMergedCellTo(row, col, "Security  Index System (example of how to use SIS)", 4, bg, fg);    
                     col += 5;
                     this.activeWorksheet.setMergedCellTo(row, col, "Consumer", 3, bg, fg);
                     col += 4;
@@ -94,6 +96,7 @@ namespace CSRC.Reports
                     this.activeWorksheet.setCellTo(row, col++, "Capability (proccess or solution)", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Capability (proccess or solution)", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Description", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Unique ID", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Scope", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "TIC Capabilities Mapping", bg, fg, true);
                     int start = col;
@@ -135,6 +138,10 @@ namespace CSRC.Reports
                     this.activeWorksheet.setCellTo(row, col++, "ALL", bg, fg, true);
                     col++;
                     this.activeWorksheet.setCellTo(row, col++, "ALL", bg, fg, true);
+                    this.activeWorksheet.Hide(6);
+                    this.activeWorksheet.Border(3, 1, 3, 25);
+                    this.activeWorksheet.Border(1, 27, 3, 46);
+                    this.activeWorksheet.SetHeight(1, 37);
 
                     foreach (Context.Capabilities cap in caps)
                     {
@@ -146,6 +153,7 @@ namespace CSRC.Reports
                         this.activeWorksheet.setCellTo(row, col++, cap.Capability);
                         this.activeWorksheet.setCellTo(row, col++, cap.Capability2);
                         this.activeWorksheet.setCellTo(row, col++, cap.Description);
+                        this.activeWorksheet.setCellTo(row, col++, cap.UniqueId);
                         this.activeWorksheet.setCellTo(row, col++, cap.Scopes);
                         this.activeWorksheet.setCellTo(row, col++, GetTICString(cap.Id));
 
@@ -191,11 +199,11 @@ namespace CSRC.Reports
                         total += inc;
                         wd.ReportProgress((int)total);
                     }
+                    this.activeWorksheet.Border(1, start, row, start + 15);
                     if (caps.Count > 0)
                     {
-                        this.activeWorksheet.fit(4, 1, row, 21);
+                        this.activeWorksheet.fit(4, 1, row, 50);
                         this.activeWorksheet.SetFont(12, 4, 1, row, 60);
-                        this.activeWorksheet.Border(1, start, row, start + 15);
                     }
                     wd.ReportProgress(100);
                 }

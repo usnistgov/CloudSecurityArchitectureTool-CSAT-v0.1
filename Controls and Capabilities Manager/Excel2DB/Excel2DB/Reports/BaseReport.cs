@@ -20,6 +20,7 @@ namespace CSRC.Reports
         protected SortedList<string, int[]> domainPalette;
         protected SortedList<string, int[]> familyPalette;
         protected int[][] palette, mapPalatte;
+        protected int back;
         /// <summary>
         /// Get related controls by control ID
         /// </summary>
@@ -546,6 +547,7 @@ namespace CSRC.Reports
                     , ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(221, 217, 196))        // Dark Green
                 }
             };
+            back = palette[0][0];
             return palette;
         }
 
@@ -582,28 +584,15 @@ namespace CSRC.Reports
                     domFg = domainPalette[cap.Domain.Trim()][1];
                 }
                 this.activeWorksheet.setCellTo(row, col++, cap.Domain, domBg, domFg);
-                this.activeWorksheet.setCellTo(row, col++, cap.Container, domBg, domFg);
-                this.activeWorksheet.setCellTo(row, col++, cap.Capability, domBg, domFg);
-                this.activeWorksheet.setCellTo(row, col++, cap.Capability2, domBg, domFg);
-                this.activeWorksheet.setCellTo(row, col++, cap.Description, domBg, domFg);
+                this.activeWorksheet.setCellTo(row, col++, cap.Container);
+                this.activeWorksheet.setCellTo(row, col++, cap.Capability);
+                this.activeWorksheet.setCellTo(row, col++, cap.Capability2);
+                this.activeWorksheet.setCellTo(row, col++, cap.Description);
 
                 string[] implements = GetImplements(cap.Id);
                 for (int i = 0; i < implements.Length; i++)
                 {
-                    if (i < 3)
-                    {
-                        this.activeWorksheet.setCellTo(row, col++, implements[i], palette[i][0]);
-                    }
-                    else if (i == 3)
-                    {
-                        this.activeWorksheet.setCellTo(row, col++, implements[i]);
-                    }
-                    else
-                    {
-                        this.activeWorksheet.setCellTo(row, col++, implements[i], palette[i - 4][0]);
-                    }
-
-
+                    this.activeWorksheet.setCellTo(row, col++, implements[i], mapPalatte[i][1]);
                 }
                 total += inc;
                 bw.ReportProgress((int)total);
@@ -681,16 +670,9 @@ namespace CSRC.Reports
                     domFg = domainPalette[cap.Domain.Trim()][1];
                 }
                 activeWorksheet.setCellTo(row, col++, cap.Domain, domBg, domFg, true);
-                activeWorksheet.setCellTo(row, col++, cap.Container, domBg, domFg, true);
-                activeWorksheet.setCellTo(row, col++, cap.Capability, domBg, domFg, true);
-                if (!string.IsNullOrEmpty(cap.Capability2))
-                {
-                    activeWorksheet.setCellTo(row, col++, cap.Capability2, domBg, domFg, true);
-                }
-                else
-                {
-                    col++;
-                }
+                activeWorksheet.setCellTo(row, col++, cap.Container);
+                activeWorksheet.setCellTo(row, col++, cap.Capability);
+                activeWorksheet.setCellTo(row, col++, cap.Capability2);
                 activeWorksheet.setCellTo(row, col++, cap.UniqueId);
                 activeWorksheet.setCellTo(row, col++, cap.Scopes);
                 activeWorksheet.setCellTo(row, col++, GetTICString(cap.Id));
@@ -702,15 +684,15 @@ namespace CSRC.Reports
                     int localCol = 8 + dc;
                     if (localCol >= 8 && localCol <= 10)
                     {
-                        activeWorksheet.setCellTo(row, col++, tap, palette[dc][0], palette[dc][1], true);
+                        activeWorksheet.setCellTo(row, col++, tap, palette[dc][0], palette[dc][1], false);
                     }
                     else if (localCol >= 12 && localCol <= 14)
                     {
-                        activeWorksheet.setCellTo(row, col++, tap, palette[dc - 4][0], palette[dc - 4][1], true);
+                        activeWorksheet.setCellTo(row, col++, tap, palette[dc - 4][0], palette[dc - 4][1], false);
                     }
                     else
                     {
-                        activeWorksheet.setCellTo(row, col++, tap, 0, true);
+                        activeWorksheet.setCellTo(row, col++, tap);
                     }
                     dc++;
                 }

@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="csrc.exe" size="1936384">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="csrc.exe" size="1937920">
       <assemblyIdentity name="csrc" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>qEh5GjFW3KuT8/7/BFtUIUmlggrKy8ijI496i3FmYWI=</dsig:DigestValue>
+        <dsig:DigestValue>oSSLNUEcCWDJ1XJ7P9I+oPRLSl+WMbL/sDcp/Iqslts=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -62,7 +62,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>NVSI/qWqnSf0HB8ue75Sxbo+ITgRE6cm3VE15Rzm88M=</dsig:DigestValue>
+        <dsig:DigestValue>d3e1vmu5lRwP2ZACBqQLQbuCmmSsPY/qbQCTEq3ppCs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -74,7 +74,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>7EvrhFGPuuu5Ono6jloYMo/rPkUlHAOzSf30/JVgwXA=</dsig:DigestValue>
+        <dsig:DigestValue>jPbcnNm4lW1OTqkb8hH0zX16ewG53xyzERqh6IWT0so=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

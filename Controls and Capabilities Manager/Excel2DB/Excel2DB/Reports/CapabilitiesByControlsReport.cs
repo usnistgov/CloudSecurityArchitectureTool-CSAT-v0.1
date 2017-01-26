@@ -36,29 +36,53 @@ namespace CSRC.Reports
 
                     var controls = (from ctrl in dbContext.Controls
                                     select ctrl).ToList<Context.Controls>();
+
+                    int row = 1, col = 1;
                     int numcontrols = input.Count;
                     double total = 0, inc = 100.0 / numcontrols;
-                    this.activeWorksheet.SetFont(18, 1,1,2,20);
                     palette = GetPalette();
+                    
+                    //format header
+                    this.activeWorksheet.SetFont(18, 1,1,2,20);
+                    this.activeWorksheet.wrapText(1, 1, 2, 45);
+                    this.activeWorksheet.Center(1, 1, 2, 45);
+                    this.activeWorksheet.SetFont(14, 1, 1, 2, 45);
+
+                    //column widths
+                    this.activeWorksheet.ColumnWidth(col++, 25);
+                    this.activeWorksheet.ColumnWidth(col++, 15);
+                    this.activeWorksheet.ColumnWidth(col++, 16.43);
+                    this.activeWorksheet.ColumnWidth(col++, 26.71);
+                    this.activeWorksheet.ColumnWidth(col++, 28.29);
+                    this.activeWorksheet.ColumnWidth(col++, 21.71);
+                    this.activeWorksheet.ColumnWidth(col++, 28.29);
+                    this.activeWorksheet.ColumnWidth(col++, 10.47);
+                    this.activeWorksheet.ColumnWidth(col++, 30);
+                    col += 7;
+                    this.activeWorksheet.ColumnWidth(col, 30);
+                    
+                    int black = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(255, 255, 255));
+                    int fg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(0, 0, 0));
+                    int bg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(217, 217, 217));
 
                     //header
-                    int row = 1, col = 3;
-                    this.activeWorksheet.setMergedCellTo(row,col,"Capability Structure", 5);
-                    col += 7;
-                    this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation\nSP800-53 Rev4", 3);
+                    col = 9;
+                    //this.activeWorksheet.setMergedCellTo(row,col,"Capability Structure", 5, bg, fg);
+                    //col += 7;
+                    this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation\nSP800-53 Rev4", 3, bg, fg);
                     col += 4;
-                    this.activeWorksheet.setMergedCellTo(row, col, "Information Protection\nP800-53 Rev4", 3);
+                    this.activeWorksheet.setMergedCellTo(row, col, "Information Protection\nP800-53 Rev4", 3, bg, fg);
                     row++;
                     col = 1;
-                    this.activeWorksheet.setCellTo(row, col++, "Control Family");
-                    this.activeWorksheet.setCellTo(row, col++, "Control");
-                    this.activeWorksheet.setCellTo(row, col++, "Domain");
-                    this.activeWorksheet.setCellTo(row, col++, "Container");
-                    this.activeWorksheet.setCellTo(row, col++, "Capability");
-                    this.activeWorksheet.setCellTo(row, col++, "Capability Details");
-                    this.activeWorksheet.setCellTo(row, col++, "Unique ID");
-                    this.activeWorksheet.setCellTo(row, col++, "Scope");
-                    this.activeWorksheet.setCellTo(row, col++, "TIC Capabilities Mapping");
+                    this.activeWorksheet.setCellTo(row, col++, "Control Family", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Control", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Domain", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Container", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Capability (proccess or solution)", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Capability (proccess or solution)", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Unique ID", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Scope", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "TIC Capabilities Mapping", bg, fg, true);
                     int start = col;
                     // Scope and Impact Levels
                     this.activeWorksheet.setCellTo(row, col++, "Low", palette[0][0], palette[0][1], true);
@@ -72,22 +96,19 @@ namespace CSRC.Reports
                     this.activeWorksheet.setCellTo(row, col++, "Mod.", palette[1][0], palette[1][1], true);
                     this.activeWorksheet.setCellTo(row, col++, "High", palette[2][0], palette[2][1], true);
                     // Relateds
-                    this.activeWorksheet.setHeaderCellTo(row, col++, "Related Controls");
-                    
+                    this.activeWorksheet.setCellTo(row, col++, "Related Controls", bg, fg, true);
+                    this.activeWorksheet.Hide(7); 
+                    this.activeWorksheet.Border(2, 1, 2, 9);
+                    this.activeWorksheet.SetHeight(1, 57);
+                    this.activeWorksheet.SetHeight(2, 55);
+
                     familyPalette = GetFamilyPalette();
                     domainPalette = GetDomainPalette();
-                    int bg;
-                    int fg;
                     
-                    //=======================================================================
-                    //                      Main Loop of the Report
-                    //=======================================================================
                     foreach (string nam in input)
                     {
                         col = 1;
                         row++;
-                        bg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(255 , 255, 255));
-                        fg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(0, 0, 0));
                         //print control info
                         if (isRow4Control(nam))
                         {
@@ -140,18 +161,13 @@ namespace CSRC.Reports
                             }
                         }
                         row++;
-
                         
                     }
                     bw.ReportProgress(100);
-                    this.activeWorksheet.SetFont(12, 3, 1, row, 20);
-                    this.activeWorksheet.wrapText(1, 1, 1, 20);
-                    excelSource.fit();
-                    this.activeWorksheet.SetHeight(1, 70);
-                    this.activeWorksheet.Hide(7);
                     this.activeWorksheet.Border(1, start, row - 2, start + 6);
-                }
-                
+                    this.activeWorksheet.fit(3, 1, row - 1, 17);
+                    this.activeWorksheet.SetFont(12, 3, 1, row - 1, 16);
+                 }
             }
             catch (Exception ex)
             {

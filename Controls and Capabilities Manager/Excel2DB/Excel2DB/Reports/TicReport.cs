@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExcelReports.ExcelInteropReports;
 
 namespace CSRC.Reports
 {
@@ -39,38 +40,58 @@ namespace CSRC.Reports
                 if (InitNewExcelFile(fileName))
                 {
                     InitDataModel();
-                    this.activeWorksheet.SetFont(18, 1, 1, 2, 20);
+
                     List<string> tics = GetTics();
 
-                    //header
                     double total = 0, inc = 100.0 / tics.Count;
+                    int fg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(0, 0, 0));
+                    int bg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(217, 217, 217));
+                    
+                    int black = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(255, 255, 255));
                     palette = GetPalette();
+                    mapPalatte = GetMapPallate();
                     int row = 1, col = 1;
-                    this.activeWorksheet.setMergedCellTo(row, ++col, "Capability Structure", 5);
-                    col += 5;
-                    this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation", 3);
+
+                    //font
+                    this.activeWorksheet.wrapText(1, 1, 2, 15);
+                    this.activeWorksheet.Center(1, 1, 2, 15);
+                    this.activeWorksheet.SetFont(14, 1, 1, 2, 15);
+
+                    //colom widths
+                    this.activeWorksheet.ColumnWidth(col++, 20); 
+                    this.activeWorksheet.ColumnWidth(col++, 16.43);
+                    this.activeWorksheet.ColumnWidth(col++, 26.71);
+                    this.activeWorksheet.ColumnWidth(col++, 28.29);
+                    this.activeWorksheet.ColumnWidth(col++, 21.71);
+                    this.activeWorksheet.ColumnWidth(col++, 33.14);
+                    for (int i = 1; i <= 7; i++)
+                        this.activeWorksheet.ColumnWidth(col++, 17.57);
+
+                    //header
+                    col = 7;
+                    this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation", 3, back, black);
                     col += 4;
-                    this.activeWorksheet.setMergedCellTo(row++, col, "Impormation Protection", 3);
+                    this.activeWorksheet.setMergedCellTo(row++, col, "Information Protection", 3, mapPalatte[4][0], black);
                     col = 1;
-                    this.activeWorksheet.setCellTo(row, col++, "TIC Capability Mapping");
-                    this.activeWorksheet.setCellTo(row, col++, "Domain");
-                    this.activeWorksheet.setCellTo(row, col++, "Container");
-                    this.activeWorksheet.setCellTo(row, col++, "Capability");
-                    this.activeWorksheet.setCellTo(row, col++, "Capability Details");
-                    this.activeWorksheet.setCellTo(row, col++, "Description");
+                    this.activeWorksheet.setCellTo(row, col++, "TIC Capability Mapping", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Domain", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Container", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Capability", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Capability Details", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Description", bg, fg, true);
                     mapcols = col;
                     int start = col;
-                    this.activeWorksheet.setCellTo(row, col++, "Low");
-                    this.activeWorksheet.setCellTo(row, col++, "Med.");
-                    this.activeWorksheet.setCellTo(row, col++, "High");
-                    this.activeWorksheet.setCellTo(row, col++, "PM");
-                    this.activeWorksheet.setCellTo(row, col++, "Low");
-                    this.activeWorksheet.setCellTo(row, col++, "Med.");
-                    this.activeWorksheet.setCellTo(row, col++, "High");
-
-
+                    this.activeWorksheet.setCellTo(row, col++, "Capability Implementation: Low Impact", mapPalatte[col - start - 1][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Capability Implementation: Moderate Impact", mapPalatte[col - 9][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Capability Implementation: High Impact", mapPalatte[col - start - 1][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "PM Controls", mapPalatte[col - start - 1][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Info protection: Low Impact", mapPalatte[col - start - 1][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Info protection: Moderate Impact", mapPalatte[col - start - 1][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Info protection: High Impact", mapPalatte[col - start - 1][0], fg, false);
+                    this.activeWorksheet.Border(2, 1, 2, 13);
+                    this.activeWorksheet.SetHeight(1, 30);
+                    
                     row++;
-                    int bg, fg;
                     foreach (string tic in tics)
                     {
                         //sort by tic
@@ -84,15 +105,7 @@ namespace CSRC.Reports
                     }
 
                     this.activeWorksheet.SetFont(12, 3, 1, row, 20);
-                    excelSource.fit();
-
-                    for (int i = 0; i < 7; i++)
-                    {
-                        this.activeWorksheet.ColumnWidth(mapcols + i, 18);
-                    }
-                    this.activeWorksheet.ColumnWidth(4, 28);
-                    this.activeWorksheet.ColumnWidth(5, 22);
-                    this.activeWorksheet.ColumnWidth(6, 33);
+                    this.activeWorksheet.Center(3, 1, row, 1);
                     this.activeWorksheet.Border(1, start, row - 2, start + 6);
                     this.activeWorksheet.fit(3, 3, row, 20);
 
