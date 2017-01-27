@@ -64,7 +64,9 @@ namespace CSRC.Models
         protected List<Context.MapTypesCapabilitiesControls> listMap;
         protected List<Context.TICMappings> TICFinal;
         protected SortedList<string, List<Context.TICMappings>> listTIC;
-
+        protected int implementationStart;
+        protected bool implementation3col;
+        protected int uniqueIdCol;
         /// <summary>
         /// reads file, updates progress and inputs data
         /// </summary>
@@ -87,7 +89,7 @@ namespace CSRC.Models
                     // Loop over the Excel lines
 
                     //call function to pull column names 
-                    int currentRow = Constants.capFirstRow;
+                    int currentRow = 4;
                   
                     while (currentRow<this.row2Finish)
                     {
@@ -146,74 +148,61 @@ namespace CSRC.Models
                 }
             }
         }
-        
-        /// <summary>
-        /// Populates the Map Controls-Capabilities Information
-        /// </summary>
+
         private void PopulateMapData(BackgroundWorker bw, double atotal, double inc)
         {
 
             if (null == listMap) listMap = new List<Context.MapTypesCapabilitiesControls>();
-            int currRow = Constants.capFirstRow;
+            int currRow = 4;
             while (currRow < this.row2Finish)
             {
                 atotal += inc;
                 bw.ReportProgress((int)atotal);
 
                 string[] rowData = this.ReadExcelRow(currRow, 50);
-                AddEntrytoMap(currRow, rowData, GetCapabilityFromRow(rowData));
+                AddEntrytoMap(rowData);
                 currRow++;
             }
         }
-        
-        private int[] GetImplementationColumns(){
-            int[] cols = new int[7];
-            if (Constants.capFile3Cols)
-            {
-                cols[0] = Constants.colInfoLow;
-                cols[1] = Constants.colInfoLow + 1;
-                cols[2] = Constants.colInfoLow + 2;
-                cols[3] = Constants.colInfoLow + 3;
-                cols[4] = Constants.colInfoLow + 4;
-                cols[5] = Constants.colInfoLow + 5;
-                cols[6] = Constants.colInfoLow + 6;
-            }
-            else
-            {
-                cols[0] = Constants.colInfoLow + 2;
-                cols[1] = Constants.colInfoLow + 5;
-                cols[2] = Constants.colInfoLow + 8;
-                cols[3] = Constants.colInfoLow + 9;
-                cols[4] = Constants.colInfoLow + 10;
-                cols[5] = Constants.colInfoLow + 11;
-                cols[6] = Constants.colInfoLow + 12;
-            }
-            return cols;
-        }        
-        /// <summary>
-        /// Create all necessary antities for the given row information
-        /// </summary>
-        /// <param name="currRow"></param>
-        /// <param name="rowData"></param>
-        /// <param name="currentCapability"></param>
-        private void AddEntrytoMap(int currRow, string[] rowData, Context.Capabilities currentCapability)
+
+        private void AddEntrytoMap(string[] rowData)
         {
-            int[] columns = GetImplementationColumns();
-            uint mapTypeId = 1;
-            foreach ( int col in columns)
+            var que = from p in dbContext.Capabilities
+                      where p.UniqueId == rowData[uniqueIdCol]
+                      select p;
+            uint capId = que.First().Id;
+
+            for (uint level = 1; level <= 7; level++)
             {
-                uint capId = GetCapabilityIdByUniqueId(currentCapability.UniqueId);
-                string[] controls = GetCleanListOfControls(rowData[col].Replace(" ","")); // !!!!!Important to have the dynamic COL instead of the static column number
+                string implementList = "";
+                if (implementation3col)
+                {
+                    implementList = rowData[implementationStart + (level - 1)];
+                }
+                else
+                {
+                    if (level <= 3)
+                    {
+                        implementList = rowData[implementationStart + 4 * (level - 1)];
+                        implementList += "," + rowData[implementationStart + 4 * (level - 1) + 1];
+                    }
+                    else
+                    {
+                        int start = implementationStart + 12;
+                        implementList = rowData[start + (level - 4)];
+                    }
+                }
+                string[] controls = GetCleanListOfControls(implementList.Replace(" ", ""));
                 foreach (string controlName in controls)
                 {
                     try
-                    {
+                    {  
                         string topControl = RemoveeSpec(controlName);
 
                         uint controlId = GetControlIdByName(topControl);
                         uint specid = GetSpecsId(controlId, GetCleanTopControlName(controlName));
 
-                        if (mapTypeId > 0 && capId > 0 && (controlId > 0 || specid > 0))
+                        if (controlId > 0 || specid > 0)
                         {
                             bool isControl;
                             if (specid == 0)
@@ -227,73 +216,51 @@ namespace CSRC.Models
                             {
                                 CapabilitiesId = capId,
                                 ControlsId = controlId,
-                                MapTypesId = mapTypeId,
+                                MapTypesId = level,
                                 specId = specid,
                                 isControlMap = isControl
                             });
                         }
-                        else
-                        {
-                            // MAKE STINK ABOUT UNMAPPABLE DATA!!!
-                            ReportErrorTrace("Excel cell @row=" + currRow.ToString()
-                                + " @col=" + col.ToString()
-                                + " had unparsable combination : {mapType=" + mapTypeId.ToString()
-                                + ", Cap=" + currentCapability.UniqueId
-                                + ", CapId=" + capId
-                                + ", Cntrl=" + controlName
-                                + ", CntrlId=" + controlId
-                                + "}"
-                                );
-                        }
                     }
-                    catch (Exception x)
+                    catch (Exception e)
                     {
-                        ReportErrorTrace("Excel cell @row=" + currRow.ToString()
-                            + " @col=" + col.ToString()
-                            + " had unparsable combination : {mapType=" + mapTypeId.ToString()
-                            + ", Cap=" + currentCapability.UniqueId
-                            + ", CapId=" + capId
-                            + ", Cntrl=" + controlName
-                            + "}"
-                            );
+                        string s = e.Message;
                     }
                 }
-                mapTypeId++;
-
             }
         }
 
-        /// <summary>
-        /// pulls out all capability info from row
-        /// </summary>
-        /// <param name="rowData"> capability row</param>
-        /// <returns></returns>
-        private Context.Capabilities GetCapabilityFromRow(string[] rowData) 
+        private void SaveTics(string tics, string uniqueId)
         {
-            Context.Capabilities currentCapabilities
-                = new Context.Capabilities
+            if (listTIC == null) listTIC = new SortedList<string, List<Context.TICMappings>>();
+            string[] entries = tics.Replace(" ", string.Empty).Split(new char[] { ';', '\n', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string ticCap in entries)
+            {
+                Context.TICMappings ticdata = new Context.TICMappings
                 {
-                    Domain = rowData[Constants.colDomain],
-                    Container = rowData[Constants.colContianer],
-                    Capability = rowData[Constants.colCapability],
-                    Capability2 = rowData[Constants.colCapability2],
-                    UniqueId = rowData[Constants.colIdentifier],
-                    Description = rowData[Constants.colDescription],
-                    Notes = rowData[Constants.colNotes],
-                    C= uint.Parse(rowData[Constants.colCIAC]),
-                    I = uint.Parse(rowData[Constants.colCIAC+1]),
-                    A = uint.Parse(rowData[Constants.colCIAC+2]),
-                    Scopes = rowData[Constants.colScope],
-                    ResponsibilityVector = GetResponceVector(rowData),
-                    OtherActors = GetOtherActors(rowData)
+                    TICName = ticCap
                 };
-            return currentCapabilities;
+                if (!listTIC.ContainsKey(uniqueId)) listTIC[uniqueId] = new List<Context.TICMappings>();
+                listTIC[uniqueId].Add(ticdata);
+            }
+
         }
 
-        private string GetOtherActors(string[] rowdata)
+        private string GetResponceVector(string[] rowdata, int col)
+        {
+            string vector = "";
+            vector += rowdata[col];
+            vector += "," + rowdata[col + 4];
+            vector += "," + rowdata[col + 1];
+            vector += "," + rowdata[col + 5];
+            vector += "," + rowdata[col + 2];
+            vector += "," + rowdata[col + 6];
+            return vector;
+        }
+
+        private string GetOtherActors(string[] rowdata, ref int col)
         {
             string oths = "";
-            int col = Constants.colCapVector + 8;
             oths += rowdata[col++];
             oths += ',' + rowdata[col++];
             oths += ',' + rowdata[col++];
@@ -302,39 +269,6 @@ namespace CSRC.Models
             col++;
             oths += ',' + rowdata[col++];
             return oths;
-
-        }
-
-        private string GetResponceVector(string[] rowdata)
-        {
-            string vector = "";
-            vector += rowdata[Constants.colCapVector];
-            vector += "," + rowdata[Constants.colCapVector + 4];
-            vector += "," + rowdata[Constants.colCapVector + 1];
-            vector += "," + rowdata[Constants.colCapVector + 5];
-            vector += "," + rowdata[Constants.colCapVector + 2];
-            vector += "," + rowdata[Constants.colCapVector + 6];
-            return vector;
-        }
-        /// <summary>
-        /// inserts tic data into temparary list to be finished later
-        /// </summary>
-        /// <param name="rowData">full capability row</param>
-        /// <param name="capName">name of current capability</param>
-        private void AddTICs(string[] rowData, string capName)
-        {
-            if (listTIC == null) listTIC = new SortedList<string, List<Context.TICMappings>>();
-            string[] tic = rowData[Constants.colTIC].Replace(" ", string.Empty).Split(new char[] { ';' ,'\n', ','}, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (string ticCap in tic)
-            {
-                Context.TICMappings ticdata = new Context.TICMappings
-                {
-                    TICName = ticCap
-                };
-                if(!listTIC.ContainsKey(capName)) listTIC[capName] = new List<Context.TICMappings>();
-                listTIC[capName].Add(ticdata);
-            }
         }
 
         /// <summary>
@@ -345,9 +279,43 @@ namespace CSRC.Models
         {
             if (null == listCapabilities) listCapabilities = new List<Context.Capabilities>();
 
-            Context.Capabilities currentCapabilities = GetCapabilityFromRow(rowData);
-            AddTICs(rowData, currentCapabilities.UniqueId);
-            listCapabilities.Add(currentCapabilities);
+            int col = 0;
+            Context.Capabilities newCap = new Context.Capabilities();
+            newCap.Domain = rowData[col++];
+            newCap.Container = rowData[col++];
+            newCap.Capability = rowData[col++];
+            newCap.Capability2 = rowData[col++];
+            newCap.Description = rowData[col++];
+            newCap.CSADescription = rowData[col++];
+            uniqueIdCol = col;
+            newCap.UniqueId = rowData[col++];
+            newCap.Scopes = rowData[col++];
+
+            SaveTics(rowData[col++], newCap.UniqueId);
+
+            implementation3col = Properties.Settings.Default.capFile3Cols;
+            implementationStart = col;
+
+            if (implementation3col)
+            {
+                col += 7;
+            }
+            else
+            {
+                col += 16;
+            }
+
+            newCap.Notes = rowData[col++];
+            col++;
+            newCap.C = uint.Parse(rowData[col++]);
+            newCap.I = uint.Parse(rowData[col++]);
+            newCap.A = uint.Parse(rowData[col++]);
+            col += 2;
+            newCap.ResponsibilityVector = GetResponceVector(rowData, col);
+            col += 8;
+            newCap.OtherActors = GetOtherActors(rowData, ref col);
+
+            listCapabilities.Add(newCap);
         }
     }
 }

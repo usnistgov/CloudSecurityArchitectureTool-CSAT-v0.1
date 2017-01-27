@@ -23,22 +23,19 @@
                     <MenuItem Header="Update Security Baselines" Click="btnOpenSecurityBaselinesFile_Click" Name="menuUpdateBaseines"/>
                 </MenuItem>
                 <MenuItem Header="Utilities">
-                    <MenuItem Header="Edit Controls File Order" Click="controlOrder"/>
-                    <MenuItem Header="Edit Capabilities File Order" Click="capOrder"/>
-                    <MenuItem Header="Edit Baseline file Order" Click="baseOrder"/>
                     <MenuItem Header="Edit DB Connection" Click="EditDB"/>
                 </MenuItem>
             </Menu>
         </Menu>
 
         <Button Content="Update Security Controls" HorizontalAlignment="Left" Margin="399,484,0,0" VerticalAlignment="Top" Width="154" Click="btnOpenControlslFile_Click" RenderTransformOrigin="0.5,0.5" Name="updatecontrols"/>
-        <Button Content="Update Cloud Capabilities" HorizontalAlignment="Left" Height="22" Margin="587,484,0,0" VerticalAlignment="Top" Width="160" Click="btnOpenCapabilitiesFile_Click" Name="updateCaps"/>
+        <Button Content="Update Cloud Capabilities" HorizontalAlignment="Left" Height="22" Margin="587,551,0,0" VerticalAlignment="Top" Width="160" Click="btnOpenCapabilitiesFile_Click" Name="updateCaps"/>
         <Button Content="Update Security Baselines" HorizontalAlignment="Left" Height="22" Margin="400,551,0,0" VerticalAlignment="Top" Width="159" Click="btnOpenSecurityBaselinesFile_Click" Name="updateBaselines"/>
         <Image HorizontalAlignment="Left" Height="40" Margin="43,89,0,0" VerticalAlignment="Top" Width="49" Name="upcontrol"/>
         <Image HorizontalAlignment="Left" Height="40" Margin="43,158,0,0" VerticalAlignment="Top" Width="49" Name="upcapability"/>
         <Image HorizontalAlignment="Left" Height="40" Margin="43,244,0,0" VerticalAlignment="Top" Width="49" Name="upbaseline"/>
         <Label Content="" HorizontalAlignment="Left" Margin="400,512,0,0" VerticalAlignment="Top" Name="ControlFileName"/>
-        <Label Content="" HorizontalAlignment="Left" Margin="587,512,0,0" VerticalAlignment="Top" Name="CapFileName"/>
+        <Label Content="" HorizontalAlignment="Left" Margin="587,575,0,0" VerticalAlignment="Top" Name="CapFileName"/>
         <Label Content="" HorizontalAlignment="Left" Margin="399,578,0,0" VerticalAlignment="Top" Name="BaselineFileName"/>
 
         <Button HorizontalAlignment="Left" Margin="11,78,0,0" VerticalAlignment="Top" Width="180" Click="menuCreateReportControlsCap_Click" Name="capReport">
@@ -72,10 +69,10 @@
         <Image HorizontalAlignment="Left" Height="40" Margin="281,226,0,0" VerticalAlignment="Top" Width="49" x:Name="report4"/>
         <Button Content="Sample" HorizontalAlignment="Left" Margin="221,244,0,0" VerticalAlignment="Top" Width="45" x:Name="basedem" Height="21" Click="showex"/>
         <Button Name="visMain" Content="Visualizations" HorizontalAlignment="Left" Height="89" Margin="71,512,0,0" VerticalAlignment="Top" Width="145" Click="visualization_Click"/>
-        <GroupBox Header="Capability file type" HorizontalAlignment="Left" Height="63" Margin="587,537,0,0" VerticalAlignment="Top" Width="187">
+        <GroupBox Header="Capability Input File Type" HorizontalAlignment="Left" Height="76" Margin="587,475,0,0" VerticalAlignment="Top" Width="187">
             <Grid>
-                <RadioButton Name="cap9col" Content="9 columns" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Click="cap9col_Click"  IsChecked="True"/>
-                <RadioButton Name="cap3col" Content="3 columns" HorizontalAlignment="Left" Margin="96,15,0,0" VerticalAlignment="Top" Click="cap3col_Click"/>
+                <RadioButton Name="cap9col" Content="Baseines Included" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="cap9col_Click"  IsChecked="True"/>
+                <RadioButton Name="cap3col" Content="No Baseine Info" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Click="cap3col_Click"/>
             </Grid>
         </GroupBox>
     </Grid>

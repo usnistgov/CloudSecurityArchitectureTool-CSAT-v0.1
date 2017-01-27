@@ -38,6 +38,7 @@ namespace CSRC.Reports
                     this.activeWorksheet.ColumnWidth(col++, 21.71);
                     this.activeWorksheet.ColumnWidth(col++, 33.14);
                     this.activeWorksheet.ColumnWidth(col++, 33.14);
+                    this.activeWorksheet.ColumnWidth(col++, 33.14);
                     this.activeWorksheet.ColumnWidth(col++, 10.47);
                     this.activeWorksheet.ColumnWidth(col++, 30);
                     for (int i = 1; i <= 16; i++)
@@ -61,13 +62,13 @@ namespace CSRC.Reports
                     this.activeWorksheet.ColumnWidth(col++, 8.5);
 
                     //header
-                    col = 9;
+                    col = 10;
                     this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation - SP800-53 Rev4", 12, back, black);
                     col += 18;
                     this.activeWorksheet.setMergedCellTo(row, col, "Fictive Examples of Working Spreadsheet - NIST SP 500-299", 20, bg, fg);
                     
                     row++;
-                    col = 9;
+                    col = 10;
                     this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation: Low Impact", 4, back, black);
                     col += 4;
                     this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation: Medium Impact", 4, back, black);
@@ -95,7 +96,10 @@ namespace CSRC.Reports
                     this.activeWorksheet.setCellTo(row, col++, "Container", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Capability (proccess or solution)", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Capability (proccess or solution)", bg, fg, true);
-                    this.activeWorksheet.setCellTo(row, col++, "Description", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Description (NIST updated)", bg, fg, true);
+                    this.activeWorksheet.Hide(col);
+                    this.activeWorksheet.setCellTo(row, col++, "Description (from CSA)", bg, fg, true);
+                    this.activeWorksheet.Hide(col);
                     this.activeWorksheet.setCellTo(row, col++, "Unique ID", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "Scope", bg, fg, true);
                     this.activeWorksheet.setCellTo(row, col++, "TIC Capabilities Mapping", bg, fg, true);
@@ -138,9 +142,8 @@ namespace CSRC.Reports
                     this.activeWorksheet.setCellTo(row, col++, "ALL", bg, fg, true);
                     col++;
                     this.activeWorksheet.setCellTo(row, col++, "ALL", bg, fg, true);
-                    this.activeWorksheet.Hide(6);
-                    this.activeWorksheet.Border(3, 1, 3, 25);
-                    this.activeWorksheet.Border(1, 27, 3, 46);
+                    this.activeWorksheet.Border(3, 1, 3, 26);
+                    this.activeWorksheet.Border(1, 28, 3, 47);
                     this.activeWorksheet.SetHeight(1, 37);
 
                     foreach (Context.Capabilities cap in caps)
@@ -153,6 +156,7 @@ namespace CSRC.Reports
                         this.activeWorksheet.setCellTo(row, col++, cap.Capability);
                         this.activeWorksheet.setCellTo(row, col++, cap.Capability2);
                         this.activeWorksheet.setCellTo(row, col++, cap.Description);
+                        this.activeWorksheet.setCellTo(row, col++, cap.CSADescription);
                         this.activeWorksheet.setCellTo(row, col++, cap.UniqueId);
                         this.activeWorksheet.setCellTo(row, col++, cap.Scopes);
                         this.activeWorksheet.setCellTo(row, col++, GetTICString(cap.Id));

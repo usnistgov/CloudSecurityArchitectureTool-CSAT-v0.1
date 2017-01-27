@@ -142,10 +142,6 @@ namespace CSRC
             {
                 Directory.CreateDirectory(apppath + @"\800-53-Controls");
             }
-            if (!Directory.Exists(apppath + @"\CapabilitiesOverlays"))
-            {
-                Directory.CreateDirectory(apppath + @"\Capabilities Overlays");
-            }
             if (!Directory.Exists(apppath + @"\Reports"))
             {
                 Directory.CreateDirectory(apppath + @"\Reports");
@@ -252,7 +248,7 @@ namespace CSRC
         private void btnOpenCapabilitiesFile_Click(object sender, RoutedEventArgs e)
         {
             bool result;
-            result = OpenFile(ref CapabilitiesFile, apppath + @"\Capabilities Overlays", "Select Capabilities File to Parse", this.CapFileName);
+            result = OpenFile(ref CapabilitiesFile, apppath + @"\Reports", "Select Capabilities File to Parse", this.CapFileName);
             if (result)
             {
                 toggleUpload(false);
@@ -378,6 +374,7 @@ namespace CSRC
         {
             this.report1.Source = null;
             CHangeReportStatus(false);
+            toggleUpload(false);
             this.progressBar1.Value = 0;
             this.percentageLabel.Text = 0 + "%";
 
@@ -425,6 +422,7 @@ namespace CSRC
         private void menuCreateReportCapControls_Click(object sender, RoutedEventArgs e)
         {
             CHangeReportStatus(false);
+            toggleUpload(false);
             this.report2.Source = null;
             this.progressBar1.Value = 0;
             this.percentageLabel.Text = 0 + "%";
@@ -464,6 +462,7 @@ namespace CSRC
         /// <param name="e"></param>
         private void CreateTICReport(object sender, RoutedEventArgs e)
         {
+            toggleUpload(false);
             CHangeReportStatus(false);
             this.progressBar1.Value = 0;
             this.percentageLabel.Text = 0 + "%";
@@ -487,6 +486,7 @@ namespace CSRC
 
         private void CreateBaselineReport(object sender, RoutedEventArgs e)
         {
+            toggleUpload(false);
             CHangeReportStatus(false);
             this.progressBar1.Value = 0;
             this.percentageLabel.Text = 0 + "%";
@@ -524,47 +524,7 @@ namespace CSRC
             bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
             bw.RunWorkerAsync();
         }
-        /*
-        /// <summary>
-        /// create visio input report
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void visioCreate(object sender, RoutedEventArgs e)
-        {
-            CHangeReportStatus(false);
-            this.report4.Source = null;
-            this.progressBar1.Value = 0;
-            this.percentageLabel.Text = 0 + "%";
-            // Find out the file-name for output
-
-            controlSpecChooser CtrlCho = new controlSpecChooser();
-            if (CtrlCho.ShowDialog() == true)
-            {
-                input = CtrlCho.selected;
-
-            }
-            else
-            {
-                CHangeReportStatus(true);
-                return;
-            }
-            string reportFile = SaveFile(saveReportFile);
-            if (reportFile == string.Empty)
-            {
-                CHangeReportStatus(true);
-                return;
-            }
-            // Do the Excel magic
-            BackgroundWorker bw = new BackgroundWorker();
-            bw.WorkerReportsProgress = true;
-            bw.WorkerSupportsCancellation = true;
-            bw.DoWork += new DoWorkEventHandler(createVisioReport);
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(visioReportComplete);
-            bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-            bw.RunWorkerAsync();
-        }*/
-
+        
         //*****************************Background workers*****************************************//
 
         /// <summary>
@@ -827,38 +787,11 @@ namespace CSRC
                 this.percentageLabel.Text = "Done!";
                 this.report2.Source = new BitmapImage(new Uri(@"\check.png", UriKind.Relative));
                 CHangeReportStatus(true);
+                toggleUpload(true);
             }
             
         }
-        /*
-        /// <summary>
-        /// visio report back
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void visioReportComplete(object sender, RunWorkerCompletedEventArgs e)
-        {
-            // This event handler is called when the background thread finishes. 
-            // This method runs on the main thread. 
-            if ((e.Cancelled == true))
-            {
-                this.percentageLabel.Text = "Canceled!";
-            }
-
-            else if (!(e.Error == null))
-            {
-                this.percentageLabel.Text = ("Error!");
-                MessageBox.Show("Error: " + e.Error.Message);
-            }
-
-            else
-            {
-                this.percentageLabel.Text = "Done!";
-                this.report4.Source = new BitmapImage(new Uri(@"\check.png", UriKind.Relative));
-                CHangeReportStatus(true);
-            }
-        }*/
-
+        
         /// <summary>
         /// capabilities report back
         /// </summary>
@@ -884,6 +817,7 @@ namespace CSRC
                 this.percentageLabel.Text = "Done!";
                 this.report1.Source = new BitmapImage(new Uri(@"\check.png", UriKind.Relative));
                 CHangeReportStatus(true);
+                toggleUpload(true);
             }
         }
 
@@ -912,6 +846,7 @@ namespace CSRC
                 this.percentageLabel.Text = "Done!";
                 this.report3.Source = new BitmapImage(new Uri(@"\check.png", UriKind.Relative));
                 CHangeReportStatus(true);
+                toggleUpload(true);
             }
             
         }
@@ -936,42 +871,13 @@ namespace CSRC
                 this.percentageLabel.Text = "Done!";
                 this.report4.Source = new BitmapImage(new Uri(@"\check.png", UriKind.Relative));
                 CHangeReportStatus(true);
+                toggleUpload(true);
             }
 
         }
         
 
 
-        /// <summary>
-        /// change order of controls input file
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-       private void controlOrder(object sender, RoutedEventArgs e)
-       {
-           ControlOrder or = new ControlOrder();
-           or.ShowDialog();
-           CSRC.Models.Constants.ReadValues();
-       }
-
-        /// <summary>
-        /// change order of capabilities input file
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-       private void capOrder(object sender, RoutedEventArgs e)
-       {
-           capOrder or = new capOrder();
-           or.ShowDialog();
-           CSRC.Models.Constants.ReadValues();
-
-       }
-       private void baseOrder(object sender, RoutedEventArgs e)
-       {
-           BaselineOrder or = new BaselineOrder();
-           or.ShowDialog();
-           CSRC.Models.Constants.ReadValues();
-       }
         /// <summary>
         /// show example reports
         /// </summary>
@@ -1005,6 +911,7 @@ namespace CSRC
            VisualizationTool tool = new VisualizationTool();
            tool.ShowDialog();
        }
+
        private void CHangeReportStatus(bool val)
        {
            this.conReport.IsEnabled = val;

@@ -93,22 +93,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BaselineOrder.xaml.cs">
-      <DependentUpon>BaselineOrder.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CapabilitiesCanvas.xaml.cs">
       <DependentUpon>CapabilitiesCanvas.xaml</DependentUpon>
     </Compile>
     <Compile Include="CapabilityChooser.xaml.cs">
       <DependentUpon>CapabilityChooser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="capOrder.xaml.cs">
-      <DependentUpon>capOrder.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ColorMaps.cs" />
-    <Compile Include="ControlOrder.xaml.cs">
-      <DependentUpon>ControlOrder.xaml</DependentUpon>
-    </Compile>
     <Compile Include="controlSpecChooser.xaml.cs">
       <DependentUpon>controlSpecChooser.xaml</DependentUpon>
     </Compile>
@@ -139,23 +130,11 @@
     <Compile Include="Waiting.xaml.cs">
       <DependentUpon>Waiting.xaml</DependentUpon>
     </Compile>
-    <Page Include="BaselineOrder.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="CapabilitiesCanvas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CapabilityChooser.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="capOrder.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ControlOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

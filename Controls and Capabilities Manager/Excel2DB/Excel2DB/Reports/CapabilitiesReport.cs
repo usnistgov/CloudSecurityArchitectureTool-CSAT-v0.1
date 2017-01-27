@@ -37,14 +37,15 @@ namespace CSRC.Reports
                     this.activeWorksheet.SetHeight(1, 54);
 
                     //set widths of columns
-                    this.activeWorksheet.ColumnWidth(col++,16.43);
-                    this.activeWorksheet.ColumnWidth(col++,26.71);
-                    this.activeWorksheet.ColumnWidth(col++,28.29);
-                    this.activeWorksheet.ColumnWidth(col++,21.71);
-                    this.activeWorksheet.ColumnWidth(col++,28.29);
-                    this.activeWorksheet.ColumnWidth(col++,10.47);
-                    this.activeWorksheet.ColumnWidth(col++,10.47);
-                    this.activeWorksheet.ColumnWidth(col++,30);
+                    this.activeWorksheet.ColumnWidth(col++, 16.43);
+                    this.activeWorksheet.ColumnWidth(col++, 26.71);
+                    this.activeWorksheet.ColumnWidth(col++, 28.29);
+                    this.activeWorksheet.ColumnWidth(col++, 21.71);
+                    this.activeWorksheet.ColumnWidth(col++, 33.14);
+                    this.activeWorksheet.ColumnWidth(col++, 33.14);
+                    this.activeWorksheet.ColumnWidth(col++, 33.14);
+                    this.activeWorksheet.ColumnWidth(col++, 10.47);
+                    this.activeWorksheet.ColumnWidth(col++, 30);
                     for (int i = 1; i <= 7; i++ )
                         this.activeWorksheet.ColumnWidth(col++, 17.57);
                     this.activeWorksheet.ColumnWidth(col++, 32);
@@ -68,9 +69,9 @@ namespace CSRC.Reports
                     domainPalette = GetDomainPalette();
                     
                     
-                    col = 18;
+                    col = 19;
                     this.activeWorksheet.setMergedCellTo(row, col, "Fictive Examples of Working Spreadsheet - NIST SP 500-299", 20, bg, fg); 
-                    col = 9;
+                    col = 10;
                     row++;
                     //header
                     this.activeWorksheet.setMergedCellTo(row,col,"Capability Implementation\nSP800-53 Rev4",3, back, black);
@@ -95,18 +96,21 @@ namespace CSRC.Reports
                     this.activeWorksheet.setCellTo(row,col++,"Container",bg,fg,true);
                     this.activeWorksheet.setCellTo(row,col++,"Capability (proccess or solution)",bg,fg,true);
                     this.activeWorksheet.setCellTo(row,col++,"Capability (proccess or solution)",bg,fg,true);
-                    this.activeWorksheet.setCellTo(row, col++, "Description", bg, fg, true);
-                    this.activeWorksheet.setCellTo(row,col++,"Scope",bg,fg,true);
+                    this.activeWorksheet.setCellTo(row, col++, "Description (NIST updated)", bg, fg, true);
+                    this.activeWorksheet.Hide(col);
+                    this.activeWorksheet.setCellTo(row, col++, "Description (from CSA)", bg, fg, true);
+                    this.activeWorksheet.Hide(col);
                     this.activeWorksheet.setCellTo(row, col++, "Unique Identifier", bg, fg, true);
+                    this.activeWorksheet.setCellTo(row, col++, "Scope",bg,fg,true);
                     this.activeWorksheet.setCellTo(row,col++,"TIC Capabilities Mapping",bg,fg,true);
                     int start = col;
-                    this.activeWorksheet.setCellTo(row, col++, "Capability Implementation: Low Impact", mapPalatte[col - 10][0], fg, false);
-                    this.activeWorksheet.setCellTo(row, col++, "Capability Implementation: Moderate Impact", mapPalatte[col - 9][0], fg, false);
-                    this.activeWorksheet.setCellTo(row, col++, "Capability Implementation: High Impact", mapPalatte[col - 10][0], fg, false);
-                    this.activeWorksheet.setCellTo(row, col++, "PM Controls", mapPalatte[col - 10][0], fg, false);
-                    this.activeWorksheet.setCellTo(row, col++, "Info protection: Low Impact", mapPalatte[col - 10][0], fg, false);
-                    this.activeWorksheet.setCellTo(row, col++, "Info protection: Moderate Impact", mapPalatte[col - 10][0], fg, false);
-                    this.activeWorksheet.setCellTo(row, col++, "Info protection: High Impact", mapPalatte[col - 10][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Capability Implementation: Low Impact", mapPalatte[col - start - 1][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Capability Implementation: Moderate Impact", mapPalatte[col - start - 1][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Capability Implementation: High Impact", mapPalatte[col - start - 1][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "PM Controls", mapPalatte[col - start - 1][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Info protection: Low Impact", mapPalatte[col - start - 1][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Info protection: Moderate Impact", mapPalatte[col - start - 1][0], fg, false);
+                    this.activeWorksheet.setCellTo(row, col++, "Info protection: High Impact", mapPalatte[col - start - 1][0], fg, false);
                     this.activeWorksheet.setCellTo(row, col++, "Notes", bg, fg, true);
                     col++;
                     this.activeWorksheet.setCellTo(row, col++, "C", bg, fg, true);
@@ -129,8 +133,8 @@ namespace CSRC.Reports
                     this.activeWorksheet.setCellTo(row, col++, "ALL", bg, fg, true);
                     col++;
                     this.activeWorksheet.setCellTo(row, col++, "ALL", bg, fg, true);
-                    this.activeWorksheet.Border(3, 1, 3, 16);
-                    this.activeWorksheet.Border(1, 18, 3, 37);
+                    this.activeWorksheet.Border(3, 1, 3, 17);
+                    this.activeWorksheet.Border(1, 19, 3, 38);
 
                     foreach (Context.Capabilities cap in capList)
                     {
@@ -143,8 +147,9 @@ namespace CSRC.Reports
                         this.activeWorksheet.setCellTo(row, col++, cap.Capability);
                         this.activeWorksheet.setCellTo(row, col++, cap.Capability2);
                         this.activeWorksheet.setCellTo(row, col++, cap.Description);
-                        this.activeWorksheet.setCellTo(row, col++, cap.Scopes);
+                        this.activeWorksheet.setCellTo(row, col++, cap.CSADescription);
                         this.activeWorksheet.setCellTo(row, col++, cap.UniqueId);
+                        this.activeWorksheet.setCellTo(row, col++, cap.Scopes);
                         this.activeWorksheet.setCellTo(row, col++, GetTICString(cap.Id));
                         string[] maps = GetImplements(cap.Id);
                         for (int i = 0; i < maps.Length; i++)
@@ -178,7 +183,6 @@ namespace CSRC.Reports
                         total += inc;
                         bw.ReportProgress((int)total);
                     }
-                    this.activeWorksheet.Hide(7);
                     if (capList.Count > 0)
                     {
                         this.activeWorksheet.fit(4, 1, row, 45);

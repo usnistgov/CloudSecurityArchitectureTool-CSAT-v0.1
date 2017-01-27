@@ -613,6 +613,7 @@ namespace CSRC.Reports
             {
                 var ret = from p in dbContext.MapTypesCapabilitiesControls
                           where p.CapabilitiesId == capId && p.MapTypesId == i
+                          orderby p.ControlsId, p.specId
                           select p;
                 foreach (var data in ret)
                 {
@@ -738,10 +739,11 @@ namespace CSRC.Reports
                         var baseline = from p in dbContext.BaselineSecurityMappings
                                         where p.Level == level && p.ControlsId == mapping.ControlsId
                                         && p.IsControlMap == true
+                                        orderby p.ControlsId, p.SpecsId
                                         select p;
                         foreach (var baseMap in baseline)
                         {
-                            components[4 * (level - 1) + 2 * (baseMap.BaselineAuthor - 1)] += name + ',';
+                            components[4 * (level - 1) + 2 * (baseMap.BaselineAuthor - 1)] += name + ", ";
                         }
                     }
                     else
@@ -752,19 +754,19 @@ namespace CSRC.Reports
                                         select p;
                         foreach (var baseMap in baseline)
                         {
-                            components[4 * (level - 1) + 2 * (baseMap.BaselineAuthor - 1)] += name + ',';
+                            components[4 * (level - 1) + 2 * (baseMap.BaselineAuthor - 1)] += name + ", ";
                         }
                     }
 
                     if (!components[4 * (level - 1)].Contains(name))
                     {
                         //not in nist
-                        components[4 * (level - 1) + 1] += name + ',';
+                        components[4 * (level - 1) + 1] += name + ", ";
                     }
                     if (!components[4 * (level - 1) + 2].Contains(name))
                     {
                         //not in fedramp
-                        components[4 * (level - 1) + 3] += name + ',';
+                        components[4 * (level - 1) + 3] += name + ", ";
                     }
                 }
             }
@@ -780,11 +782,11 @@ namespace CSRC.Reports
                 {
                     if (map.isControlMap)
                     {
-                        components[level + 8] += GetControlName(map.ControlsId) + ',';
+                        components[level + 8] += GetControlName(map.ControlsId) + ",";
                     }
                     else
                     {
-                        components[level + 8] += GetSpecName(map.specId) + ',';
+                        components[level + 8] += GetSpecName(map.specId) + ",";
                     }
                 }
             }
