@@ -34,9 +34,9 @@
         <Image HorizontalAlignment="Left" Height="40" Margin="43,89,0,0" VerticalAlignment="Top" Width="49" Name="upcontrol"/>
         <Image HorizontalAlignment="Left" Height="40" Margin="43,158,0,0" VerticalAlignment="Top" Width="49" Name="upcapability"/>
         <Image HorizontalAlignment="Left" Height="40" Margin="43,244,0,0" VerticalAlignment="Top" Width="49" Name="upbaseline"/>
-        <Label Content="" HorizontalAlignment="Left" Margin="400,512,0,0" VerticalAlignment="Top" Name="ControlFileName"/>
-        <Label Content="" HorizontalAlignment="Left" Margin="587,575,0,0" VerticalAlignment="Top" Name="CapFileName"/>
-        <Label Content="" HorizontalAlignment="Left" Margin="399,578,0,0" VerticalAlignment="Top" Name="BaselineFileName"/>
+        <Label Content="" HorizontalAlignment="Left" Margin="400,512,0,0" VerticalAlignment="Top" Name="ControlFileName" Width="153"/>
+        <Label Content="" HorizontalAlignment="Left" Margin="587,575,0,0" VerticalAlignment="Top" Name="CapFileName" Width="160"/>
+        <Label Content="" HorizontalAlignment="Left" Margin="399,578,0,0" VerticalAlignment="Top" Name="BaselineFileName" Width="154"/>
 
         <Button HorizontalAlignment="Left" Margin="11,78,0,0" VerticalAlignment="Top" Width="180" Click="menuCreateReportControlsCap_Click" Name="capReport">
             <TextBlock TextWrapping="Wrap" Text="Select cloud functional capabilities and list associated security controls"/>

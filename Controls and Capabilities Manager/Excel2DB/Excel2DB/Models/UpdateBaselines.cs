@@ -101,7 +101,7 @@ namespace CSRC.Models
                     baseline.SpecsId = 1;
                 }else{
                     baseline.IsControlMap = false;
-                    baseline.SpecsId = GetSpecIdByName(entry.Replace(" ",""));
+                    baseline.SpecsId = GetSpecIdByName(entry);
                     baseline.ControlsId = 1;
                     if (baseline.SpecsId == 0)
                     {

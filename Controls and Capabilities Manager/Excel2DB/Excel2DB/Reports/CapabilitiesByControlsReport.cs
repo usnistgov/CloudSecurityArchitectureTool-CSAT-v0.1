@@ -66,7 +66,7 @@ namespace CSRC.Reports
                     int bg = ColorExtensions.TranslateToExcelColor(System.Drawing.Color.FromArgb(217, 217, 217));
 
                     //header
-                    col = 9;
+                    col = 10;
                     //this.activeWorksheet.setMergedCellTo(row,col,"Capability Structure", 5, bg, fg);
                     //col += 7;
                     this.activeWorksheet.setMergedCellTo(row, col, "Capability Implementation\nSP800-53 Rev4", 3, bg, fg);
@@ -166,7 +166,7 @@ namespace CSRC.Reports
                     bw.ReportProgress(100);
                     this.activeWorksheet.Border(1, start, row - 2, start + 6);
                     this.activeWorksheet.fit(3, 1, row - 1, 17);
-                    this.activeWorksheet.SetFont(12, 3, 1, row - 1, 16);
+                    this.activeWorksheet.SetFont(12, 3, 1, row - 1, 17);
                  }
             }
             catch (Exception ex)

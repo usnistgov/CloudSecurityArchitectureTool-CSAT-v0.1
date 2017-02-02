@@ -180,7 +180,7 @@ namespace CSRC.Reports
                         this.activeWorksheet.setCellTo(row, col++, cap.C.ToString());
                         this.activeWorksheet.setCellTo(row, col++, cap.I.ToString());
                         this.activeWorksheet.setCellTo(row, col++, cap.A.ToString());
-                        this.activeWorksheet.AddCellFormula(row, col++, "=Z" + row + "+AA" + row + "+AB" + row);
+                        this.activeWorksheet.AddCellFormula(row, col++, "=AB" + row + "+AC" + row + "+AD" + row);
                         col++;
                         string[] responce = cap.ResponsibilityVector.Split(',');
                         this.activeWorksheet.setCellTo(row, col++, responce[0]);

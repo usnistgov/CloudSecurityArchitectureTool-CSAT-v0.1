@@ -13,6 +13,7 @@
       <Column Name="Capability2" Type="System.String" DbType="varchar(8000)" CanBeNull="true" UpdateCheck="Always" ed:ValidateRequired="false" ed:Guid="fc48e432-7d8e-429c-9589-97b5297f85f9" />
       <Column Name="UniqueId" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="bbc215ef-508a-4a98-afb5-974108fd7a09" />
       <Column Name="Description" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="6aaa7558-2a8a-43e0-ac9e-164d88070156" />
+      <Column Name="CSADescription" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="450c4e69-88a1-4daa-ba92-26db978e1721" />
       <Column Name="Notes" Type="System.String" DbType="varchar(8000)" CanBeNull="true" UpdateCheck="Always" ed:ValidateRequired="false" ed:Guid="b0c4187c-5cc7-4d0e-bd98-3c4b0b150f8e" />
       <Column Name="Scopes" Type="System.String" DbType="varchar(8000) NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="e4ab9b88-b6c5-4303-8ec0-9734078d659d" />
       <Column Name="C" Type="System.UInt32" DbType="bigint NOT NULL" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="9916a974-2ba1-4871-bf6a-79df3e227918" />

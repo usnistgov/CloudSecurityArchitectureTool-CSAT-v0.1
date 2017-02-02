@@ -161,7 +161,7 @@ namespace CSRC.Reports
                         this.activeWorksheet.setCellTo(row, col++, cap.C.ToString());
                         this.activeWorksheet.setCellTo(row, col++, cap.I.ToString());
                         this.activeWorksheet.setCellTo(row, col++, cap.A.ToString());
-                        this.activeWorksheet.AddCellFormula(row, col++, "=R" + row + "+S" + row + "+T" + row);
+                        this.activeWorksheet.AddCellFormula(row, col++, "=S" + row + "+T" + row + "+U" + row);
                         col++;
                         string[] responce = cap.ResponsibilityVector.Split(',');
                         this.activeWorksheet.setCellTo(row, col++, responce[0]);
