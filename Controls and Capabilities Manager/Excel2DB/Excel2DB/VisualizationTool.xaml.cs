@@ -135,7 +135,9 @@ namespace CSRC
                     ell.Fill=new SolidColorBrush(Color.FromArgb((byte)255,(byte) rgb[0], (byte) rgb[1], (byte) rgb[2]));
                 }
             }
-            catch (Exception e) { }
+            catch (Exception e) {
+                Console.WriteLine(e);
+            }
 
         }
 
@@ -165,7 +167,9 @@ namespace CSRC
                     txt.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)rgb[0], (byte)rgb[1], (byte)rgb[2]));
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex) {
+                Console.WriteLine(ex);
+            }
         }
         
         /// <summary>

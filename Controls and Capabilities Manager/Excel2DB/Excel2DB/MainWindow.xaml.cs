@@ -56,7 +56,7 @@ namespace CSRC
             if (Properties.Settings.Default.FirstRun)
             {
                 MessageBox.Show(
-                    "\t\tWelcome to the Cloud Security Manager. \n\tBefore you can use the program, there is some simple set up to do. \n\n\t  First, you must choose where " +
+                    "Welcome to the Cloud Security Manager. \n\tBefore you can use the program, there is some simple set up to do. \n\n\t  First, you must choose where " +
                 "to put the folders that will hold input and output files.  The program will create a containing folder, so just pick a easily accessible place.\n\n "
                 + "Then, you may need to set up database connection.");
 
@@ -399,6 +399,7 @@ namespace CSRC
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return;
             }
             BackgroundWorker bw = new BackgroundWorker();
@@ -513,6 +514,7 @@ namespace CSRC
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return;
             }
 
@@ -691,7 +693,7 @@ namespace CSRC
 
             else
             {
-                this.upcontrol.Source = new BitmapImage(new Uri(@"\check.png", UriKind.Relative));
+                this.upcontrol.Source = new BitmapImage(new Uri(@"\res\check.png", UriKind.Relative));
                 this.percentageLabel.Text = "Done!";
                 toggleUpload(true);
             }
@@ -723,7 +725,7 @@ namespace CSRC
             {
                 this.percentageLabel.Text = "Done!";
             }
-            this.upcapability.Source = new BitmapImage(new Uri(@"\check.png", UriKind.Relative));
+            this.upcapability.Source = new BitmapImage(new Uri(@"\res\check.png", UriKind.Relative));
             toggleUpload(true);
             var ret = from p in dbContent.BaselineSecurityMappings
                       select new { p.Id };
@@ -752,7 +754,7 @@ namespace CSRC
             {
                 this.percentageLabel.Text = "Done!";
             }
-            this.upbaseline.Source = new BitmapImage(new Uri(@"\check.png", UriKind.Relative));
+            this.upbaseline.Source = new BitmapImage(new Uri(@"\res\check.png", UriKind.Relative));
             toggleUpload(true);
             var ret = from p in dbContent.Capabilities
                       select new { p.Id };
@@ -785,7 +787,7 @@ namespace CSRC
             else
             {
                 this.percentageLabel.Text = "Done!";
-                this.report2.Source = new BitmapImage(new Uri(@"\check.png", UriKind.Relative));
+                this.report2.Source = new BitmapImage(new Uri(@"\res\check.png", UriKind.Relative));
                 CHangeReportStatus(true);
                 toggleUpload(true);
             }
@@ -815,7 +817,7 @@ namespace CSRC
             else
             {
                 this.percentageLabel.Text = "Done!";
-                this.report1.Source = new BitmapImage(new Uri(@"\check.png", UriKind.Relative));
+                this.report1.Source = new BitmapImage(new Uri(@"\res\check.png", UriKind.Relative));
                 CHangeReportStatus(true);
                 toggleUpload(true);
             }
@@ -844,7 +846,7 @@ namespace CSRC
             else
             {
                 this.percentageLabel.Text = "Done!";
-                this.report3.Source = new BitmapImage(new Uri(@"\check.png", UriKind.Relative));
+                this.report3.Source = new BitmapImage(new Uri(@"\res\check.png", UriKind.Relative));
                 CHangeReportStatus(true);
                 toggleUpload(true);
             }
@@ -869,7 +871,7 @@ namespace CSRC
             else
             {
                 this.percentageLabel.Text = "Done!";
-                this.report4.Source = new BitmapImage(new Uri(@"\check.png", UriKind.Relative));
+                this.report4.Source = new BitmapImage(new Uri(@"\res\check.png", UriKind.Relative));
                 CHangeReportStatus(true);
                 toggleUpload(true);
             }
@@ -890,16 +892,16 @@ namespace CSRC
            string fnam = "";
            switch ( ob.Name.ToString()){
                case "basedem":
-                   fnam="baselines.PNG";
+                   fnam = "res\\baselines.png";
                    break;
                case "capabilitydem":
-                   fnam = "capability.PNG";
+                   fnam = "res\\capability.png";
                    break;
                case "contdem":
-                   fnam = "controls.PNG";
+                   fnam = "res\\controls.png";
                    break;
                case "ticdem":
-                   fnam = "tic.PNG";
+                   fnam = "res\\tic.png";
                    break;
            }
            s.demo.Source = new BitmapImage(new Uri("\\" + fnam, UriKind.Relative));

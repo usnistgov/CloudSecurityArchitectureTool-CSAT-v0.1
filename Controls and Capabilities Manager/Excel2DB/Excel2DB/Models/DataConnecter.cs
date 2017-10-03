@@ -38,7 +38,7 @@ namespace CSRC.Models
             {
                 //not normal name
                 bool accept = false;
-                string prompt = "Eer SQL server Name: ";
+                string prompt = "Enter SQL server Name: ";
                 //error not default.  need to repeativle prompt
                 while (!accept)
                 {
@@ -52,7 +52,7 @@ namespace CSRC.Models
                     }
                     catch (Exception ex)
                     {
-                        prompt = "Connectionn failed.  Enter SQL server Name: ";
+                        prompt = "Connection failed.  Enter SQL server Name: ";
                     }
                 }
             }

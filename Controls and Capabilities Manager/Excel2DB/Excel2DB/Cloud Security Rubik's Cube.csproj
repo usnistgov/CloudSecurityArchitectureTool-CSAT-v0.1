@@ -64,7 +64,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Cloud_Security_Rubiks_Cube.ico</ApplicationIcon>
+    <ApplicationIcon>res\Cloud_Security_Rubiks_Cube.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
@@ -100,8 +100,8 @@
       <DependentUpon>CapabilityChooser.xaml</DependentUpon>
     </Compile>
     <Compile Include="ColorMaps.cs" />
-    <Compile Include="controlSpecChooser.xaml.cs">
-      <DependentUpon>controlSpecChooser.xaml</DependentUpon>
+    <Compile Include="ControlSpecChooser.xaml.cs">
+      <DependentUpon>ControlSpecChooser.xaml</DependentUpon>
     </Compile>
     <Compile Include="DomainInfo.cs" />
     <Compile Include="gradient.xaml.cs">
@@ -121,8 +121,8 @@
     <Compile Include="Reports\CapabilitiesReport.cs" />
     <Compile Include="Reports\TicReport.cs" />
     <Compile Include="Reports\VisioReport.cs" />
-    <Compile Include="sampler.xaml.cs">
-      <DependentUpon>sampler.xaml</DependentUpon>
+    <Compile Include="Sampler.xaml.cs">
+      <DependentUpon>Sampler.xaml</DependentUpon>
     </Compile>
     <Compile Include="VisualizationTool.xaml.cs">
       <DependentUpon>VisualizationTool.xaml</DependentUpon>
@@ -138,7 +138,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="controlSpecChooser.xaml">
+    <Page Include="ControlSpecChooser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -158,7 +158,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="sampler.xaml">
+    <Page Include="Sampler.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -210,13 +210,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="controlUpload.jpg" />
+    <Resource Include="res\controlUpload.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="capabilitiesUpload.jpg" />
+    <Resource Include="res\capabilitiesUpload.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="check.png" />
+    <Resource Include="res\check.png" />
     <Resource Include="x.png" />
   </ItemGroup>
   <ItemGroup>
@@ -237,29 +237,30 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icon.ico" />
+    <Resource Include="res\icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="capability.PNG" />
+    <Resource Include="res\capability.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="controls.PNG" />
+    <Resource Include="res\controls.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="tic.PNG" />
+    <Resource Include="res\tic.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Cloud_Security_Rubiks_Cube.ico" />
+    <Resource Include="res\Cloud_Security_Rubiks_Cube.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Cloud Security Rubiks Cube.jpg" />
+    <Resource Include="res\Cloud Security Rubiks Cube.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="baselines.PNG" />
+    <Resource Include="res\baselines.png" />
     <Content Include="InitData.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -79,6 +79,7 @@ namespace CSRC
                 Addcaps();
             }
             catch ( Exception e){
+                Console.WriteLine(e);
                 Close();
             }
         }
@@ -106,7 +107,9 @@ namespace CSRC
                     click.Background = new System.Windows.Media.SolidColorBrush(pallate[cap.First().Domain.ToLower()]);
                 }
             }
-            catch (Exception ex){}
+            catch (Exception ex){
+                Console.WriteLine(ex);
+            }
         }
 
         private void SelectAll(object sender, RoutedEventArgs e)

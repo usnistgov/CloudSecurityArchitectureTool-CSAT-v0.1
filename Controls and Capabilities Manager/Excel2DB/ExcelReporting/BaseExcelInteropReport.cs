@@ -326,7 +326,8 @@ namespace ExcelReports.ExcelInteropReports
 			}
 			catch (Exception ex)
 			{
-				obj = null;
+                Console.WriteLine(ex);
+                obj = null;
 			}
 			finally
 			{
