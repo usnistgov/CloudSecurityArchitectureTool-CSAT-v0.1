@@ -1,5 +1,0 @@
-C:\Users\mdl1\Source\Repos\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Entities4DB\bin\Release\Entities4DB.dll
-C:\Users\mdl1\Source\Repos\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Entities4DB\bin\Release\Entities4DB.pdb
-C:\Users\mdl1\Source\Repos\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Entities4DB\obj\Release\Entities4DB.csprojResolveAssemblyReference.cache
-C:\Users\mdl1\Source\Repos\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Entities4DB\obj\Release\Entities4DB.dll
-C:\Users\mdl1\Source\Repos\CloudSecurityRubiksCube\Controls and Capabilities Manager\Excel2DB\Entities4DB\obj\Release\Entities4DB.pdb
