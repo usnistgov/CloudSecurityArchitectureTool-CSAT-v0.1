@@ -255,7 +255,9 @@
     <Resource Include="res\Cloud Security Rubiks Cube.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="schemaInit.sql" />
     <Resource Include="res\baselines.png" />
+    <Content Include="dataInit.sql" />
     <Content Include="InitData.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

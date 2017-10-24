@@ -70,7 +70,7 @@ namespace CSRC.Models
         {
             Context.DataContext dbContext = new Context.DataContext(EstablishValidConnection());
 
-            //delte data and reset ids
+            //delete data and reset ids
             dbContext.ExecuteCommand("TRUNCATE TABLE Relateds");
             dbContext.ExecuteCommand("DBCC CHECKIDENT ('[ModelDb].[dbo].[Relateds]', RESEED, 0)");
 
@@ -136,6 +136,39 @@ namespace CSRC.Models
             }
         }
 
+        private static void DropInitDB()
+        {
+            //RunScript("schemaInit.sql");
+
+            Context.DataContext dbContext = new Context.DataContext(EstablishValidConnection());
+            if (!(dbContext.DatabaseExists()))
+                dbContext.CreateDatabase();
+            else
+            {
+                ClearData();
+            }
+
+            RunScript("dataInit.sql");
+        }
+
+        private static void RunScript(string fileName)
+        {
+            Context.DataContext dbContext = new Context.DataContext(EstablishValidConnection());
+            string initScript = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+            string[] script = File.ReadAllLines(initScript);
+            foreach (string command in script)
+            {
+                try
+                {
+                    dbContext.ExecuteCommand(command);
+                }
+                catch (Exception ex)
+                {
+                    string s = ex.Message;
+                }
+            }
+        }
+
         /// <summary>
         /// setup a new database with all tables
         /// </summary>
@@ -146,9 +179,9 @@ namespace CSRC.Models
                 dbContext.CreateDatabase();
             else
             {
-                ClearData();
+                //ClearData();
             }
-            InitData();
+            //DropInitDB();
         }
     }
 }

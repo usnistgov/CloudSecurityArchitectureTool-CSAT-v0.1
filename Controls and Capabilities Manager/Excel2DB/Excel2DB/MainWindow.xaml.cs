@@ -77,6 +77,7 @@ namespace CSRC
                 catch (Exception e)
                 {
                     load.error.Content = e.Message;
+                    Console.WriteLine(e.Message);
                 }
                   
             }

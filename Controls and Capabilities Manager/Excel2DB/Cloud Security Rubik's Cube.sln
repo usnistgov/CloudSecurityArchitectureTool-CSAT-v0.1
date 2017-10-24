@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities4DB", "Entities4DB\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileOperations", "FileOperations\FileOperations.csproj", "{E8BD2838-920F-4FE0-AE70-EDB7E78E478E}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup2", "Setup2\Setup2.vdproj", "{878FAC22-25F6-4766-8120-DDE702938D85}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CRSC Installer", "CRSC Installer\CRSC Installer.vdproj", "{F57E9EC8-5CE3-4CB3-B464-F3C588107CE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,8 +38,8 @@ Global
 		{E8BD2838-920F-4FE0-AE70-EDB7E78E478E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8BD2838-920F-4FE0-AE70-EDB7E78E478E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8BD2838-920F-4FE0-AE70-EDB7E78E478E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{878FAC22-25F6-4766-8120-DDE702938D85}.Debug|Any CPU.ActiveCfg = Debug
-		{878FAC22-25F6-4766-8120-DDE702938D85}.Release|Any CPU.ActiveCfg = Release
+		{F57E9EC8-5CE3-4CB3-B464-F3C588107CE8}.Debug|Any CPU.ActiveCfg = Debug
+		{F57E9EC8-5CE3-4CB3-B464-F3C588107CE8}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
