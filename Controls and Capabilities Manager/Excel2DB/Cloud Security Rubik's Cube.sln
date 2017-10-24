@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloud Security Rubik's Cube", "Excel2DB\Cloud Security Rubik's Cube.csproj", "{D98F1142-077F-4171-A350-509C6958F013}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -13,6 +13,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities4DB", "Entities4DB\Entities4DB.csproj", "{0BCBAD40-1B9C-4BFD-A9CB-6CCAB759E184}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileOperations", "FileOperations\FileOperations.csproj", "{E8BD2838-920F-4FE0-AE70-EDB7E78E478E}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup2", "Setup2\Setup2.vdproj", "{878FAC22-25F6-4766-8120-DDE702938D85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,8 @@ Global
 		{E8BD2838-920F-4FE0-AE70-EDB7E78E478E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8BD2838-920F-4FE0-AE70-EDB7E78E478E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8BD2838-920F-4FE0-AE70-EDB7E78E478E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{878FAC22-25F6-4766-8120-DDE702938D85}.Debug|Any CPU.ActiveCfg = Debug
+		{878FAC22-25F6-4766-8120-DDE702938D85}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
