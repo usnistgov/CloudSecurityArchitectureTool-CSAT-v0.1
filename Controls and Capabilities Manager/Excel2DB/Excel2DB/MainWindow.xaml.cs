@@ -101,14 +101,14 @@ namespace CSRC
                       select new { p.Id };
             if (!(ret.Any()))
             {
-                CHangeReportStatus(false);
+                ChangeReportStatus(false);
             }
 
             var retdata = from p in dbContent.BaselineSecurityMappings
                       select new { p.Id };
             if (!retdata.Any())
             {
-                CHangeReportStatus(false);
+                ChangeReportStatus(false);
             }
             CSRC.Models.Constants.ReadValues();
             if (CSRC.Models.Constants.capFile3Cols)
@@ -193,7 +193,7 @@ namespace CSRC
                 }
                 catch (Exception ex)
                 {
-                    prompt = "Connectionn failed.  Enter SQL server Name: ";
+                    prompt = "Connection failed.  Enter SQL server name: ";
                 }
             }
             Properties.Settings.Default.Connection = conectstr;
@@ -207,7 +207,7 @@ namespace CSRC
             DataConnecter.FirstUse();
             load.Close();
             MessageBox.Show("Connection updated.");
-            CHangeReportStatus(true);
+            ChangeReportStatus(true);
         }
 
         /// <summary>
@@ -224,7 +224,7 @@ namespace CSRC
             {
                 uploadControls = true;
                 toggleUpload(false);
-                CHangeReportStatus(false);
+                ChangeReportStatus(false);
 
                 DataConnecter.ClearData();
                 this.progressBar1.Value = 0;
@@ -253,7 +253,7 @@ namespace CSRC
             if (result)
             {
                 toggleUpload(false);
-                CHangeReportStatus(false);
+                ChangeReportStatus(false);
                 DataConnecter.wipeCape();
 
                 this.progressBar1.Value = 0;
@@ -276,7 +276,7 @@ namespace CSRC
             if (result)
             {
                 toggleUpload(false);
-                CHangeReportStatus(false);
+                ChangeReportStatus(false);
 
                 DataConnecter.wipeBaselines();
                 this.progressBar1.Value = 0;
@@ -374,7 +374,7 @@ namespace CSRC
         private void menuCreateReportControlsCap_Click(object sender, RoutedEventArgs e)
         {
             this.report1.Source = null;
-            CHangeReportStatus(false);
+            ChangeReportStatus(false);
             toggleUpload(false);
             this.progressBar1.Value = 0;
             this.percentageLabel.Text = 0 + "%";
@@ -388,13 +388,13 @@ namespace CSRC
                 }
                 else
                 {
-                    CHangeReportStatus(true);
+                    ChangeReportStatus(true);
                     return;
                 }
                 string reportFile = SaveFile(saveReportFile);
                 if (reportFile == string.Empty)
                 {
-                    CHangeReportStatus(true);
+                    ChangeReportStatus(true);
                     return;
                 }
             }
@@ -423,7 +423,7 @@ namespace CSRC
         /// <param name="e"></param>
         private void menuCreateReportCapControls_Click(object sender, RoutedEventArgs e)
         {
-            CHangeReportStatus(false);
+            ChangeReportStatus(false);
             toggleUpload(false);
             this.report2.Source = null;
             this.progressBar1.Value = 0;
@@ -438,13 +438,13 @@ namespace CSRC
             }
             else
             {
-                CHangeReportStatus(true);
+                ChangeReportStatus(true);
                 return; 
             }
             string reportFile = SaveFile(saveReportFile);
             if (reportFile == string.Empty)
             {
-                CHangeReportStatus(true);
+                ChangeReportStatus(true);
                 return;
             }
             // Do the Excel magic
@@ -465,7 +465,7 @@ namespace CSRC
         private void CreateTICReport(object sender, RoutedEventArgs e)
         {
             toggleUpload(false);
-            CHangeReportStatus(false);
+            ChangeReportStatus(false);
             this.progressBar1.Value = 0;
             this.percentageLabel.Text = 0 + "%";
             this.report3.Source = null;
@@ -474,7 +474,7 @@ namespace CSRC
             // Do the Excel magic
             if (reportFile == string.Empty)
             {
-                CHangeReportStatus(true);
+                ChangeReportStatus(true);
                 return;
             }
             BackgroundWorker bw = new BackgroundWorker();
@@ -489,7 +489,7 @@ namespace CSRC
         private void CreateBaselineReport(object sender, RoutedEventArgs e)
         {
             toggleUpload(false);
-            CHangeReportStatus(false);
+            ChangeReportStatus(false);
             this.progressBar1.Value = 0;
             this.percentageLabel.Text = 0 + "%";
             this.report3.Source = null;
@@ -503,13 +503,13 @@ namespace CSRC
                 }
                 else
                 {
-                    CHangeReportStatus(true);
+                    ChangeReportStatus(true);
                     return;
                 }
                 string reportFile = SaveFile(saveReportFile);
                 if (reportFile == string.Empty)
                 {
-                    CHangeReportStatus(true);
+                    ChangeReportStatus(true);
                     return;
                 }
             }
@@ -732,7 +732,7 @@ namespace CSRC
                       select new { p.Id };
             if (ret.Any())
             {
-                CHangeReportStatus(true);
+                ChangeReportStatus(true);
             }
 
         }
@@ -761,7 +761,7 @@ namespace CSRC
                       select new { p.Id };
             if (ret.Any())
             {
-                CHangeReportStatus(true);
+                ChangeReportStatus(true);
             }
 
         }
@@ -789,7 +789,7 @@ namespace CSRC
             {
                 this.percentageLabel.Text = "Done!";
                 this.report2.Source = new BitmapImage(new Uri(@"\res\check.png", UriKind.Relative));
-                CHangeReportStatus(true);
+                ChangeReportStatus(true);
                 toggleUpload(true);
             }
             
@@ -819,7 +819,7 @@ namespace CSRC
             {
                 this.percentageLabel.Text = "Done!";
                 this.report1.Source = new BitmapImage(new Uri(@"\res\check.png", UriKind.Relative));
-                CHangeReportStatus(true);
+                ChangeReportStatus(true);
                 toggleUpload(true);
             }
         }
@@ -848,7 +848,7 @@ namespace CSRC
             {
                 this.percentageLabel.Text = "Done!";
                 this.report3.Source = new BitmapImage(new Uri(@"\res\check.png", UriKind.Relative));
-                CHangeReportStatus(true);
+                ChangeReportStatus(true);
                 toggleUpload(true);
             }
             
@@ -873,7 +873,7 @@ namespace CSRC
             {
                 this.percentageLabel.Text = "Done!";
                 this.report4.Source = new BitmapImage(new Uri(@"\res\check.png", UriKind.Relative));
-                CHangeReportStatus(true);
+                ChangeReportStatus(true);
                 toggleUpload(true);
             }
 
@@ -915,7 +915,7 @@ namespace CSRC
            tool.ShowDialog();
        }
 
-       private void CHangeReportStatus(bool val)
+       private void ChangeReportStatus(bool val)
        {
            this.conReport.IsEnabled = val;
            this.capReport.IsEnabled = val;

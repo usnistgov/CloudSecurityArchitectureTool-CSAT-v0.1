@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_092EFE5F050E492AA04DC8238F199F5A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_42E4829E0D6C207BE23C0183FD8C1D66"
         "OwnerKey" = "8:_FB002D8C82E94F2DB172D323FC4E4433"
         "MsmSig" = "8:_UNDEFINED"
@@ -34,12 +40,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_42E4829E0D6C207BE23C0183FD8C1D66"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_FB002D8C82E94F2DB172D323FC4E4433"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -47,6 +47,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_7B31A79EABD4BEB563A6281401D05B40"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_42E4829E0D6C207BE23C0183FD8C1D66"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -67,6 +73,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -83,6 +105,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -112,6 +142,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_092EFE5F050E492AA04DC8238F199F5A"
+            {
+            "SourcePath" = "8:..\\Excel2DB\\res\\Cloud_Security_Rubiks_Cube.ico"
+            "TargetName" = "8:Cloud_Security_Rubiks_Cube.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_B882E83F5FA0464F95E3659BD093519F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_42E4829E0D6C207BE23C0183FD8C1D66"
             {
             "AssemblyRegister" = "3:1"
@@ -242,7 +292,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Cloud Security Rubik's Cube"
         "ProductCode" = "8:{017375D8-E27A-49A3-8FB4-F1199C4FA57C}"
-        "PackageCode" = "8:{F70CAD53-BD54-4A98-94A8-4A8561080652}"
+        "PackageCode" = "8:{5733AF27-2308-4CC3-BF75-38931CC9EE17}"
         "UpgradeCode" = "8:{CF86C3FA-6433-439E-BE85-8BED434F9196}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -250,7 +300,7 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:0.1.0"
-        "Manufacturer" = "8:Default Company Name"
+        "Manufacturer" = "8:CSRK"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:Cloud Security Rubik's Cube"
@@ -373,7 +423,7 @@
             "Target" = "8:_FB002D8C82E94F2DB172D323FC4E4433"
             "Folder" = "8:_87697A3C0ECE4B889C58D582C3F1F3C7"
             "WorkingFolder" = "8:_B882E83F5FA0464F95E3659BD093519F"
-            "Icon" = "8:"
+            "Icon" = "8:_092EFE5F050E492AA04DC8238F199F5A"
             "Feature" = "8:"
             }
         }
