@@ -24,6 +24,11 @@ The purpose of the project is to enhance and facilitate government agencies’ a
 
 ***
 ## Installation
+
+### Disclaimer
+This application uses Microsoft WPF which uses cryptographic functions that are not FIPS-140 approved or allowed. See #1
+
+### Procedure
 Currently, the installation for this program is as follows:
 1. Install the appropriate version of MS SQL Server Express (w/ Management Studio). Make sure to set up a local database. In local tests we used MS SQL Express 2014.
 2. Set up the database:
