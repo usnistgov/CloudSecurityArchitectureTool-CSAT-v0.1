@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>gov.nist.csrk</groupId>
+    <artifactId>csrk</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <!-- ==== Apache POI ==== -->
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.17</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.21.0.1</version>
+        </dependency>
+
+        <!-- ==== jOOQ Related ==== -->
+        <!-- https://mvnrepository.com/artifact/org.jooq/jooq -->
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>3.10.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-codegen</artifactId>
+            <version>3.10.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-codegen-maven</artifactId>
+            <version>3.10.2</version>
+            <type>maven-plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-meta</artifactId>
+            <version>3.10.2</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Specify the maven code generator plugin -->
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <version>3.10.2</version>
+
+                <!-- The plugin should hook into the generate goal -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <!-- Manage the plugin's dependency. In this example, we'll use a PostgreSQL database -->
+                <dependencies>
+                    <dependency>
+                        <groupId>org.xerial</groupId>
+                        <artifactId>sqlite-jdbc</artifactId>
+                        <version>3.21.0.1</version>
+                    </dependency>
+                </dependencies>
+
+                <!-- Specify the plugin configuration.
+                     The configuration format is the same as for the standalone code generator -->
+                <configuration>
+                    <!-- Configure the database connection here -->
+                    <jdbc>
+                        <driver>org.sqlite.JDBC</driver>
+                        <url>jdbc:sqlite:testdb.sqlite</url>
+                        <!--<user>[your database user]</user>-->
+                        <!--<password>[your database password]</password>-->
+
+                        <!-- You can also pass user/password and other JDBC properties in the optional properties tag: -->
+                        <!--<properties>-->
+                        <!--<property><key>user</key><value>[db-user]</value></property>-->
+                        <!--<property><key>password</key><value>[db-password]</value></property>-->
+                        <!--</properties>-->
+                    </jdbc>
+
+                    <generator>
+                        <database>
+                            <!-- The database dialect from jooq-meta. Available dialects are
+                                 named org.util.[database].[database]Database. Known values are:
+
+                                 org.jooq.util.ase.ASEDatabase (to be used with Sybase ASE)
+                                 org.jooq.util.cubrid.CUBRIDDatabase
+                                 org.jooq.util.db2.DB2Database
+                                 org.jooq.util.derby.DerbyDatabase
+                                 org.jooq.util.h2.H2Database
+                                 org.jooq.util.hsqldb.HSQLDBDatabase
+                                 org.jooq.util.ingres.IngresDatabase
+                                 org.jooq.util.mysql.MySQLDatabase
+                                 org.jooq.util.oracle.OracleDatabase
+                                 org.jooq.util.postgres.PostgresDatabase
+                                 org.jooq.util.sqlite.SQLiteDatabase
+                                 org.jooq.util.sqlserver.SQLServerDatabase
+                                 org.jooq.util.sybase.SybaseDatabase (to be used with Sybase SQL Anywhere)
+
+                                 You can also provide your own org.jooq.util.Database implementation
+                                 here, if your database is currently not supported or if you wish to
+                                 read the database schema from a file, such as a Hibernate .hbm.xml file -->
+                            <name>org.jooq.util.sqlite.SQLiteDatabase</name>
+
+                            <!-- All elements that are generated from your schema (A Java regular expression.
+                                 Use the pipe to separate several expressions) Watch out for
+                                 case-sensitivity. Depending on your database, this might be
+                                 important! You can create case-insensitive regular expressions
+                                 using this syntax: (?i:expr) -->
+                            <includes>.*</includes>
+
+                            <!-- All elements that are excluded from your schema (A Java regular expression.
+                                 Use the pipe to separate several expressions). Excludes match before
+                                 includes, i.e. excludes have a higher priority -->
+                            <excludes></excludes>
+
+                            <!-- The schema that is used locally as a source for meta information.
+                                 This could be your development schema or the production schema, etc
+                                 This cannot be combined with the schemata element.
+
+                                 If left empty, jOOQ will generate all available schemata. See the
+                                 manual's next section to learn how to generate several schemata -->
+                            <inputSchema></inputSchema>
+                        </database>
+
+                        <generate>
+                            <!-- Generation flags: See advanced configuration properties -->
+                            <daos>true</daos>
+                        </generate>
+
+                        <target>
+                            <!-- The destination package of your generated classes (within the
+                                 destination directory)
+
+                                 jOOQ may append the schema name to this package if generating multiple schemas,
+                                 e.g. org.jooq.your.packagename.schema1
+                                      org.jooq.your.packagename.schema2 -->
+                            <packageName>gov.nist.csrk.jooq</packageName>
+
+                            <!-- The destination directory of your generated classes -->
+                            <directory>src/main/java/</directory>
+                        </target>
+                    </generator>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
