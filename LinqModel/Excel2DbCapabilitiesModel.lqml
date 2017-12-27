@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Database Name="Data" EntityNamespace="Context" ContextNamespace="Context" Class="DataContext" xmlns:ed="http://devart.com/schemas/EntityDeveloper/1.0" ed:Guid="7b064a9e-223b-45dc-9a80-8b6c27780ecd" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="ConnectionString" ConnectionString="" Provider="System.Data.SqlClient" />
-</Database>
