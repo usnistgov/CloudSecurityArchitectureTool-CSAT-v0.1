@@ -1,17 +1,15 @@
-package gov.nist.csrk.saos;
+package gov.nist.csrk.spreadsheet;
 
 import gov.nist.csrk.jooq.tables.daos.*;
-import gov.nist.csrk.jooq.tables.pojos.Baselinesecuritymappings;
-import gov.nist.csrk.jooq.tables.pojos.Capabilities;
-import gov.nist.csrk.jooq.tables.pojos.Controls;
-import gov.nist.csrk.jooq.tables.pojos.Ticmappings;
-import gov.nist.csrk.jooq.tables.records.BaselinesecuritymappingsRecord;
+import gov.nist.csrk.jooq.tables.pojos.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jooq.DSLContext;
+import org.jooq.Record1;
+import org.jooq.Result;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -29,59 +27,67 @@ public class UpdateDB {
     private final BaselinesecuritymappingsDao baselinesecuritymappingsDao;
     private final ControlsDao controlsDao;
     private final SpecsDao specsDao;
+    private final RelatedsDao relatedsDao;
     private final CapabilitiesDao capabilitiesDao;
     private final TicmappingsDao ticmappingsDao;
     private final MaptypescapabilitiescontrolsDao maptypescapabilitiescontrolsDao;
 
-    UpdateDB(DSLContext context) {
+    private final gov.nist.csrk.jooq.tables.Specs SPECS;
+    private final gov.nist.csrk.jooq.tables.Controls CONTROLS;
+
+    private boolean implementation3Col = false;
+
+    public UpdateDB(DSLContext context) {
         this.context = context;
 
         baselinesecuritymappingsDao = new BaselinesecuritymappingsDao(context.configuration());
         controlsDao = new ControlsDao(context.configuration());
         specsDao = new SpecsDao(context.configuration());
+        relatedsDao = new RelatedsDao(context.configuration());
         capabilitiesDao = new CapabilitiesDao(context.configuration());
         ticmappingsDao = new TicmappingsDao(context.configuration());
         maptypescapabilitiescontrolsDao = new MaptypescapabilitiescontrolsDao(context.configuration());
+
+        SPECS = gov.nist.csrk.jooq.tables.Specs.SPECS;
+        CONTROLS = gov.nist.csrk.jooq.tables.Controls.CONTROLS;
+    }
+
+    public void setImplementation3Col(boolean implementation3Col) {
+        this.implementation3Col = implementation3Col;
     }
 
     /**
      * Opens Excel sheet for reading
      * @param path Path to excel sheet
      * @param position Workbook to return
-     * @return the requested XSSFWorkbook
      */
-    private XSSFSheet openSheet(String path, int position) {
+    private static XSSFSheet openSheet(String path, int position) {
         XSSFWorkbook workbook;
         try {
             InputStream inputStream = new FileInputStream(path);
             OPCPackage pkg = OPCPackage.open(inputStream);
             workbook = new XSSFWorkbook(pkg);
             pkg.close();
-        } catch (InvalidFormatException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IOException e) {
+        } catch (InvalidFormatException | IOException e) {
             e.printStackTrace();
             return null;
         }
-
         return workbook.getSheetAt(position);
     }
 
     /**
      * Update Capabilities, TIC Mappings and MapTypeCapabilitiesControls
      * @param path to workbook
-     * @return if successful in opening sheet
      */
-    boolean updateCapabilities(String path) {
+    public void updateCapabilities(String path) {
         XSSFSheet sheet = openSheet(path, 1);
 
         if(sheet == null)
-            return false;
+            return;
 
         // process tic capabilities and tic mappings
-        List<Capabilities> capabilities = new ArrayList<Capabilities>();
-        HashMap<String, Ticmappings> ticmappings = new HashMap<String, Ticmappings>();
+        List<Capabilities> capabilities = new ArrayList<>();
+        HashMap<String, Ticmappings> ticmappings = new HashMap<>();
         for(int i = 3; i < sheet.getPhysicalNumberOfRows(); i++) {
             XSSFRow row = sheet.getRow(i);
             Capabilities capability = new Capabilities();
@@ -90,7 +96,7 @@ public class UpdateDB {
             capability.setCapability(row.getCell(2).getStringCellValue());
             capability.setCapability2(row.getCell(3).getStringCellValue());
             capability.setDescription(row.getCell(4).getStringCellValue());
-            capability.setCsadescription(""/*row.getCell(5).getStringCellValue()*/); // TODO ???
+            // NOTE CSA Description missing
             String uniqueId = row.getCell(5).getStringCellValue();
             capability.setUniqueid(uniqueId);
             capability.setScopes(row.getCell(6).getStringCellValue());
@@ -124,77 +130,110 @@ public class UpdateDB {
         capabilitiesDao.insert(capabilities);
 
         // find correct capabilitiesId for each ticMapping
-        List<Ticmappings> ticList = new ArrayList<Ticmappings>();
+        List<Ticmappings> ticList = new ArrayList<>();
         for(String uid:ticmappings.keySet()) {
             ticmappings.get(uid).setCapabilityid(capabilitiesDao.fetchByUniqueid(uid).get(0).getId());
             ticList.add(ticmappings.get(uid));
         }
         ticmappingsDao.insert(ticList);
 
-        // process maptypes
+        // process MapTypes
+        List<Maptypescapabilitiescontrols> mapList = new ArrayList<>();
         for(int i = 3; i < sheet.getPhysicalNumberOfRows(); i++) {
             XSSFRow row = sheet.getRow(i);
 
             int capId = capabilitiesDao.fetchByUniqueid(row.getCell(5).getStringCellValue()).get(0).getId();
 
-            List<String> implemenationList = new ArrayList<String>();
             for(int level = 1; level <= 7; level++) {
+                String implementList;
+                if(implementation3Col) {
+                    implementList = row.getCell( 26 + level - 1).getStringCellValue();
+                } else {
+                    if(level <= 3) {
+                        implementList = row.getCell(30 * (level - 1)).getStringCellValue() + ","
+                                + row.getCell(30 * (level - 1) + 1).getStringCellValue(); // TODO this doesn't look right (UpdateCapabilities.cs:186)
+                    } else {
+                        implementList = row.getCell(26 + level - 4).getStringCellValue();
+                    }
+                }
 
+                List<String> controls = getControlList(implementList);
+                for(String controlName:controls) {
+                    String topControl = removeSpec(controlName);
+
+                    List<Controls> possibleControls = controlsDao.fetchByName(topControl);
+                    int controlId = (possibleControls.isEmpty()) ? 0 : possibleControls.get(0).getId();
+
+                    Result<Record1<Integer>> result = context.select(SPECS.ID)
+                            .from(SPECS)
+                            .where(SPECS.CONTROLSID.eq(controlId)
+                                    .and(SPECS.SPECIFICATIONNAME.eq(getTopControlName(controlName))))
+                            .fetch();
+                    int specId = (result.isEmpty()) ? 0 : result.get(0).value1();
+
+                    if(controlId > 0 || specId > 0) {
+                        boolean isControl;
+                        if(specId == 0) {
+                            isControl = true;
+                            specId = 1;
+                        } else {
+                            isControl = false;
+                        }
+                        Maptypescapabilitiescontrols map = new Maptypescapabilitiescontrols(-1, capId, controlId,
+                                level, specId, isControl);
+                        mapList.add(map);
+                    }
+                }
+                maptypescapabilitiescontrolsDao.insert(mapList);
             }
+
         }
 
-        return true;
     }
 
     /**
      * Updates Controls, Specs, Relateds
-     * @param path
-     * @return
+     * @param path Path to workbook
      */
-    boolean updateControls(String path) {
+    public void updateControls(String path) {
         XSSFSheet sheet = openSheet(path, 2);
 
         if(sheet == null)
-            return false;
+            return;
 
         for(int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
             XSSFRow row = sheet.getRow(i);
             // process row
         }
 
-        return true;
     }
-
-    private final int COL_NIST_LOW = 2;
-    private final int COL_FED_LOW = 3;
-    private final int COL_NIST_MED = 5;
-    private final int COL_FED_MED = 6;
-    private final int COL_NIST_HIGH = 7;
-    private final int COL_FED_HIGH = 8;
-
-    private final int LEVEL_LOW = 1;
-    private final int LEVEL_MED = 2;
-    private final int LEVEL_HIGH = 3;
-
-    private final int AUTHOR_NIST = 1;
-    private final int AUTHOR_FEDRAMP = 2;
 
     /**
      * Update BaselineSecurityMappings table
      *
      * Requires controls and specs to be up to date
      * @param path to workbook
-     * @return if successful in opening sheet
      */
-    boolean updateBaselineSecurityMappings(String path) {
+    public void updateBaselineSecurityMappings(String path) {
         XSSFSheet sheet = openSheet(path, 0);
 
         if(sheet == null)
-            return false;
+            return;
 
         for(int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
             XSSFRow row = sheet.getRow(i);
-            if(row.getPhysicalNumberOfCells() > 0) {
+            if(row.getPhysicalNumberOfCells() > 0) {    // TODO check if insertions are successful
+                int AUTHOR_NIST = 1;
+                int AUTHOR_FEDRAMP = 2;
+                int LEVEL_LOW = 1;
+                int LEVEL_MED = 2;
+                int LEVEL_HIGH = 3;
+                int COL_NIST_LOW = 2;
+                int COL_FED_LOW = 3;
+                int COL_NIST_MED = 5;
+                int COL_FED_MED = 6;
+                int COL_NIST_HIGH = 7;
+                int COL_FED_HIGH = 8;
                 insertBaselineSecurityMapping(row.getCell(COL_NIST_LOW).getStringCellValue(), LEVEL_LOW, AUTHOR_NIST);
                 insertBaselineSecurityMapping(row.getCell(COL_FED_LOW).getStringCellValue(), LEVEL_LOW, AUTHOR_FEDRAMP);
                 insertBaselineSecurityMapping(row.getCell(COL_NIST_MED).getStringCellValue(), LEVEL_MED, AUTHOR_NIST);
@@ -204,7 +243,6 @@ public class UpdateDB {
             }
         }
 
-        return true;
     }
 
     /**
@@ -212,9 +250,8 @@ public class UpdateDB {
      * @param component String containing many controls (parsed out with regex)
      * @param level (low, medium, or high corresponding to 1, 2 or 3)
      * @param author (1 denotes NIST, 2 denotes FEDRAMP)
-     * @return false if control or spec could not be found
      */
-    private boolean insertBaselineSecurityMapping(String component, int level, int author) {
+    private void insertBaselineSecurityMapping(String component, int level, int author) {
         String[] controls = (String[]) getControlList(component).toArray();
         for(String entry:controls) {
             boolean isControlMap = Pattern.matches("[A-Z]{2}-([0-9]{1,2})", entry);
@@ -225,31 +262,35 @@ public class UpdateDB {
                 if(filteredControls.size() >= 1) {
                     controlsId = filteredControls.get(0).getId();
                 } else {
-                    // TODO throw an error or something
-                    return false;
+                    return; // TODO throw an error or something
                 }
             } else {
-                // TODO get specs
+                String top = removeSpec(entry);
+                // get controls id
+                Result<Record1<Integer>> result = context.select(CONTROLS.ID).from(CONTROLS)
+                        .where(CONTROLS.NAME.eq(top)).fetch();
+                int specCotrolId = result.isEmpty() ? 0 : result.get(0).value1();
+                if(specCotrolId == 0) {
+                    return; // TODO throw an error or something
+                }
+                // get specs id
+                result = context.select(SPECS.ID).from(SPECS)
+                        .where(SPECS.CONTROLSID.eq(specCotrolId)
+                                .and(SPECS.SPECIFICATIONNAME.eq(entry.replace(top, "")))).fetch();
+                specsId = result.isEmpty() ? 0 : result.get(0).value1();
             }
 
             Baselinesecuritymappings baseline = new Baselinesecuritymappings(
                     -1, level, author, isControlMap, specsId, controlsId);
-//            baseline.setIscontrolmap(isControlMap);
-//            baseline.setBaselineauthor(author);
-//            baseline.setLevel(level);
-//            baseline.setSpecsid(specsId);
-//            baseline.setControlsid(controlsId);
-            BaselinesecuritymappingsRecord newRecord = context.newRecord(
-                    gov.nist.csrk.jooq.tables.Baselinesecuritymappings.BASELINESECURITYMAPPINGS, baseline);
-            newRecord.store();
+            baselinesecuritymappingsDao.insert(baseline);
         }
-        return true;
     }
 
-    private List<String> getControlList(String rawString) {
+    private static List<String> getControlList(String rawString) {
+        //noinspection RegExpRedundantEscape
         String[] rawControls = rawString.split("([,;\\n\\t *\\[\\]\\{\\}])");
 
-        List<String> controls = new ArrayList<String>();
+        List<String> controls = new ArrayList<>();
         for(String potentialControl:rawControls) {
             if(Pattern.matches("[A-Z]{2}-([0-9]{1,2})(\\((\\d|\\d\\d)\\)|)?", potentialControl)) {
                 controls.add(potentialControl);
@@ -258,5 +299,17 @@ public class UpdateDB {
             }
         }
         return controls;
+    }
+
+    private static String getTopControlName(String rawString) {
+        rawString = rawString.replace(" ", "");
+        rawString = rawString.replaceAll("[A-Z]{2}-([0-9]{1,2})", "");
+
+        return rawString;
+    }
+
+    private static String removeSpec(String control) {
+        String tail = getTopControlName(control);
+        return (control.equals("")) ? control : control.substring(0, control.indexOf(tail));
     }
 }
