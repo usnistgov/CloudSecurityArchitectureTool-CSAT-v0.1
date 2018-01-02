@@ -22,11 +22,11 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Specs implements Serializable {
 
-    private static final long serialVersionUID = -1256522259;
+    private static final long serialVersionUID = 961132387;
 
     private Integer id;
     private Integer controlsid;
-    private String  secificationname;
+    private String  specificationname;
     private String  description;
     private String  guidance;
 
@@ -35,7 +35,7 @@ public class Specs implements Serializable {
     public Specs(Specs value) {
         this.id = value.id;
         this.controlsid = value.controlsid;
-        this.secificationname = value.secificationname;
+        this.specificationname = value.specificationname;
         this.description = value.description;
         this.guidance = value.guidance;
     }
@@ -43,13 +43,13 @@ public class Specs implements Serializable {
     public Specs(
         Integer id,
         Integer controlsid,
-        String  secificationname,
+        String  specificationname,
         String  description,
         String  guidance
     ) {
         this.id = id;
         this.controlsid = controlsid;
-        this.secificationname = secificationname;
+        this.specificationname = specificationname;
         this.description = description;
         this.guidance = guidance;
     }
@@ -70,12 +70,12 @@ public class Specs implements Serializable {
         this.controlsid = controlsid;
     }
 
-    public String getSecificationname() {
-        return this.secificationname;
+    public String getSpecificationname() {
+        return this.specificationname;
     }
 
-    public void setSecificationname(String secificationname) {
-        this.secificationname = secificationname;
+    public void setSpecificationname(String specificationname) {
+        this.specificationname = specificationname;
     }
 
     public String getDescription() {
@@ -100,7 +100,7 @@ public class Specs implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(controlsid);
-        sb.append(", ").append(secificationname);
+        sb.append(", ").append(specificationname);
         sb.append(", ").append(description);
         sb.append(", ").append(guidance);
 

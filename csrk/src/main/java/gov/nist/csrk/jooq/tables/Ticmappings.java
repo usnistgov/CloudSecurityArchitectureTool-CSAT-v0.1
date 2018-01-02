@@ -15,6 +15,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -37,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Ticmappings extends TableImpl<TicmappingsRecord> {
 
-    private static final long serialVersionUID = 1988004832;
+    private static final long serialVersionUID = -1923260713;
 
     /**
      * The reference instance of <code>TICMappings</code>
@@ -55,7 +56,7 @@ public class Ticmappings extends TableImpl<TicmappingsRecord> {
     /**
      * The column <code>TICMappings.Id</code>.
      */
-    public final TableField<TicmappingsRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<TicmappingsRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>TICMappings.CapabilityId</code>.
@@ -102,6 +103,14 @@ public class Ticmappings extends TableImpl<TicmappingsRecord> {
     @Override
     public Schema getSchema() {
         return DefaultSchema.DEFAULT_SCHEMA;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Identity<TicmappingsRecord, Integer> getIdentity() {
+        return Keys.IDENTITY_TICMAPPINGS;
     }
 
     /**

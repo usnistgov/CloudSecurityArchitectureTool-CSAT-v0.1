@@ -1,22 +1,23 @@
-
-
 /*
-  Re-create schema
+  As far as I can tell, Families, Priorities and Baselines are NOT defined by any of the excel files and must be set
+  up manually in the database beforehand in order for controls to work
  */
-
-CREATE TABLE IF NOT EXISTS Families (
+DROP TABLE IF EXISTS Families;
+CREATE TABLE Families (
   Id          INTEGER PRIMARY KEY AUTOINCREMENT,
   Name        CHAR(8000) NOT NULL,
   Description CHAR(8000) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Priorities (
+DROP TABLE IF EXISTS Priorities;
+CREATE TABLE Priorities (
   Id          INTEGER PRIMARY KEY AUTOINCREMENT,
   Name        CHAR(8000) NOT NULL,
   Description CHAR(8000) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Baselines (
+DROP TABLE IF EXISTS Baselines;
+CREATE TABLE Baselines (
   Id             INTEGER PRIMARY KEY AUTOINCREMENT,
   ImpactLow      BOOLEAN    NOT NULL CHECK (ImpactLow IN (0, 1)),
   ImpactModerate BOOLEAN    NOT NULL CHECK (ImpactModerate IN (0, 1)),
@@ -24,32 +25,8 @@ CREATE TABLE IF NOT EXISTS Baselines (
   Description    CHAR(8000) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Capabilities (
-  Id                   INTEGER PRIMARY KEY AUTOINCREMENT,
-  Domain               CHAR(8000) NOT NULL,
-  Container            CHAR(8000) NOT NULL,
-  Capability           CHAR(8000) NOT NULL,
-  Capability2          CHAR(8000) NOT NULL,
-  UniqueId             CHAR(8000) NOT NULL,
-  Description          CHAR(8000) NOT NULL,
-  CSADescription       CHAR(8000) NOT NULL,
-  Notes                CHAR(8000) NOT NULL,
-  Scopes               CHAR(8000) NOT NULL,
-  C                    INTEGER     NOT NULL,
-  I                    INTEGER     NOT NULL,
-  A                    INTEGER     NOT NULL,
-  ResponsibilityVector CHAR(8000) NOT NULL,
-  OtherActors          CHAR(8000) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS TICMappings (
-  Id           INTEGER PRIMARY KEY AUTOINCREMENT,
-  CapabilityId INTEGER     NOT NULL,
-  TICName      CHAR(8000) NOT NULL,
-  FOREIGN KEY (CapabilityID) REFERENCES Capabilities (Id)
-);
-
-CREATE TABLE IF NOT EXISTS Controls (
+DROP TABLE IF EXISTS Controls;
+CREATE TABLE Controls (
   Id          INTEGER PRIMARY KEY AUTOINCREMENT,
   Name        CHAR(8000) NOT NULL,
   BaselineId  INTEGER     NOT NULL,
@@ -62,7 +39,8 @@ CREATE TABLE IF NOT EXISTS Controls (
   FOREIGN KEY (PriorityId) REFERENCES Priorities (Id)
 );
 
-CREATE TABLE IF NOT EXISTS Relateds (
+DROP TABLE IF EXISTS Relateds;
+CREATE TABLE Relateds (
   Id       INTEGER PRIMARY KEY AUTOINCREMENT,
   ParentId INTEGER NOT NULL,
   ChildID  INTEGER NOT NULL,
@@ -70,16 +48,54 @@ CREATE TABLE IF NOT EXISTS Relateds (
   FOREIGN KEY (ChildID) REFERENCES Controls (Id)
 );
 
-CREATE TABLE IF NOT EXISTS Specs (
+DROP TABLE IF EXISTS Specs;
+CREATE TABLE Specs (
   Id               INTEGER PRIMARY KEY NOT NULL,
   ControlsId       INTEGER             NOT NULL,
-  SecificationName Char(8000)         NOT NULL,
+  SpecificationName Char(8000)         NOT NULL,
   Description      Char(8000)         NOT NULL,
   Guidance         Char(8000)         NOT NULL,
   FOREIGN KEY (ControlsId) REFERENCES Controls (Id)
 );
 
-CREATE TABLE IF NOT EXISTS BaselineSecurityMappings (
+/*
+  Defined in CC-Overlay-SRA Capabilities
+ */
+DROP TABLE IF EXISTS Capabilities;
+CREATE TABLE Capabilities (
+  Id                   INTEGER PRIMARY KEY AUTOINCREMENT,
+  Domain               CHAR(8000) NOT NULL,
+  Container            CHAR(8000) NOT NULL,
+  Capability           CHAR(8000) NOT NULL,
+  Capability2          CHAR(8000) NOT NULL,
+  UniqueId             CHAR(8000) NOT NULL,
+  Description          CHAR(8000) NOT NULL,
+  CSADescription       CHAR(8000),
+  Notes                CHAR(8000) NOT NULL,
+  Scopes               CHAR(8000) NOT NULL,
+  C                    INTEGER     NOT NULL,
+  I                    INTEGER     NOT NULL,
+  A                    INTEGER     NOT NULL,
+  ResponsibilityVector CHAR(8000) NOT NULL,
+  OtherActors          CHAR(8000) NOT NULL
+);
+
+/*
+  Maps capability to tic-style control. Defined in TIC Capabilities Mapping (H) column of CC-Overlay-SRA Capabilities
+ */
+DROP TABLE IF EXISTS TICMappings;
+CREATE TABLE TICMappings (
+  Id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  CapabilityId INTEGER     NOT NULL,
+  TICName      CHAR(8000) NOT NULL,
+  FOREIGN KEY (CapabilityID) REFERENCES Capabilities (Id)
+);
+
+/*
+  Defined in Baselines_NIST_vs_FedRAMP sheet
+ */
+DROP TABLE IF EXISTS BaselineSecurityMappings;
+CREATE TABLE BaselineSecurityMappings (
   Id             INTEGER PRIMARY KEY AUTOINCREMENT,
   Level          INTEGER  NOT NULL,
   BaselineAuthor INTEGER  NOT NULL,
@@ -90,7 +106,11 @@ CREATE TABLE IF NOT EXISTS BaselineSecurityMappings (
   FOREIGN KEY (ControlsId) REFERENCES Controls (Id)
 );
 
-CREATE TABLE IF NOT EXISTS MapTypesCapabilitiesControls (
+/*
+  Defined in CC-Overlay-SRA Capabilities
+ */
+DROP TABLE IF EXISTS MapTypesCapabilitiesControls;
+CREATE TABLE MapTypesCapabilitiesControls (
   Id INTEGER PRIMARY KEY AUTOINCREMENT,
   CapabilitiesId INTEGER  NOT NULL,
   ControlsId     INTEGER  NOT NULL,

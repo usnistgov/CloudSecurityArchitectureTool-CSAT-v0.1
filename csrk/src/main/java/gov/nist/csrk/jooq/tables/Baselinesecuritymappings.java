@@ -15,6 +15,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -37,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Baselinesecuritymappings extends TableImpl<BaselinesecuritymappingsRecord> {
 
-    private static final long serialVersionUID = 119053345;
+    private static final long serialVersionUID = 1934699060;
 
     /**
      * The reference instance of <code>BaselineSecurityMappings</code>
@@ -55,7 +56,7 @@ public class Baselinesecuritymappings extends TableImpl<Baselinesecuritymappings
     /**
      * The column <code>BaselineSecurityMappings.Id</code>.
      */
-    public final TableField<BaselinesecuritymappingsRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<BaselinesecuritymappingsRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>BaselineSecurityMappings.Level</code>.
@@ -117,6 +118,14 @@ public class Baselinesecuritymappings extends TableImpl<Baselinesecuritymappings
     @Override
     public Schema getSchema() {
         return DefaultSchema.DEFAULT_SCHEMA;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Identity<BaselinesecuritymappingsRecord, Integer> getIdentity() {
+        return Keys.IDENTITY_BASELINESECURITYMAPPINGS;
     }
 
     /**

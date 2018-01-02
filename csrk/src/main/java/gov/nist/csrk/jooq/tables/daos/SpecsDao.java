@@ -72,10 +72,10 @@ public class SpecsDao extends DAOImpl<SpecsRecord, gov.nist.csrk.jooq.tables.poj
     }
 
     /**
-     * Fetch records that have <code>SecificationName IN (values)</code>
+     * Fetch records that have <code>SpecificationName IN (values)</code>
      */
-    public List<gov.nist.csrk.jooq.tables.pojos.Specs> fetchBySecificationname(String... values) {
-        return fetch(Specs.SPECS.SECIFICATIONNAME, values);
+    public List<gov.nist.csrk.jooq.tables.pojos.Specs> fetchBySpecificationname(String... values) {
+        return fetch(Specs.SPECS.SPECIFICATIONNAME, values);
     }
 
     /**

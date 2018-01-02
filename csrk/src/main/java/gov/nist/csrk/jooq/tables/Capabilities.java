@@ -14,6 +14,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
+import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -36,7 +37,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Capabilities extends TableImpl<CapabilitiesRecord> {
 
-    private static final long serialVersionUID = -326246222;
+    private static final long serialVersionUID = 2012419044;
 
     /**
      * The reference instance of <code>Capabilities</code>
@@ -54,7 +55,7 @@ public class Capabilities extends TableImpl<CapabilitiesRecord> {
     /**
      * The column <code>Capabilities.Id</code>.
      */
-    public final TableField<CapabilitiesRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<CapabilitiesRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>Capabilities.Domain</code>.
@@ -89,7 +90,7 @@ public class Capabilities extends TableImpl<CapabilitiesRecord> {
     /**
      * The column <code>Capabilities.CSADescription</code>.
      */
-    public final TableField<CapabilitiesRecord, String> CSADESCRIPTION = createField("CSADescription", org.jooq.impl.SQLDataType.CHAR(8000).nullable(false), this, "");
+    public final TableField<CapabilitiesRecord, String> CSADESCRIPTION = createField("CSADescription", org.jooq.impl.SQLDataType.CHAR(8000), this, "");
 
     /**
      * The column <code>Capabilities.Notes</code>.
@@ -161,6 +162,14 @@ public class Capabilities extends TableImpl<CapabilitiesRecord> {
     @Override
     public Schema getSchema() {
         return DefaultSchema.DEFAULT_SCHEMA;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Identity<CapabilitiesRecord, Integer> getIdentity() {
+        return Keys.IDENTITY_CAPABILITIES;
     }
 
     /**

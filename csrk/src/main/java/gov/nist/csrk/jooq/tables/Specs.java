@@ -37,7 +37,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Specs extends TableImpl<SpecsRecord> {
 
-    private static final long serialVersionUID = -1178306588;
+    private static final long serialVersionUID = -1380084430;
 
     /**
      * The reference instance of <code>Specs</code>
@@ -63,9 +63,9 @@ public class Specs extends TableImpl<SpecsRecord> {
     public final TableField<SpecsRecord, Integer> CONTROLSID = createField("ControlsId", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>Specs.SecificationName</code>.
+     * The column <code>Specs.SpecificationName</code>.
      */
-    public final TableField<SpecsRecord, String> SECIFICATIONNAME = createField("SecificationName", org.jooq.impl.SQLDataType.CHAR(8000).nullable(false), this, "");
+    public final TableField<SpecsRecord, String> SPECIFICATIONNAME = createField("SpecificationName", org.jooq.impl.SQLDataType.CHAR(8000).nullable(false), this, "");
 
     /**
      * The column <code>Specs.Description</code>.

@@ -28,7 +28,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SpecsRecord extends UpdatableRecordImpl<SpecsRecord> implements Record5<Integer, Integer, String, String, String> {
 
-    private static final long serialVersionUID = -1991853532;
+    private static final long serialVersionUID = 375415132;
 
     /**
      * Setter for <code>Specs.Id</code>.
@@ -59,16 +59,16 @@ public class SpecsRecord extends UpdatableRecordImpl<SpecsRecord> implements Rec
     }
 
     /**
-     * Setter for <code>Specs.SecificationName</code>.
+     * Setter for <code>Specs.SpecificationName</code>.
      */
-    public void setSecificationname(String value) {
+    public void setSpecificationname(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>Specs.SecificationName</code>.
+     * Getter for <code>Specs.SpecificationName</code>.
      */
-    public String getSecificationname() {
+    public String getSpecificationname() {
         return (String) get(2);
     }
 
@@ -153,7 +153,7 @@ public class SpecsRecord extends UpdatableRecordImpl<SpecsRecord> implements Rec
      */
     @Override
     public Field<String> field3() {
-        return Specs.SPECS.SECIFICATIONNAME;
+        return Specs.SPECS.SPECIFICATIONNAME;
     }
 
     /**
@@ -193,7 +193,7 @@ public class SpecsRecord extends UpdatableRecordImpl<SpecsRecord> implements Rec
      */
     @Override
     public String component3() {
-        return getSecificationname();
+        return getSpecificationname();
     }
 
     /**
@@ -233,7 +233,7 @@ public class SpecsRecord extends UpdatableRecordImpl<SpecsRecord> implements Rec
      */
     @Override
     public String value3() {
-        return getSecificationname();
+        return getSpecificationname();
     }
 
     /**
@@ -275,7 +275,7 @@ public class SpecsRecord extends UpdatableRecordImpl<SpecsRecord> implements Rec
      */
     @Override
     public SpecsRecord value3(String value) {
-        setSecificationname(value);
+        setSpecificationname(value);
         return this;
     }
 
@@ -324,12 +324,12 @@ public class SpecsRecord extends UpdatableRecordImpl<SpecsRecord> implements Rec
     /**
      * Create a detached, initialised SpecsRecord
      */
-    public SpecsRecord(Integer id, Integer controlsid, String secificationname, String description, String guidance) {
+    public SpecsRecord(Integer id, Integer controlsid, String specificationname, String description, String guidance) {
         super(Specs.SPECS);
 
         set(0, id);
         set(1, controlsid);
-        set(2, secificationname);
+        set(2, specificationname);
         set(3, description);
         set(4, guidance);
     }

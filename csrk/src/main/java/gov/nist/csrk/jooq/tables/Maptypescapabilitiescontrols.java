@@ -15,6 +15,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -37,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Maptypescapabilitiescontrols extends TableImpl<MaptypescapabilitiescontrolsRecord> {
 
-    private static final long serialVersionUID = -2081849313;
+    private static final long serialVersionUID = -1897108922;
 
     /**
      * The reference instance of <code>MapTypesCapabilitiesControls</code>
@@ -55,7 +56,7 @@ public class Maptypescapabilitiescontrols extends TableImpl<Maptypescapabilities
     /**
      * The column <code>MapTypesCapabilitiesControls.Id</code>.
      */
-    public final TableField<MaptypescapabilitiescontrolsRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<MaptypescapabilitiescontrolsRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>MapTypesCapabilitiesControls.CapabilitiesId</code>.
@@ -117,6 +118,14 @@ public class Maptypescapabilitiescontrols extends TableImpl<Maptypescapabilities
     @Override
     public Schema getSchema() {
         return DefaultSchema.DEFAULT_SCHEMA;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Identity<MaptypescapabilitiescontrolsRecord, Integer> getIdentity() {
+        return Keys.IDENTITY_MAPTYPESCAPABILITIESCONTROLS;
     }
 
     /**
