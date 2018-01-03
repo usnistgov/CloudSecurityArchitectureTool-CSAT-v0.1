@@ -28,7 +28,6 @@ import gov.nist.csrk.jooq.tables.records.TicmappingsRecord;
 import javax.annotation.Generated;
 
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.AbstractKeys;
 
@@ -51,15 +50,6 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
-    public static final Identity<BaselinesecuritymappingsRecord, Integer> IDENTITY_BASELINESECURITYMAPPINGS = Identities0.IDENTITY_BASELINESECURITYMAPPINGS;
-    public static final Identity<BaselinesRecord, Integer> IDENTITY_BASELINES = Identities0.IDENTITY_BASELINES;
-    public static final Identity<CapabilitiesRecord, Integer> IDENTITY_CAPABILITIES = Identities0.IDENTITY_CAPABILITIES;
-    public static final Identity<ControlsRecord, Integer> IDENTITY_CONTROLS = Identities0.IDENTITY_CONTROLS;
-    public static final Identity<FamiliesRecord, Integer> IDENTITY_FAMILIES = Identities0.IDENTITY_FAMILIES;
-    public static final Identity<MaptypescapabilitiescontrolsRecord, Integer> IDENTITY_MAPTYPESCAPABILITIESCONTROLS = Identities0.IDENTITY_MAPTYPESCAPABILITIESCONTROLS;
-    public static final Identity<PrioritiesRecord, Integer> IDENTITY_PRIORITIES = Identities0.IDENTITY_PRIORITIES;
-    public static final Identity<RelatedsRecord, Integer> IDENTITY_RELATEDS = Identities0.IDENTITY_RELATEDS;
-    public static final Identity<TicmappingsRecord, Integer> IDENTITY_TICMAPPINGS = Identities0.IDENTITY_TICMAPPINGS;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
@@ -96,18 +86,6 @@ public class Keys {
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
-
-    private static class Identities0 extends AbstractKeys {
-        public static Identity<BaselinesecuritymappingsRecord, Integer> IDENTITY_BASELINESECURITYMAPPINGS = createIdentity(Baselinesecuritymappings.BASELINESECURITYMAPPINGS, Baselinesecuritymappings.BASELINESECURITYMAPPINGS.ID);
-        public static Identity<BaselinesRecord, Integer> IDENTITY_BASELINES = createIdentity(Baselines.BASELINES, Baselines.BASELINES.ID);
-        public static Identity<CapabilitiesRecord, Integer> IDENTITY_CAPABILITIES = createIdentity(Capabilities.CAPABILITIES, Capabilities.CAPABILITIES.ID);
-        public static Identity<ControlsRecord, Integer> IDENTITY_CONTROLS = createIdentity(Controls.CONTROLS, Controls.CONTROLS.ID);
-        public static Identity<FamiliesRecord, Integer> IDENTITY_FAMILIES = createIdentity(Families.FAMILIES, Families.FAMILIES.ID);
-        public static Identity<MaptypescapabilitiescontrolsRecord, Integer> IDENTITY_MAPTYPESCAPABILITIESCONTROLS = createIdentity(Maptypescapabilitiescontrols.MAPTYPESCAPABILITIESCONTROLS, Maptypescapabilitiescontrols.MAPTYPESCAPABILITIESCONTROLS.ID);
-        public static Identity<PrioritiesRecord, Integer> IDENTITY_PRIORITIES = createIdentity(Priorities.PRIORITIES, Priorities.PRIORITIES.ID);
-        public static Identity<RelatedsRecord, Integer> IDENTITY_RELATEDS = createIdentity(Relateds.RELATEDS, Relateds.RELATEDS.ID);
-        public static Identity<TicmappingsRecord, Integer> IDENTITY_TICMAPPINGS = createIdentity(Ticmappings.TICMAPPINGS, Ticmappings.TICMAPPINGS.ID);
-    }
 
     private static class UniqueKeys0 extends AbstractKeys {
         public static final UniqueKey<BaselinesecuritymappingsRecord> PK_BASELINESECURITYMAPPINGS = createUniqueKey(Baselinesecuritymappings.BASELINESECURITYMAPPINGS, "pk_BaselineSecurityMappings", Baselinesecuritymappings.BASELINESECURITYMAPPINGS.ID);

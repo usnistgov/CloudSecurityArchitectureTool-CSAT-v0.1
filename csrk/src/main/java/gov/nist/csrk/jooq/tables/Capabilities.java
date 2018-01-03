@@ -14,7 +14,6 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
-import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -37,7 +36,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Capabilities extends TableImpl<CapabilitiesRecord> {
 
-    private static final long serialVersionUID = 2012419044;
+    private static final long serialVersionUID = 1550255922;
 
     /**
      * The reference instance of <code>Capabilities</code>
@@ -55,7 +54,7 @@ public class Capabilities extends TableImpl<CapabilitiesRecord> {
     /**
      * The column <code>Capabilities.Id</code>.
      */
-    public final TableField<CapabilitiesRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
+    public final TableField<CapabilitiesRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>Capabilities.Domain</code>.
@@ -162,14 +161,6 @@ public class Capabilities extends TableImpl<CapabilitiesRecord> {
     @Override
     public Schema getSchema() {
         return DefaultSchema.DEFAULT_SCHEMA;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<CapabilitiesRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_CAPABILITIES;
     }
 
     /**

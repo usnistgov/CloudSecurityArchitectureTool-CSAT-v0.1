@@ -14,7 +14,6 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
-import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -37,7 +36,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Families extends TableImpl<FamiliesRecord> {
 
-    private static final long serialVersionUID = -781939476;
+    private static final long serialVersionUID = 821326006;
 
     /**
      * The reference instance of <code>Families</code>
@@ -55,7 +54,7 @@ public class Families extends TableImpl<FamiliesRecord> {
     /**
      * The column <code>Families.Id</code>.
      */
-    public final TableField<FamiliesRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
+    public final TableField<FamiliesRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>Families.Name</code>.
@@ -102,14 +101,6 @@ public class Families extends TableImpl<FamiliesRecord> {
     @Override
     public Schema getSchema() {
         return DefaultSchema.DEFAULT_SCHEMA;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<FamiliesRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_FAMILIES;
     }
 
     /**

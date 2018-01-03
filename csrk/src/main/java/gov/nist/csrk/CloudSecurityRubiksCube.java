@@ -4,6 +4,8 @@ import gov.nist.csrk.spreadsheet.UpdateDB;
 import gov.nist.csrk.ui.MainWindow;
 import javafx.application.Application;
 import org.apache.commons.cli.*;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
@@ -12,13 +14,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
 /**
  * Created by naw2 on 12/22/2017.
  */
 public class CloudSecurityRubiksCube {
+    private static final Logger log = Logger.getLogger(MainWindow.class.getName());
+
     public static void main(String args[]) {
-        // TODO use some logging api
+        BasicConfigurator.configure(); // TODO use a decent logging configuration
         // Display fancy ASCII logo
         System.out.println("                                      _ _ _\n" +
                 "                                     /_/_/_/\\\n" +
@@ -69,10 +75,8 @@ public class CloudSecurityRubiksCube {
 
                     try {
                         cmd = parser.parse(options, args);
-                    } catch(ParseException e) {
-                        System.out.println(e.getMessage());
+                    } catch (ParseException e) {
                         formatter.printHelp("csrk update", options);
-
                         System.exit(1);
                         return;
                     }
@@ -92,16 +96,26 @@ public class CloudSecurityRubiksCube {
 
                     UpdateDB updateDB = new UpdateDB(context);
 
-                    if(cmd.hasOption("3col")) {
+                    if (cmd.hasOption("3col")) {
                         updateDB.setImplementation3Col(true);
-                        System.out.println("Running in 3 column mode");
+                        log.info("Running in 3 column mode");
                     }
 
                     updateDB.updateCapabilities(capabilitiesPath);
                     updateDB.updateControls(controlsPath);
                     updateDB.updateBaselineSecurityMappings(baselinesPath);
+                    break;
+                } case "reset_preferences": {
+                    Preferences prefs = Preferences.userNodeForPackage(gov.nist.csrk.CloudSecurityRubiksCube.class);
+                    try {
+                        prefs.clear();
+                    } catch (BackingStoreException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Preferences reset");
+                    break;
                 } default: {
-                    System.out.println("'" + args[0] + "' is not a valid argument, please use update,");
+                    System.out.println("'" + args[0] + "' is not a valid argument, please use update or reset_preferences");
                 }
             }
         } else {

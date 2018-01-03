@@ -14,7 +14,6 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
-import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -37,7 +36,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Priorities extends TableImpl<PrioritiesRecord> {
 
-    private static final long serialVersionUID = -915268756;
+    private static final long serialVersionUID = 1295728054;
 
     /**
      * The reference instance of <code>Priorities</code>
@@ -55,7 +54,7 @@ public class Priorities extends TableImpl<PrioritiesRecord> {
     /**
      * The column <code>Priorities.Id</code>.
      */
-    public final TableField<PrioritiesRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
+    public final TableField<PrioritiesRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>Priorities.Name</code>.
@@ -102,14 +101,6 @@ public class Priorities extends TableImpl<PrioritiesRecord> {
     @Override
     public Schema getSchema() {
         return DefaultSchema.DEFAULT_SCHEMA;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<PrioritiesRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_PRIORITIES;
     }
 
     /**

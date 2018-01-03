@@ -15,7 +15,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -38,7 +37,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Controls extends TableImpl<ControlsRecord> {
 
-    private static final long serialVersionUID = -240246114;
+    private static final long serialVersionUID = -819410000;
 
     /**
      * The reference instance of <code>Controls</code>
@@ -56,7 +55,7 @@ public class Controls extends TableImpl<ControlsRecord> {
     /**
      * The column <code>Controls.Id</code>.
      */
-    public final TableField<ControlsRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
+    public final TableField<ControlsRecord, Integer> ID = createField("Id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>Controls.Name</code>.
@@ -123,14 +122,6 @@ public class Controls extends TableImpl<ControlsRecord> {
     @Override
     public Schema getSchema() {
         return DefaultSchema.DEFAULT_SCHEMA;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<ControlsRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_CONTROLS;
     }
 
     /**

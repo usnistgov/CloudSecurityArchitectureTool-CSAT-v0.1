@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ProgressBar fx:id="progress" layoutY="382.0" prefWidth="300.0" progress="0.0" />
+      <Label fx:id="operationLabel" layoutX="305.0" layoutY="383.0" text="No operation in progress" />
+      <SplitPane dividerPositions="0.3333333333333333, 0.6666666666666" layoutX="385.0" layoutY="14.0" orientation="VERTICAL" prefHeight="365.0" prefWidth="201.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Button fx:id="btnUpdateCaps" mnemonicParsing="false" onAction="#btnUpdateCapsClicked" prefHeight="118.0" prefWidth="158.0" text="Update Capabilities" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children></AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Button fx:id="btnUpdateCons" mnemonicParsing="false" onAction="#btnUpdateConsClicked" prefHeight="115.0" prefWidth="158.0" text="Update Controls" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children></AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Button fx:id="btnUpdateBase" mnemonicParsing="false" onAction="#btnUpdateBaseClicked" prefHeight="118.0" prefWidth="158.0" text="Update Baseline Security Mappings" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+      <TextArea fx:id="eventLog" editable="false" layoutX="14.0" layoutY="35.0" prefHeight="344.0" prefWidth="365.0" text="--------------------------------------&#10;Cloud Security Rubik's Cube DB Updater&#10;--------------------------------------&#10;&#10;" wrapText="true">
+         <font>
+            <Font name="Consolas" size="12.0" />
+         </font>
+      </TextArea>
+      <Label layoutX="14.0" layoutY="14.0" text="Event Log" />
+   </children>
+</AnchorPane>

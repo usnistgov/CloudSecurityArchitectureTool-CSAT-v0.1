@@ -2,8 +2,15 @@ package gov.nist.csrk.spreadsheet;
 
 import gov.nist.csrk.jooq.tables.daos.*;
 import gov.nist.csrk.jooq.tables.pojos.*;
+import gov.nist.csrk.jooq.tables.records.BaselinesecuritymappingsRecord;
+import gov.nist.csrk.jooq.tables.records.CapabilitiesRecord;
+import gov.nist.csrk.jooq.tables.records.MaptypescapabilitiescontrolsRecord;
+import gov.nist.csrk.jooq.tables.records.TicmappingsRecord;
+import gov.nist.csrk.ui.MainWindow;
+import org.apache.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -23,33 +30,30 @@ import java.util.regex.Pattern;
  * Created by naw2 on 12/22/2017.
  */
 public class UpdateDB {
+    private static final Logger log = Logger.getLogger(MainWindow.class.getName());
+
     private final DSLContext context;
-    private final BaselinesecuritymappingsDao baselinesecuritymappingsDao;
+
     private final ControlsDao controlsDao;
-    private final SpecsDao specsDao;
-    private final RelatedsDao relatedsDao;
     private final CapabilitiesDao capabilitiesDao;
-    private final TicmappingsDao ticmappingsDao;
-    private final MaptypescapabilitiescontrolsDao maptypescapabilitiescontrolsDao;
 
     private final gov.nist.csrk.jooq.tables.Specs SPECS;
     private final gov.nist.csrk.jooq.tables.Controls CONTROLS;
+    private final gov.nist.csrk.jooq.tables.Baselinesecuritymappings BASELINESECURITYMAPPINGS;
+    private final gov.nist.csrk.jooq.tables.Capabilities CAPABILITIES;
 
     private boolean implementation3Col = false;
 
     public UpdateDB(DSLContext context) {
         this.context = context;
 
-        baselinesecuritymappingsDao = new BaselinesecuritymappingsDao(context.configuration());
         controlsDao = new ControlsDao(context.configuration());
-        specsDao = new SpecsDao(context.configuration());
-        relatedsDao = new RelatedsDao(context.configuration());
         capabilitiesDao = new CapabilitiesDao(context.configuration());
-        ticmappingsDao = new TicmappingsDao(context.configuration());
-        maptypescapabilitiescontrolsDao = new MaptypescapabilitiescontrolsDao(context.configuration());
 
         SPECS = gov.nist.csrk.jooq.tables.Specs.SPECS;
         CONTROLS = gov.nist.csrk.jooq.tables.Controls.CONTROLS;
+        BASELINESECURITYMAPPINGS = gov.nist.csrk.jooq.tables.Baselinesecuritymappings.BASELINESECURITYMAPPINGS;
+        CAPABILITIES  = gov.nist.csrk.jooq.tables.Capabilities.CAPABILITIES;
     }
 
     public void setImplementation3Col(boolean implementation3Col) {
@@ -62,6 +66,7 @@ public class UpdateDB {
      * @param position Workbook to return
      */
     private static XSSFSheet openSheet(String path, int position) {
+        log.info("Opening new excel workbook from path " + path + " (opening workbook pos " + position + ")");
         XSSFWorkbook workbook;
         try {
             InputStream inputStream = new FileInputStream(path);
@@ -69,10 +74,25 @@ public class UpdateDB {
             workbook = new XSSFWorkbook(pkg);
             pkg.close();
         } catch (InvalidFormatException | IOException e) {
-            e.printStackTrace();
+            log.error("Error opening excel sheet, returning null", e);
             return null;
         }
         return workbook.getSheetAt(position);
+    }
+
+    /**
+     * Checks baseline security mappings, capabilities, and controls. Returns false if any are empty
+     * @return If the database is usable in its current state
+     */
+    public boolean isComplete() {
+        log.info("Checking if records exist for baselines, capabilities and controls");
+        Result<Record1<Integer>> baselinesResult = context.select(BASELINESECURITYMAPPINGS.ID)
+                .from(BASELINESECURITYMAPPINGS).fetch();
+        Result<Record1<Integer>> capabilitiesResult = context.select(CAPABILITIES.ID)
+                .from(CAPABILITIES).fetch();
+        Result<Record1<Integer>> controlsResult = context.select(CONTROLS.ID)
+                .from(CONTROLS).fetch();
+        return !(baselinesResult.isEmpty() || capabilitiesResult.isEmpty() || controlsResult.isEmpty());
     }
 
     /**
@@ -80,17 +100,18 @@ public class UpdateDB {
      * @param path to workbook
      */
     public void updateCapabilities(String path) {
-        XSSFSheet sheet = openSheet(path, 1);
+        log.info("Updating capabilities");
+        XSSFSheet sheet = openSheet(path, 2);
 
         if(sheet == null)
             return;
 
         // process tic capabilities and tic mappings
-        List<Capabilities> capabilities = new ArrayList<>();
-        HashMap<String, Ticmappings> ticmappings = new HashMap<>();
+        List<CapabilitiesRecord> capabilities = new ArrayList<>();
+        HashMap<String, TicmappingsRecord> ticmappings = new HashMap<>();
         for(int i = 3; i < sheet.getPhysicalNumberOfRows(); i++) {
             XSSFRow row = sheet.getRow(i);
-            Capabilities capability = new Capabilities();
+            CapabilitiesRecord capability = new CapabilitiesRecord();
             capability.setDomain(row.getCell(0).getStringCellValue());
             capability.setContainer(row.getCell(1).getStringCellValue());
             capability.setCapability(row.getCell(2).getStringCellValue());
@@ -120,25 +141,25 @@ public class UpdateDB {
             String ticMappingsString = row.getCell(7).getStringCellValue();
             String[] entries = ticMappingsString.split("[;\n,]");
             for(String ticCap:entries) {
-                Ticmappings ticData = new Ticmappings();
+                TicmappingsRecord ticData = new TicmappingsRecord();
                 ticData.setTicname(ticCap);
                 ticmappings.put(uniqueId, ticData);
             }
 
             capabilities.add(capability);
         }
-        capabilitiesDao.insert(capabilities);
+        context.batchStore(capabilities);
 
         // find correct capabilitiesId for each ticMapping
-        List<Ticmappings> ticList = new ArrayList<>();
+        List<TicmappingsRecord> ticList = new ArrayList<>();
         for(String uid:ticmappings.keySet()) {
             ticmappings.get(uid).setCapabilityid(capabilitiesDao.fetchByUniqueid(uid).get(0).getId());
             ticList.add(ticmappings.get(uid));
         }
-        ticmappingsDao.insert(ticList);
+        context.batchStore(ticList);
 
         // process MapTypes
-        List<Maptypescapabilitiescontrols> mapList = new ArrayList<>();
+        List<MaptypescapabilitiescontrolsRecord> mapList = new ArrayList<>();
         for(int i = 3; i < sheet.getPhysicalNumberOfRows(); i++) {
             XSSFRow row = sheet.getRow(i);
 
@@ -179,16 +200,18 @@ public class UpdateDB {
                         } else {
                             isControl = false;
                         }
-                        Maptypescapabilitiescontrols map = new Maptypescapabilitiescontrols(-1, capId, controlId,
-                                level, specId, isControl);
+                        MaptypescapabilitiescontrolsRecord map = new MaptypescapabilitiescontrolsRecord();
+                        map.setCapabilitiesid(capId);
+                        map.setControlsid(controlId);
+                        map.setMaptypesid(level);
+                        map.setSpecsid(specId);
+                        map.setIscontrolmap(isControl);
                         mapList.add(map);
                     }
                 }
-                maptypescapabilitiescontrolsDao.insert(mapList);
             }
-
         }
-
+        context.batchStore(mapList);
     }
 
     /**
@@ -196,12 +219,13 @@ public class UpdateDB {
      * @param path Path to workbook
      */
     public void updateControls(String path) {
-        XSSFSheet sheet = openSheet(path, 2);
+        log.info("Updating controls");
+        XSSFSheet sheet = openSheet(path, 12);
 
         if(sheet == null)
             return;
 
-        for(int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+        for(int i = 11; i < sheet.getPhysicalNumberOfRows(); i++) {
             XSSFRow row = sheet.getRow(i);
             // process row
         }
@@ -215,34 +239,46 @@ public class UpdateDB {
      * @param path to workbook
      */
     public void updateBaselineSecurityMappings(String path) {
+        log.info("Updating baseline security mappings");
         XSSFSheet sheet = openSheet(path, 0);
 
         if(sheet == null)
             return;
 
-        for(int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+        List<BaselinesecuritymappingsRecord> baselines = new ArrayList<>();
+        for(int i = 2; i < sheet.getPhysicalNumberOfRows(); i++) {
+            log.debug("Processing line " + i + " of BaselineSecurityMappings spreadsheet");
             XSSFRow row = sheet.getRow(i);
-            if(row.getPhysicalNumberOfCells() > 0) {    // TODO check if insertions are successful
-                int AUTHOR_NIST = 1;
-                int AUTHOR_FEDRAMP = 2;
-                int LEVEL_LOW = 1;
-                int LEVEL_MED = 2;
-                int LEVEL_HIGH = 3;
-                int COL_NIST_LOW = 2;
-                int COL_FED_LOW = 3;
-                int COL_NIST_MED = 5;
-                int COL_FED_MED = 6;
-                int COL_NIST_HIGH = 7;
-                int COL_FED_HIGH = 8;
-                insertBaselineSecurityMapping(row.getCell(COL_NIST_LOW).getStringCellValue(), LEVEL_LOW, AUTHOR_NIST);
-                insertBaselineSecurityMapping(row.getCell(COL_FED_LOW).getStringCellValue(), LEVEL_LOW, AUTHOR_FEDRAMP);
-                insertBaselineSecurityMapping(row.getCell(COL_NIST_MED).getStringCellValue(), LEVEL_MED, AUTHOR_NIST);
-                insertBaselineSecurityMapping(row.getCell(COL_FED_MED).getStringCellValue(), LEVEL_MED, AUTHOR_FEDRAMP);
-                insertBaselineSecurityMapping(row.getCell(COL_NIST_HIGH).getStringCellValue(), LEVEL_HIGH, AUTHOR_NIST);
-                insertBaselineSecurityMapping(row.getCell(COL_FED_HIGH).getStringCellValue(), LEVEL_HIGH, AUTHOR_FEDRAMP);
+            if(row == null || row.getPhysicalNumberOfCells() < 6) {
+                break;
             }
-        }
+            int AUTHOR_NIST = 1;
+            int AUTHOR_FEDRAMP = 2;
+            int LEVEL_LOW = 1;
+            int LEVEL_MED = 2;
+            int LEVEL_HIGH = 3;
+            int COL_NIST_LOW = 2;
+            int COL_FED_LOW = 3;
+            int COL_NIST_MED = 5;
+            int COL_FED_MED = 6;
+            int COL_NIST_HIGH = 7;
+            int COL_FED_HIGH = 8;
+            baselines.addAll(createBaselineSecurityMappings(row.getCell(COL_NIST_LOW,
+                    Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue(), LEVEL_LOW, AUTHOR_NIST));
+            baselines.addAll(createBaselineSecurityMappings(row.getCell(COL_FED_LOW,
+                    Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue(), LEVEL_LOW, AUTHOR_FEDRAMP));
+            baselines.addAll(createBaselineSecurityMappings(row.getCell(COL_NIST_MED,
+                    Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue(), LEVEL_MED, AUTHOR_NIST));
+            baselines.addAll(createBaselineSecurityMappings(row.getCell(COL_FED_MED,
+                    Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue(), LEVEL_MED, AUTHOR_FEDRAMP));
+            baselines.addAll(createBaselineSecurityMappings(row.getCell(COL_NIST_HIGH,
+                    Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue(), LEVEL_HIGH, AUTHOR_NIST));
+            baselines.addAll(createBaselineSecurityMappings(row.getCell(COL_FED_HIGH,
+                    Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue(), LEVEL_HIGH, AUTHOR_FEDRAMP));
 
+        }
+        log.info("Storing " + baselines.size() + " new BaselineSecurityMappings");
+        context.batchStore(baselines);
     }
 
     /**
@@ -251,8 +287,9 @@ public class UpdateDB {
      * @param level (low, medium, or high corresponding to 1, 2 or 3)
      * @param author (1 denotes NIST, 2 denotes FEDRAMP)
      */
-    private void insertBaselineSecurityMapping(String component, int level, int author) {
-        String[] controls = (String[]) getControlList(component).toArray();
+    private List<BaselinesecuritymappingsRecord> createBaselineSecurityMappings(String component, int level,int author) {
+        List<BaselinesecuritymappingsRecord> records = new ArrayList<>();
+        List<String> controls = getControlList(component);
         for(String entry:controls) {
             boolean isControlMap = Pattern.matches("[A-Z]{2}-([0-9]{1,2})", entry);
             int specsId = 1;
@@ -262,7 +299,7 @@ public class UpdateDB {
                 if(filteredControls.size() >= 1) {
                     controlsId = filteredControls.get(0).getId();
                 } else {
-                    return; // TODO throw an error or something
+                    log.error("Could not find list of controls for given controls: " + entry);
                 }
             } else {
                 String top = removeSpec(entry);
@@ -271,7 +308,7 @@ public class UpdateDB {
                         .where(CONTROLS.NAME.eq(top)).fetch();
                 int specCotrolId = result.isEmpty() ? 0 : result.get(0).value1();
                 if(specCotrolId == 0) {
-                    return; // TODO throw an error or something
+                    log.error("Could not find list of controls for given controls: " + entry);
                 }
                 // get specs id
                 result = context.select(SPECS.ID).from(SPECS)
@@ -280,13 +317,19 @@ public class UpdateDB {
                 specsId = result.isEmpty() ? 0 : result.get(0).value1();
             }
 
-            Baselinesecuritymappings baseline = new Baselinesecuritymappings(
-                    -1, level, author, isControlMap, specsId, controlsId);
-            baselinesecuritymappingsDao.insert(baseline);
+            BaselinesecuritymappingsRecord baseline = context.newRecord(BASELINESECURITYMAPPINGS);
+            baseline.setLevel(level);
+            baseline.setBaselineauthor(author);
+            baseline.setIscontrolmap(isControlMap);
+            baseline.setSpecsid(specsId);
+            baseline.setControlsid(controlsId);
+            records.add(baseline);
         }
+        return records;
     }
 
     private static List<String> getControlList(String rawString) {
+        rawString = rawString.replace(" ", "");
         //noinspection RegExpRedundantEscape
         String[] rawControls = rawString.split("([,;\\n\\t *\\[\\]\\{\\}])");
 
@@ -295,7 +338,7 @@ public class UpdateDB {
             if(Pattern.matches("[A-Z]{2}-([0-9]{1,2})(\\((\\d|\\d\\d)\\)|)?", potentialControl)) {
                 controls.add(potentialControl);
             } else {
-                System.out.println("Malformed control: Pattern mismatch for " + potentialControl);
+                log.warn("Malformed control: Pattern mismatch for " + potentialControl);
             }
         }
         return controls;
