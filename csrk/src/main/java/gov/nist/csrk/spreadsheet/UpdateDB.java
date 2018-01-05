@@ -1,11 +1,6 @@
 package gov.nist.csrk.spreadsheet;
 
-import gov.nist.csrk.jooq.tables.daos.*;
-import gov.nist.csrk.jooq.tables.pojos.*;
-import gov.nist.csrk.jooq.tables.records.BaselinesecuritymappingsRecord;
-import gov.nist.csrk.jooq.tables.records.CapabilitiesRecord;
-import gov.nist.csrk.jooq.tables.records.MaptypescapabilitiescontrolsRecord;
-import gov.nist.csrk.jooq.tables.records.TicmappingsRecord;
+import gov.nist.csrk.jooq.tables.records.*;
 import gov.nist.csrk.ui.MainWindow;
 import org.apache.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -34,9 +29,6 @@ public class UpdateDB {
 
     private final DSLContext context;
 
-    private final ControlsDao controlsDao;
-    private final CapabilitiesDao capabilitiesDao;
-
     private final gov.nist.csrk.jooq.tables.Specs SPECS;
     private final gov.nist.csrk.jooq.tables.Controls CONTROLS;
     private final gov.nist.csrk.jooq.tables.Baselinesecuritymappings BASELINESECURITYMAPPINGS;
@@ -46,9 +38,6 @@ public class UpdateDB {
 
     public UpdateDB(DSLContext context) {
         this.context = context;
-
-        controlsDao = new ControlsDao(context.configuration());
-        capabilitiesDao = new CapabilitiesDao(context.configuration());
 
         SPECS = gov.nist.csrk.jooq.tables.Specs.SPECS;
         CONTROLS = gov.nist.csrk.jooq.tables.Controls.CONTROLS;
@@ -107,10 +96,16 @@ public class UpdateDB {
             return;
 
         // process tic capabilities and tic mappings
+        log.info("Processing capabilities");
         List<CapabilitiesRecord> capabilities = new ArrayList<>();
         HashMap<String, TicmappingsRecord> ticmappings = new HashMap<>();
         for(int i = 3; i < sheet.getPhysicalNumberOfRows(); i++) {
             XSSFRow row = sheet.getRow(i);
+
+            if(row == null || row.getPhysicalNumberOfCells() < 42) {
+                break;
+            }
+
             CapabilitiesRecord capability = new CapabilitiesRecord();
             capability.setDomain(row.getCell(0).getStringCellValue());
             capability.setContainer(row.getCell(1).getStringCellValue());
@@ -121,17 +116,17 @@ public class UpdateDB {
             String uniqueId = row.getCell(5).getStringCellValue();
             capability.setUniqueid(uniqueId);
             capability.setScopes(row.getCell(6).getStringCellValue());
+            //log.debug(row.getCell(23).getStringCellValue());
+            capability.setC((int) row.getCell(26).getNumericCellValue());
+            capability.setI((int) row.getCell(27).getNumericCellValue());
+            capability.setA((int) row.getCell(28).getNumericCellValue());
 
-            capability.setC((int) row.getCell(23).getNumericCellValue());
-            capability.setI((int) row.getCell(24).getNumericCellValue());
-            capability.setA((int) row.getCell(25).getNumericCellValue());
-
-            capability.setResponsibilityvector(row.getCell(27).getStringCellValue() + "," +
-                    row.getCell(31).getStringCellValue() + "," +
-                    row.getCell(28).getStringCellValue() + "," +
+            capability.setResponsibilityvector(row.getCell(31).getStringCellValue() + "," +
+                    row.getCell(35).getStringCellValue() + "," +
                     row.getCell(32).getStringCellValue() + "," +
-                    row.getCell(29).getStringCellValue() + "," +
-                    row.getCell(33).getStringCellValue());
+                    row.getCell(36).getStringCellValue() + "," +
+                    row.getCell(33).getStringCellValue() + "," +
+                    row.getCell(37).getStringCellValue());
             capability.setOtheractors(row.getCell(39).getStringCellValue() + "," +
                     row.getCell(40).getStringCellValue() + "," +
                     row.getCell(41).getStringCellValue() + "," +
@@ -145,36 +140,48 @@ public class UpdateDB {
                 ticData.setTicname(ticCap);
                 ticmappings.put(uniqueId, ticData);
             }
-
+            if(capability.getUniqueid().equals("Content Filtering2")) {
+                log.debug("Contains ContentFiltering2");
+            }
             capabilities.add(capability);
         }
-        context.batchStore(capabilities);
-
+        context.batchStore(capabilities).execute();
         // find correct capabilitiesId for each ticMapping
+        log.info("Processing TIC Mappings");
         List<TicmappingsRecord> ticList = new ArrayList<>();
+        log.info("Ticmapping keys: " + ticmappings.keySet());
         for(String uid:ticmappings.keySet()) {
-            ticmappings.get(uid).setCapabilityid(capabilitiesDao.fetchByUniqueid(uid).get(0).getId());
+            Integer possibleId = context.select(CAPABILITIES.ID).from(CAPABILITIES).where(CAPABILITIES.UNIQUEID.eq(uid))
+                    .fetch().get(0).value1();
+            TicmappingsRecord ticMapping = ticmappings.get(uid);
+            ticMapping.setCapabilityid(possibleId);
             ticList.add(ticmappings.get(uid));
         }
-        context.batchStore(ticList);
+        context.batchStore(ticList).execute();
 
         // process MapTypes
+        log.info("Processing map types");
         List<MaptypescapabilitiescontrolsRecord> mapList = new ArrayList<>();
         for(int i = 3; i < sheet.getPhysicalNumberOfRows(); i++) {
             XSSFRow row = sheet.getRow(i);
 
-            int capId = capabilitiesDao.fetchByUniqueid(row.getCell(5).getStringCellValue()).get(0).getId();
+            if(row == null || row.getPhysicalNumberOfCells() < 42) {
+                break;
+            }
 
+            int capId = context.select(CAPABILITIES.ID).from(CAPABILITIES)
+                    .where(CAPABILITIES.UNIQUEID.eq(row.getCell(5).getStringCellValue()))
+                    .fetch().get(0).value1();
             for(int level = 1; level <= 7; level++) {
                 String implementList;
                 if(implementation3Col) {
-                    implementList = row.getCell( 26 + level - 1).getStringCellValue();
+                    implementList = row.getCell( 8 + level - 1).getStringCellValue();
                 } else {
                     if(level <= 3) {
-                        implementList = row.getCell(30 * (level - 1)).getStringCellValue() + ","
-                                + row.getCell(30 * (level - 1) + 1).getStringCellValue(); // TODO this doesn't look right (UpdateCapabilities.cs:186)
+                        implementList = row.getCell(8 + (4 * (level - 1)), Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue() + ","
+                                + row.getCell(8 * + (4 * (level - 1) + 1), Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue();
                     } else {
-                        implementList = row.getCell(26 + level - 4).getStringCellValue();
+                        implementList = row.getCell(20 + level - 4).getStringCellValue();
                     }
                 }
 
@@ -182,7 +189,8 @@ public class UpdateDB {
                 for(String controlName:controls) {
                     String topControl = removeSpec(controlName);
 
-                    List<Controls> possibleControls = controlsDao.fetchByName(topControl);
+                    List<ControlsRecord> possibleControls = context.selectFrom(CONTROLS)
+                            .where(CONTROLS.NAME.eq(topControl)).fetch();
                     int controlId = (possibleControls.isEmpty()) ? 0 : possibleControls.get(0).getId();
 
                     Result<Record1<Integer>> result = context.select(SPECS.ID)
@@ -211,7 +219,7 @@ public class UpdateDB {
                 }
             }
         }
-        context.batchStore(mapList);
+        context.batchStore(mapList).execute();
     }
 
     /**
@@ -278,7 +286,7 @@ public class UpdateDB {
 
         }
         log.info("Storing " + baselines.size() + " new BaselineSecurityMappings");
-        context.batchStore(baselines);
+        context.batchStore(baselines).execute();
     }
 
     /**
@@ -295,7 +303,7 @@ public class UpdateDB {
             int specsId = 1;
             int controlsId = 1;
             if(isControlMap) {
-                List<Controls> filteredControls = controlsDao.fetchByName(entry);
+                List<ControlsRecord> filteredControls = context.selectFrom(CONTROLS).where(CONTROLS.NAME.eq(entry)).fetch();
                 if(filteredControls.size() >= 1) {
                     controlsId = filteredControls.get(0).getId();
                 } else {

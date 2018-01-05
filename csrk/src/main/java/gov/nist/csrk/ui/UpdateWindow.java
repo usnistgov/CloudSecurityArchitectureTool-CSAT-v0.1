@@ -1,6 +1,7 @@
 package gov.nist.csrk.ui;
 
 import gov.nist.csrk.spreadsheet.UpdateDB;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,7 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 import java.util.prefs.Preferences;
 
 
@@ -63,15 +65,16 @@ public class UpdateWindow {
 
     @FXML private void initialize() {
         log.debug("Initializing update window");
-        updateButtons();
     }
 
     @FXML private void btnUpdateCapsClicked(ActionEvent event) {
         File selectedFile = fileChooser.showOpenDialog(stage);
         if(selectedFile != null) {
+            //CompletableFuture.runAsync(() -> updateDB.updateCapabilities(selectedFile.getAbsolutePath())).whenComplete(this::handleFutureTask);
             updateDB.updateCapabilities(selectedFile.getAbsolutePath());
         }
     }
+
 
     @FXML private void btnUpdateConsClicked(ActionEvent event) {
         File selectedFile = fileChooser.showOpenDialog(stage);
@@ -85,9 +88,5 @@ public class UpdateWindow {
         if(selectedFile != null) {
             updateDB.updateBaselineSecurityMappings(selectedFile.getAbsolutePath());
         }
-    }
-
-    private void updateButtons() {
-
     }
 }

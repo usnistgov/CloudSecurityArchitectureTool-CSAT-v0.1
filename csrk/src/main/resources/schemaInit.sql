@@ -71,7 +71,7 @@ CREATE TABLE Capabilities (
   UniqueId             CHAR(8000) NOT NULL,
   Description          CHAR(8000) NOT NULL,
   CSADescription       CHAR(8000),
-  Notes                CHAR(8000) NOT NULL,
+  Notes                CHAR(8000),
   Scopes               CHAR(8000) NOT NULL,
   C                    INTEGER     NOT NULL,
   I                    INTEGER     NOT NULL,

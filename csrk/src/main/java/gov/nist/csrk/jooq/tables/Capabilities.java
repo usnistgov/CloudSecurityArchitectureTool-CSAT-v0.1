@@ -36,7 +36,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Capabilities extends TableImpl<CapabilitiesRecord> {
 
-    private static final long serialVersionUID = 1550255922;
+    private static final long serialVersionUID = -927668047;
 
     /**
      * The reference instance of <code>Capabilities</code>
@@ -94,7 +94,7 @@ public class Capabilities extends TableImpl<CapabilitiesRecord> {
     /**
      * The column <code>Capabilities.Notes</code>.
      */
-    public final TableField<CapabilitiesRecord, String> NOTES = createField("Notes", org.jooq.impl.SQLDataType.CHAR(8000).nullable(false), this, "");
+    public final TableField<CapabilitiesRecord, String> NOTES = createField("Notes", org.jooq.impl.SQLDataType.CHAR(8000), this, "");
 
     /**
      * The column <code>Capabilities.Scopes</code>.
