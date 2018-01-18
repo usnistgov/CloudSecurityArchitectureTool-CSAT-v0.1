@@ -1,5 +1,28 @@
 # Cloud Security Rubik's Cube
 
+## CSRC v1.0
+
+### Implmentation and Deployment Issues
+The original proof of concept was not designed with ease of installation or portability in mind. The rewrite aims to solve these problems:
+* Reliance on Microsoft WPF for GUI components, which uses cryptographic functions that are not FIPS-140 approved or allowed.
+* The use of MS SQL Express is unnecessary and cumbersome for a client application and adds too much complexity during installation that could be avoided by using a portable database such as SQLite.
+* For spreadsheet operations, the previous implementation relied on Microsoft Excel Interop, which added complexity and overhead, as well as requiring users to have desktop versions of Excel to be installed on the machine.
+* Limited to Windows because of reliance on C#, SQL Express and Excel Interop libraries.
+
+## CSRC v2.0
+
+### System Architectural Updates
+
+CSRC v 2.0 is an updated proof of concept of the original Cloud Security Rubik’s Cube that aims to solve these issues. The entire engine is rewritten in Java to eliminate the dependency on Microsoft Windows. The User Interface (UI) is rewritten in Java FX. The application relies on the Apache POI libraries for spreadsheet operations and SQLite for storage.
+
+### Implementation Status
+
+Under Development. CSRC v2.0 is not complete. The project is only in the development stages. Many features are incomplete or buggy.
+
+### NOTE
+
+Although this proof of concept has a similar graphical design to the original proof of concept, we think that a CRSC can be greatly improved if implmented as a web tool that supports Identity, Credential and Access Management (ICAM) and multi-tenancy for multiple projects to co-exist.
+
 ## Description
 Cloud Security Rubik’s Cube (CSRC), is a tool (proof of concept) that aims to leverage the Cybersecurity Framework (CSF) to identify the NIST SP 800-53 security and privacy controls for cloud-based information systems by identifying the necessary functional capabilities the system needs to provide to support the organization's mission and the service the system is designed for.
 
@@ -23,18 +46,3 @@ The purpose of the project is to enhance and facilitate government agencies’ a
 </li>
 
 ***
-## Installation
-
-### Disclaimer
-This application uses Microsoft WPF which uses cryptographic functions that are not FIPS-140 approved or allowed. See #1
-
-### Procedure
-Currently, the installation for this program is as follows:
-1. Install the appropriate version of MS SQL Server Express (w/ Management Studio). Make sure to set up a local database. In local tests we used MS SQL Express 2014.
-2. Set up the database:
-..1 Using the SQL Management Studio, run the schemaInit.sql script located in `ModelDB\schemaInit.sql`. You may need to run this script as an administrator.
-..2 Again using the SQL Management Studio, run the dataInit.sql script located in `ModelDB\dataInit.sql`.
-4. Install the CSRC application.
-5. Run the CSRC application. The application should automatically detect local MS SQL servers.
-
-The CSRC application should be installed now
