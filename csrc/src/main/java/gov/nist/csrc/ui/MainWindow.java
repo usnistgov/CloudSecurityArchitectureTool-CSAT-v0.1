@@ -103,7 +103,7 @@ public class MainWindow extends Application {
         }
         Scene scene = new Scene(root);
         stage.setTitle("Cloud Security Rubik's Cube");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/ui/graphics/csrk.ico")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/ui/graphics/csrc.ico")));
         stage.setResizable(false);
         stage.setScene(scene);
 

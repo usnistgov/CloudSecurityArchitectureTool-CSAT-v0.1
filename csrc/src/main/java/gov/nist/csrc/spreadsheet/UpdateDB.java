@@ -222,6 +222,28 @@ public class UpdateDB {
         context.batchStore(mapList).execute();
     }
 
+    private static boolean isRow4Control(String cell) {
+        return cell.replaceAll("[A-Z]{2}-([0-9]{1,2})", "").length() == 0;
+    }
+
+//    private int findPriorityId(XSSFRow row) {
+//
+//    }
+//
+//    private int findFamilyId(XSSFRow row) {
+//
+//    }
+//
+//    private int findBaselineId(XSSFRow row) {
+//        String baselineDescription = (row.getCell())
+//    }
+
+    private boolean controlExistsInDb(ControlsRecord record) {
+        return context.select(CONTROLS.ID).from(CONTROLS).where(CONTROLS.NAME.eq(record.getName()))
+                .and(CONTROLS.DESCRIPTION.eq(record.getDescription()))
+                .and(CONTROLS.GUIDANCE.eq(record.getGuidance())).fetch().size() == 0;
+    }
+
     /**
      * Updates Controls, Specs, Relateds
      * @param path Path to workbook
@@ -233,11 +255,88 @@ public class UpdateDB {
         if(sheet == null)
             return;
 
+        List<ControlsRecord> controlsList = new ArrayList<>();
+        HashMap<String, ControlsRecord> controlNames = new HashMap<>();
+        HashMap<String, List<String>> controlRelated = new HashMap<>();
+        HashMap<String, HashMap<String, SpecsRecord>> controlSpecs = new HashMap<>();
+
         for(int i = 11; i < sheet.getPhysicalNumberOfRows(); i++) {
             XSSFRow row = sheet.getRow(i);
-            // process row
-        }
+            if(row == null || row.getPhysicalNumberOfCells() < 6) {
+                break;
+            }
+            int ROW_DESCRIPTION = 1;
+            String description = row.getCell(ROW_DESCRIPTION, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK)
+                    .getStringCellValue();
+            if(description.contains("Withdrawn")) { // TODO better checking for withdrawn cells
+                continue;   // skip "withdrawn" cells
+            }
 
+            String specsName;
+            String specsTail;
+            String specsPrefix;
+
+            String cellData = row.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue();
+
+            if(!isRow4Control(cellData)) {
+                //specs row
+                specsName = cellData.replace(" ", "");
+                specsTail = getTopControlName(cellData);
+                specsPrefix = specsName.replace(specsTail, "");
+                // Get base control for the current specs
+                if(controlNames.containsKey(specsPrefix)) {
+                    if(!controlSpecs.containsKey(specsPrefix)) {
+                        controlSpecs.put(specsPrefix, new HashMap<>());
+                    }
+                    SpecsRecord newSpecs = new SpecsRecord();
+                    newSpecs.setSpecificationname(specsTail);
+//                    newSpecs.setDescription();
+//                    newSpecs.setGuidance();
+                    controlSpecs.get(specsPrefix).put(specsTail, newSpecs);
+//                } else if(!(specsTail.isEmpty())) {
+                } else {
+                    log.fatal("No specs for " + specsName);
+                    return;
+                }
+            } else {
+                // controls row
+                ControlsRecord control = new ControlsRecord();
+//                control.setBaselineid();
+//                control.setFamilyid();
+//                control.setPriorityid();
+//
+                control.setName(cellData.replace(" ", ""));
+                control.setDescription(row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK)
+                        .getStringCellValue());
+//                control.setGuidance();
+
+                if(!controlExistsInDb(control)) {
+                    controlsList.add(control);
+                } else {
+                    log.warn("Control" + control.getName() + " exists in database already, skipping...");
+                    continue;
+                }
+                if(!controlNames.containsKey(control.getName())) {
+                    controlNames.put(control.getName(), control);
+                } else {
+                    log.fatal("Control " + control.getName() + " exists more then once in controls spreadsheet");
+                    return;
+                }
+            }
+
+
+        }
+        context.batchStore(controlsList).execute();
+
+        // persist all of the related specs for controls
+
+        List<SpecsRecord> controlSpecFinal = new ArrayList<>();
+        // loop over controlSpecs
+        context.batchStore(controlSpecFinal).execute();
+
+        List<RelatedsRecord> relateds = new ArrayList<>();
+        // loop over control relateds
+        context.batchStore(relateds).execute();
     }
 
     /**
@@ -295,7 +394,8 @@ public class UpdateDB {
      * @param level (low, medium, or high corresponding to 1, 2 or 3)
      * @param author (1 denotes NIST, 2 denotes FEDRAMP)
      */
-    private List<BaselinesecuritymappingsRecord> createBaselineSecurityMappings(String component, int level,int author) {
+    private List<BaselinesecuritymappingsRecord> createBaselineSecurityMappings(String component, int level,
+                                                                                int author) {
         List<BaselinesecuritymappingsRecord> records = new ArrayList<>();
         List<String> controls = getControlList(component);
         for(String entry:controls) {
@@ -303,7 +403,8 @@ public class UpdateDB {
             int specsId = 1;
             int controlsId = 1;
             if(isControlMap) {
-                List<ControlsRecord> filteredControls = context.selectFrom(CONTROLS).where(CONTROLS.NAME.eq(entry)).fetch();
+                List<ControlsRecord> filteredControls = context.selectFrom(CONTROLS).where(CONTROLS.NAME.eq(entry))
+                        .fetch();
                 if(filteredControls.size() >= 1) {
                     controlsId = filteredControls.get(0).getId();
                 } else {

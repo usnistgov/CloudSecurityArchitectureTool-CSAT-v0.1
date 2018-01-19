@@ -13,7 +13,7 @@
       <ImageView fx:id="ImageView" fitHeight="250.0" fitWidth="250.0" layoutX="300.0" layoutY="20.0"
                  pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@graphics/csrk.png" />
+            <Image url="@graphics/csrc.png" />
          </image>
       </ImageView>
       <Label fx:id="Title" layoutX="20.0" layoutY="20.0" text="Cloud Security Rubik's Cube">
