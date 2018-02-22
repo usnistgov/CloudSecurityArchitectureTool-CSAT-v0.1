@@ -372,7 +372,14 @@ namespace CSRC.Models
         {
             string top = RemoveeSpec(name);
             uint controlId = GetControlIdByName(top);
-            uint specid = GetSpecsId(controlId, name.Replace(top, ""));
+            uint specid = 0;
+            try
+            {
+                specid = GetSpecsId(controlId, name.Replace(top, ""));
+            } catch (ArgumentException e)
+            {
+                Console.WriteLine("Could not get spec id for name " + name + " (w/o spec: " + top + ", controlId " + controlId + ")");
+            }
             return specid;
         }
     }

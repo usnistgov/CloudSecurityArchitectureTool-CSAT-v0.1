@@ -78,7 +78,7 @@ namespace CSRC.Models
                 int firstRow = 4;
                 int lastRow = 100000;
                 double val = 0, inc = 0; // inc = 0.287; // inc = 100.0/350;
-                if (InitExcelFile(ExcelFileName))
+                if (InitExcelFile(ExcelFileName, 1, int.MaxValue, 3))
                 {
                     row2Finish = findEnd();
                     inc = 50.0 / row2Finish;
@@ -307,9 +307,16 @@ namespace CSRC.Models
 
             newCap.Notes = rowData[col++];
             col++;
-            newCap.C = uint.Parse(rowData[col++]);
-            newCap.I = uint.Parse(rowData[col++]);
-            newCap.A = uint.Parse(rowData[col++]);
+            try
+            {
+                newCap.C = uint.Parse(rowData[col++]);
+                newCap.I = uint.Parse(rowData[col++]);
+                newCap.A = uint.Parse(rowData[col++]);
+            }
+            catch(FormatException e)
+            {
+                Console.WriteLine("Error parsing col " + col + "\n  RowData:" + rowData[0] + " " + rowData[1] + " " + rowData[2] + " " + rowData[3]);
+            }
             col += 2;
             newCap.ResponsibilityVector = GetResponceVector(rowData, col);
             col += 8;
