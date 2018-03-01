@@ -8,61 +8,71 @@ USE [ModelDB]
 -- 
 -- Dropping a table dbo.MapTypesCapabilitiesControls 
 -- 
-DROP TABLE IF EXISTS dbo.MapTypesCapabilitiesControls
+IF OBJECT_ID('dbo.MapTypesCapabilitiesControls', 'U') IS NOT NULL
+    DROP TABLE dbo.MapTypesCapabilitiesControls;
 GO
 
 -- 
 -- Dropping a table dbo.BaselineSecurityMappings 
 -- 
-DROP TABLE IF EXISTS  dbo.BaselineSecurityMappings
+IF OBJECT_ID('dbo.BaselineSecurityMappings', 'U') IS NOT NULL
+    DROP TABLE dbo.BaselineSecurityMappings;
 GO
 
 -- 
 -- Dropping a table dbo.Specs 
 -- 
-DROP TABLE IF EXISTS  dbo.Specs
+IF OBJECT_ID('dbo.Specs', 'U') IS NOT NULL
+    DROP TABLE dbo.Specs;
 GO
 
 -- 
 -- Dropping a table dbo.Relateds 
 -- 
-DROP TABLE IF EXISTS  dbo.Relateds
+IF OBJECT_ID('dbo.Relateds', 'U') IS NOT NULL
+    DROP TABLE dbo.Relateds;
 GO
 
 -- 
 -- Dropping a table dbo.Controls 
 -- 
-DROP TABLE IF EXISTS  dbo.Controls
+IF OBJECT_ID('dbo.Controls', 'U') IS NOT NULL
+    DROP TABLE dbo.Controls;
 GO
 
 -- 
 -- Dropping a table dbo.TICMappings 
 -- 
-DROP TABLE IF EXISTS  dbo.TICMappings
+IF OBJECT_ID('dbo.TICMappings', 'U') IS NOT NULL
+    DROP TABLE dbo.TICMappings;
 GO
 
 -- 
 -- Dropping a table dbo.Baselines 
 -- 
-DROP TABLE IF EXISTS  dbo.Baselines
+IF OBJECT_ID('dbo.Baselines', 'U') IS NOT NULL
+    DROP TABLE dbo.Baselines;
 GO
 
 -- 
 -- Dropping a table dbo.Capabilities 
 -- 
-DROP TABLE IF EXISTS  dbo.Capabilities
+IF OBJECT_ID('dbo.Capabilities', 'U') IS NOT NULL
+    DROP TABLE dbo.Capabilities;
 GO
 
 -- 
 -- Dropping a table dbo.Families 
 -- 
-DROP TABLE IF EXISTS  dbo.Families
+IF OBJECT_ID('dbo.Families', 'U') IS NOT NULL
+    DROP TABLE dbo.Families;
 GO
 
 -- 
 -- Dropping a table dbo.Priorities 
 -- 
-DROP TABLE IF EXISTS  dbo.Priorities
+IF OBJECT_ID('dbo.Priorities', 'U') IS NOT NULL
+    DROP TABLE dbo.Priorities;
 GO
 
 -- 
@@ -126,7 +136,7 @@ GO
 -- 
 -- Commenting a table dbo.Capabilities 
 -- 
-EXECUTE sp_addextendedproperty 'MS_Description', 'Teh primary key of the  capability', 'schema', 'dbo', 'table', 'Capabilities'
+EXECUTE sp_addextendedproperty 'MS_Description', 'The primary key of the capability', 'schema', 'dbo', 'table', 'Capabilities'
 GO
 
 -- 

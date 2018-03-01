@@ -37,4 +37,6 @@ Currently, the installation for this program is as follows:
 4. Install the CSRC application.
 5. Run the CSRC application. The application should automatically detect local MS SQL servers.
 
+Please note that this version of the application requires Microsoft Excel to generate reports or update the model. 
+
 The CSRC application should be installed now
