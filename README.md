@@ -15,7 +15,7 @@ Cloud Security Architecture Tool (CSAT) brings together guidance provide by NIST
 </li><li>
 -- FISP 200: “Minimum Security Requirements for Federal Information and Information Systems” (http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.200.pdf), 
 </li><li>
--- SP 500-299/800-200: “NIST Cloud Computing Security Reference Architecture” (http://collaborate.nist.gov/twiki-cloud-computing/pub/CloudComputing/CloudSecurity/NIST_Security_Reference_Architecture_2013.05.15_v1.0.pdf), 
+-- SP 500-299/800-200: “NIST Cloud Computing Security Reference Architecture” (https://github.com/usnistgov/CloudSecurityArchitectureTool-CSAT-v0.1/blob/master/Documents/NIST%20SP%20800-200-SRA_DRAFT_20180414.pdf), 
 </li><li>
 -- SP 800-53: “Security and Privacy Controls for Federal Information systems and Organizations” (http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf), 
 </li><li>
